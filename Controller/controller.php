@@ -1,6 +1,6 @@
 <?php
 
-require_once '../model/UsuariosModel.php';
+require_once '../model/Usuario/UsuariosModel.php';
 
 session_start();
 $usuariosModel = new UsuariosModel();
@@ -23,7 +23,7 @@ switch ($opcion1) {
                 $_SESSION['listadoUsuarios'] = serialize($listadoUsuarios);
 
                 // Redireccionamos a la pagina principal para visualizar
-                header('Location: ../View/Usuario/Usuarios.php');
+                header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
 
             case "insertar":
@@ -52,7 +52,7 @@ switch ($opcion1) {
                 $_SESSION['listadoUsuarios'] = serialize($listadoUsuarios);
 
                 // Redireccionamos a la pagina principal para visualizar
-                header('Location: ../View/Usuario/Usuarios.php');
+                header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
 
             case "eliminar":
@@ -67,7 +67,7 @@ switch ($opcion1) {
                 $_SESSION['listadoUsuarios'] = serialize($listadoUsuarios);
 
                 // Redireccionamos a la pagina principal para visualizar
-                header('Location: ../View/Usuario/Usuarios.php');
+                header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
 
             case "editar":
@@ -110,11 +110,11 @@ switch ($opcion1) {
                 $_SESSION['listadoUsuarios'] = serialize($listadoUsuarios);
 
                 // Redireccionamos a la pagina principal para visualizar
-                header('Location: ../View/Usuario/Usuarios.php');
+                header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
 
             default:
-                header('Location: ../View/Usuario/Usuarios.php');
+                header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
         }
         break;

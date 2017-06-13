@@ -1,5 +1,4 @@
 <?php
-
 include_once 'Database.php';
 include_once 'Usuario.php';
 
@@ -9,7 +8,7 @@ class UsuariosModel {
     public function getUsuarios() {
         // Obtención de informacion de la Base de Datos mediante consulta sql
         $pdo = Database::connect();
-        $sql = "select * from 	inv_tab_usuarios order by ID_USU";
+        $sql = "select * from inv_tab_usuarios order by ID_USU";
         $resultado = $pdo->query($sql);
 
         //transformamos los registros en objetos de tipo Usuario y guardamos en array
