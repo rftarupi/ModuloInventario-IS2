@@ -1,9 +1,11 @@
 <?php
 
 require_once '../model/Usuario/UsuariosModel.php';
+require_once '../model/Ajustes/AjustesModel.php';
 
 session_start();
 $usuariosModel = new UsuariosModel();
+$ajustesModel = new AjustesModel();
 
 // Recibimos la opcion desde la vista:
 // 
@@ -13,6 +15,7 @@ $opcion2 = $_REQUEST['opcion2'];
 unset($_SESSION['ErrorBaseDatos']);
 
 switch ($opcion1) {
+    // U S U A R I O 
     case "usuario":
         switch ($opcion2) {
             case "listar":
@@ -81,7 +84,7 @@ switch ($opcion1) {
                 $_SESSION['usuario'] = serialize($usuario);
 
                 // Redireccionamos a vista para editar información
-                header('Location: ../View/editarUsuario.php');
+                header('Location: ../View/Usuario/editarUsuario.php');
                 break;
 
             case "guardar":
@@ -118,6 +121,65 @@ switch ($opcion1) {
                 break;
         }
         break;
+    
+    // A J U S T E S
+    case "ajuste":
+        switch ($opcion2) {
+            case "listar_ajustes":              
+                $listadoAjustes = $ajustesModel->getCabAjustes();    
+                $_SESSION['listadoAjustes'] = serialize($listadoAjustes);  
+                header('Location: ../View/Ajustes/inicioAjuste.php'); 
+                break;
+            case "insertar_ajuste":
+                $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
+                $MOTIVO_AJUSTE_PROD = $_REQUEST['MOTIVO_AJUSTE_PROD'];
+                $FECHA_AJUSTE_PROD = $_REQUEST['FECHA_AJUSTE_PROD'];
+
+                try {
+                    $ajustesModel->insertarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD, $FECHA_AJUSTE_PROD);     
+                } catch (Exception $e) {
+                    $_SESSION['ErrorBaseDatos'] = $e->getMessage();
+                }
+
+               $listadoAjustes = $ajustesModel->getCabAjustes(); 
+               $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
+
+               header('Location: ../View/Ajustes/inicioAjuste.php');
+                break;
+             case "eliminar_ajuste":
+                $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
+                $ajustesModel->eliminarCabAjuste($ID_AJUSTE_PROD);
+                $listadoAjustes = $ajustesModel->getCabAjustes(); 
+                $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
+                header('Location: ../View/Ajustes/inicioAjuste.php');
+                break;
+
+            case "editar_ajuste":
+                $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
+                $ajuste = $ajustesModel->getCabAjuste($ID_AJUSTE_PROD);
+                $_SESSION['ajuste'] = serialize($ajuste);
+                header('Location: ../View/Ajustes/editarAjuste.php');
+                break;
+
+            case "guardar_ajuste":
+                $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
+                $MOTIVO_AJUSTE_PROD = $_REQUEST['MOTIVO_AJUSTE_PROD'];
+                $FECHA_AJUSTE_PROD = $_REQUEST['FECHA_AJUSTE_PROD'];
+
+                try {
+                    $ajustesModel->actualizarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD, $FECHA_AJUSTE_PROD);                
+                } catch (Exception $e) {
+                    $_SESSION['ErrorBaseDatos'] = $e->getMessage();
+                }
+                $listadoAjustes = $ajustesModel->getCabAjustes(); 
+                $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
+                header('Location: ../View/Ajustes/inicioAjuste.php');
+                break;
+        }
+        
+    // P R O D U C T O S
+    case "producto": 
+        
 
     default:
         //si no existe la opcion recibida por el controlador, siempre
