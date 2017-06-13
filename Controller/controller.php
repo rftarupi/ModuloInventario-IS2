@@ -123,4 +123,5 @@ switch ($opcion1) {
         //si no existe la opcion recibida por el controlador, siempre
         //redirigimos la navegacion a la pagina principal:
         header('Location: ../View/index.php');
+        break;
 }

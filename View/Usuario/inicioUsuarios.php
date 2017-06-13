@@ -30,7 +30,7 @@ include_once '../../Model/Usuario/UsuariosModel.php';
             <!--Título de la página-->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="col-lg-12" style="border-bottom: 1px solid #c5c5c5;">
+                    <div class="col-lg-12" style="border-bottom: 1px solid #c5c5c5">
                         <h1><span class="glyphicon glyphicon-user"></span> USUARIOS</h1></div>
                 </div>
             </div>
@@ -40,7 +40,7 @@ include_once '../../Model/Usuario/UsuariosModel.php';
                  donde lg es en tamaño de escritorio, md medianos, sm tablets, xs celulares -->
 
             <div class="row">
-                <div class="col-md-12" style="padding-top: 5px;">
+                <div class="col-md-12" style="padding-top: 5px">
                     <!--La class nav nav-pills nos permite hacer menús-->
                     <ul class="nav nav-pills">
                         <li role="presentation"><a href="../../Controller/controller.php?opcion1=usuario&opcion2=listar"><h4>MOSTRAR TODOS</h4></a></li>
@@ -51,12 +51,12 @@ include_once '../../Model/Usuario/UsuariosModel.php';
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><h5>Lista de Usuarios</h5></div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><h4>Lista de Usuarios</h4></div>
                         <div class="panel-body">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
-                                    <!--Tabla en la que se listará los usuarios de la Base de Datos-->
+                                    <!-- Tabla en la que se listaras los usuarios de la Base de Datos -->
                                     <table class="table table-striped table-bordered table-condensed table-hover">
                                         <thead>
                                         <th>ID USUARIO</th>
@@ -70,8 +70,7 @@ include_once '../../Model/Usuario/UsuariosModel.php';
                                         <th>TELEFONO</th>
                                         <th>E-MAIL</th>
                                         <th>ESTADO</th>
-                                        <th>EDITAR</th>
-                                        <th>ELIMINAR</th>
+                                        <th colspan="2">ACCIONES</th>
                                         </thead>
                                         <?php
                                         // Verificamos si existe la variable de sesión que contiene la lista de Usuarios
@@ -92,8 +91,8 @@ include_once '../../Model/Usuario/UsuariosModel.php';
                                                     <td><?php echo $usu->getFONO_USU(); ?></td>
                                                     <td><?php echo $usu->getE_MAIL_USU(); ?></td>
                                                     <td><?php echo $usu->getESTADO_USU(); ?></td>
-                                                    <td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>;
-                                                    <td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>;
+                                                    <td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                    <td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>
                                                 </tr>
                                                 <?php
                                             }

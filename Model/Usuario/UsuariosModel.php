@@ -1,5 +1,5 @@
 <?php
-include_once 'Database.php';
+include_once '../DataBase.php';
 include_once 'Usuario.php';
 
 // Esta clase contiene los métodos del CRUD de Usuarios

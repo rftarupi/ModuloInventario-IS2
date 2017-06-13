@@ -5,7 +5,7 @@
  * mediante las funciones PDO (PHP Data Objects).
  * Utiliza el patron de diseno singleton para el manejo de la conexion.
  */
-class Database {
+class DataBase {
 
     //Propiedades estaticas con la informacion de la conexion (DSN):
     private static $dbName = 'inventario';
