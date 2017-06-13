@@ -3,6 +3,7 @@
 include_once 'Database.php';
 include_once 'Usuario.php';
 
+// Esta clase contiene los métodos del CRUD de Usuarios
 class UsuariosModel {
 
     public function getUsuarios() {

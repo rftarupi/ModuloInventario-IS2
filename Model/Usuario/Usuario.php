@@ -1,5 +1,7 @@
 <?php
 
+// Clase Usuario
+
 class Usuario {
 
     // Definición de atributos de Usuarios
@@ -15,7 +17,7 @@ class Usuario {
     private $E_MAIL_USU;
     private $ESTADO_USU;
 
-    // COnstructor de la Clase Usuario    
+    // Constructor de la Clase Usuario    
     function __construct($ID_USU, $ID_TIPO_USU, $CEDULA_RUC_PASS_USU, $NOMBRES_USU, $APELLIDOS_USU, $FECH_NAC_USU, $CIUDAD_NAC_USU, $DIRECCION_USU, $FONO_USU, $E_MAIL_USU, $ESTADO_USU) {
         $this->ID_USU = $ID_USU;
         $this->ID_TIPO_USU = $ID_TIPO_USU;
