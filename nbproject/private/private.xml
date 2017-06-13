@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/ModuloInventario-IS2/Model/Usuario/UsuariosModel.php</file>
             <file>file:/C:/xampp/htdocs/ModuloInventario-IS2/index.html</file>
+            <file>file:/C:/xampp/htdocs/ModuloInventario-IS2/Model/DataBase.php</file>
             <file>file:/C:/xampp/htdocs/ModuloInventario-IS2/Model/Producto/Producto.php</file>
+            <file>file:/C:/xampp/htdocs/ModuloInventario-IS2/Model/Producto/ProductosModel.php</file>
             <file>file:/C:/xampp/htdocs/ModuloInventario-IS2/View/Usuario/inicioUsuarios.php</file>
             <file>file:/C:/xampp/htdocs/ModuloInventario-IS2/Controller/controller.php</file>
         </group>
