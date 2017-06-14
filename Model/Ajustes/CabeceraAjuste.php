@@ -15,28 +15,30 @@ class CabeceraAjuste {
         $this->MOTIVO_AJUSTE_PROD = $MOTIVO_AJUSTE_PROD;
         $this->FECHA_AJUSTE_PROD = $FECHA_AJUSTE_PROD;
     }
- 
-    public function getMotivoAjuste() {
-        return $this->MOTIVO_AJUSTE_PROD;
-    }
-
-    public function getFechaAjuste() {
-        return $this->FECHA_AJUSTE_PROD;
-    }
-    public function getCod_CabeceraAjuste() {
+    public function getID_AJUSTE_PROD() {
         return $this->ID_AJUSTE_PROD;
     }
 
-    public function setCod_CabeceraAjuste($ID_AJUSTE_PROD) {
+    public function getMOTIVO_AJUSTE_PROD() {
+        return $this->MOTIVO_AJUSTE_PROD;
+    }
+
+    public function getFECHA_AJUSTE_PROD() {
+        return $this->FECHA_AJUSTE_PROD;
+    }
+
+    public function setID_AJUSTE_PROD($ID_AJUSTE_PROD) {
         $this->ID_AJUSTE_PROD = $ID_AJUSTE_PROD;
     }
 
-     
-    public function setMotivoAjuste($MOTIVO_AJUSTE_PROD) {
+    public function setMOTIVO_AJUSTE_PROD($MOTIVO_AJUSTE_PROD) {
         $this->MOTIVO_AJUSTE_PROD = $MOTIVO_AJUSTE_PROD;
     }
 
-    public function setFechaAjuste($FECHA_AJUSTE_PROD) {
+    public function setFECHA_AJUSTE_PROD($FECHA_AJUSTE_PROD) {
         $this->FECHA_AJUSTE_PROD = $FECHA_AJUSTE_PROD;
     }
+
+
+   
 }

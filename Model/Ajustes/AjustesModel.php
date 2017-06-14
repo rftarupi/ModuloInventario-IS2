@@ -1,7 +1,7 @@
 <?php
 
-include_once '/../DataBase.php';
 include_once 'CabeceraAjuste.php';
+include_once 'DataBase.php';
 
 class AjustesModel {
 
@@ -34,13 +34,13 @@ class AjustesModel {
     }
 
     // METODO PARA INSERTAR UN AJUSTE (CABECERA)
-    public function insertarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD,$FECHA_AJUSTE_PROD) {
+    public function insertarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD) {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "insert into INV_TAB_AJUSTES_PRODUCTOS(ID_AJUSTE_PROD,MOTIVO_AJUSTE_PROD,FECHA_AJUSTE_PROD) values(?,?,?)";
+        $sql = "insert into INV_TAB_AJUSTES_PRODUCTOS(ID_AJUSTE_PROD,MOTIVO_AJUSTE_PROD) values(?,?)";
         $consulta = $pdo->prepare($sql);
         try {
-            $consulta->execute(array($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD,$FECHA_AJUSTE_PROD));
+            $consulta->execute(array($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD));
         } catch (PDOException $e) {
             Database::disconnect();
             throw new Exception($e->getMessage());

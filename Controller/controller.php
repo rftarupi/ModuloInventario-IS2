@@ -124,7 +124,7 @@ switch ($opcion1) {
         }
         break;
     
-    // A J U S T E S
+     // A J U S T E S
     case "ajuste":
         switch ($opcion2) {
             case "listar_ajustes":              
@@ -135,19 +135,19 @@ switch ($opcion1) {
             case "insertar_ajuste":
                 $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
                 $MOTIVO_AJUSTE_PROD = $_REQUEST['MOTIVO_AJUSTE_PROD'];
-                $FECHA_AJUSTE_PROD = $_REQUEST['FECHA_AJUSTE_PROD'];
 
                 try {
-                    $ajustesModel->insertarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD, $FECHA_AJUSTE_PROD);     
+                    $ajustesModel->insertarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD);     
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
-            // hasta aqui
+                
                $listadoAjustes = $ajustesModel->getCabAjustes(); 
                $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
 
                header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
+            
              case "eliminar_ajuste":
                 $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
                 $ajustesModel->eliminarCabAjuste($ID_AJUSTE_PROD);
@@ -160,7 +160,7 @@ switch ($opcion1) {
                 $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
                 $ajuste = $ajustesModel->getCabAjuste($ID_AJUSTE_PROD);
                 $_SESSION['ajuste'] = serialize($ajuste);
-                header('Location: ../View/Ajustes/editarAjuste.php');
+                header('Location: ../View/Ajustes/inicioAjuste.php#editAJU');
                 break;
 
             case "guardar_ajuste":
@@ -178,6 +178,7 @@ switch ($opcion1) {
                 header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
         }
+        break;
         
     // P R O D U C T O S
     case "producto": 
