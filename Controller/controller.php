@@ -2,10 +2,12 @@
 
 require_once '../model/Usuario/UsuariosModel.php';
 require_once '../model/Ajustes/AjustesModel.php';
+require_once '../Model/Producto/ProductosModel.php';
 
 session_start();
 $usuariosModel = new UsuariosModel();
 $ajustesModel = new AjustesModel();
+$productoModel = new ProductosModel();
 
 // Recibimos la opcion desde la vista:
 // 
@@ -49,8 +51,8 @@ switch ($opcion1) {
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
-
-                // Actualizamos y volvemos a serializar en variable de sesión la lista de Usuarios
+                
+               // Actualizamos y volvemos a serializar en variable de sesión la lista de Usuarios
                 $listadoUsuarios = $usuariosModel->getUsuarios();
                 $_SESSION['listadoUsuarios'] = serialize($listadoUsuarios);
 
@@ -140,7 +142,7 @@ switch ($opcion1) {
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
-
+            // hasta aqui
                $listadoAjustes = $ajustesModel->getCabAjustes(); 
                $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
 
@@ -179,6 +181,104 @@ switch ($opcion1) {
         
     // P R O D U C T O S
     case "producto": 
+        switch ($opcion2) {
+            case "listar_productos":
+                // Obtenemos el array que contiene el listado de Usuarios
+                $listadoProductos = $productoModel->getProductos();
+
+                // Guardamos los datos en una variable de sesion serializada
+                $_SESSION['listadoProductos'] = serialize($listadoProductos);
+
+                // Redireccionamos a la pagina principal para visualizar
+                header('Location: ../View/Producto/inicioProductos.php');
+                break;
+
+            case "insertar":
+                // Obtenemos parámetros enviados desde formulario de creación de producto
+                $ID_PROD = $_REQUEST['ID_PROD'];
+                $NOMBRE_PROD = $_REQUEST['NOMBRE_PROD'];
+                $DESCRIPCION_PROD = $_REQUEST['DESCRIPCION_PROD '];
+                $GRABA_IVA_PROD = $_REQUEST['GRABA_IVA_PROD'];
+                $COSTO_PROD = $_REQUEST['COSTO_PROD'];
+                $PVP_PROD = $_REQUEST['PVP_PROD'];
+                $ESTADO_PROD = $_REQUEST['ESTADO_PROD'];
+                $STOCK_PROD = $_REQUEST['STOCK_PROD'];
+                
+
+                // Enviamos parámetros a método de ingresar producto
+                try {
+                    $productoModel->insertarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD, $STOCK_PROD);
+                } catch (Exception $e) {
+                    $_SESSION['ErrorBaseDatos'] = $e->getMessage();
+                }
+                 // Actualizamos y volvemos a serializar en variable de sesión la lista de Usuarios
+                $listadoProductos = $productoModel->getProductos();
+                $_SESSION['listadoProductos'] = serialize($listadoProductos);
+
+                // Redireccionamos a la pagina principal para visualizar
+                header('Location: ../View/Producto/inicioProductos.php');
+                break;
+
+            case "eliminar":
+                // Obtenemos Id del Usuario a eliminar desde formulario
+                $ID_PROD = $_REQUEST['ID_PROD'];
+
+                // Eliminamos Usuario con método eliminarUsuario
+                $productoModel->eliminarProducto($ID_PROD);
+
+                // Actualizamos y volvemos a serializar en variable de sesión la lista de Usuarios
+                $listadoProductos = $productoModel->getProductos();
+                $_SESSION['listadoProductos'] = serialize($listadoProductos);
+
+                // Redireccionamos a la pagina principal para visualizar
+                header('Location: ../View/Producto/inicioProductos.php');
+                break;
+
+            case "editar":
+                // Obtenemos Id del Usuario a editar desde formulario
+                $ID_PROD = $_REQUEST['ID_PROD'];
+
+                // Buscamos y obtenemos información del Producto
+                $producto = $productoModel->getProducto($ID_PROD);
+
+                // Guardamos datos del usuario en variable de sesión serializada
+                $_SESSION['producto'] = serialize($producto);
+
+                // Redireccionamos a vista para editar información
+                header('Location: ../View/Producto/editarProducto.php');
+                break;
+
+            case "guardar":
+                //obtenemos los parametros del formulario
+                $ID_PROD = $_REQUEST['ID_PROD'];
+                $NOMBRE_PROD = $_REQUEST['NOMBRE_PROD'];
+                $DESCRIPCION_PROD = $_REQUEST['DESCRIPCION_PROD'];
+                $GRABA_IVA_PROD = $_REQUEST['GRABA_IVA_PROD'];
+                $COSTO_PROD = $_REQUEST['COSTO_PROD'];
+                $PVP_PROD = $_REQUEST['PVP_PROD'];
+                $ESTADO_PROD = $_REQUEST['ESTADO_PROD'];
+                $STOCK_PROD = $_REQUEST['STOCK_PROD'];
+                
+                //actualizamos la información del producto
+                try {
+                    $productoModel->actualizarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD, $ESTADO_PROD, $STOCK_PROD);
+                } catch (Exception $e) {
+                    $_SESSION['ErrorBaseDatos'] = $e->getMessage();
+                }
+
+                // Actualizamos y volvemos a serializar en variable de sesión la lista de Producto
+                $listadoProductos = $productoModel->getProductos();
+                $_SESSION['listadoProductos'] = serialize($listadoProductos);
+
+                // Redireccionamos a la pagina principal para visualizar
+                header('Location: ../View/Producto/inicioProductos.php');
+                break;
+
+            default:
+                header('Location: ../View/Producto/inicioProductos.php');
+                break;
+        }
+        break;
         
 
     default:

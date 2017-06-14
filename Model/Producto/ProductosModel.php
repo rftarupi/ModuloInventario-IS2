@@ -31,25 +31,55 @@ class ProductosModel {
 
         // Guardamos el resultado obtenido en objeto tipo Producto
         $res = $consulta->fetch(PDO::FETCH_ASSOC);
-        $producto = new Producto($res['ID_PROD'], $res['NOMBRE_PROD'], $res['DESCRIPCION_PROD'], $res['GRABA_IVA_PROD'], $res['COSTO_PROD'], $res['PVP_PROD'], $res['ESTADO_PROD'], $res['DIRECCION_USU'], $res['STOCK_PROD']);
+        $producto = new Producto($res['ID_PROD'], $res['NOMBRE_PROD'], $res['DESCRIPCION_PROD'], $res['GRABA_IVA_PROD'], $res['COSTO_PROD'], $res['PVP_PROD'], $res['ESTADO_PROD'], $res['STOCK_PROD']);
         Database::disconnect();
 
         // Retornamos el Usuario encontrado
         return $producto;
     }
      // Método para insertar un Producto
-    public function insertarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD, $ESTADO_PROD, $DIRECCION_USU, $STOCK_PROD) {
+    public function insertarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD, $ESTADO_PROD, $STOCK_PROD) {
         // Conexión a Base de Datos y creación de consulta sql
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "insert into INV_TAB_PRODUCTOS(ID_PROD, NOMBRE_PROD, DESCRIPCION_PROD, GRABA_IVA_PROD, COSTO_PROD,"
+        $sql = "insert into inv_tab_productos(ID_PROD, NOMBRE_PROD, DESCRIPCION_PROD, GRABA_IVA_PROD, COSTO_PROD,"
                 . "PVP_PROD, ESTADO_PROD, STOCK_PROD) values(?,?,?,?,?,?,?,?)";
         $consulta = $pdo->prepare($sql);
 
         //Ejecutamos la consulta y pasamos los parametros
         try {
             $consulta->execute(array($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, 
-                                      $PVP_PROD, $ESTADO_PROD, $DIRECCION_USU, $STOCK_PROD));
+                                      $PVP_PROD, $ESTADO_PROD, $STOCK_PROD));
+        } catch (PDOException $e) {
+            Database::disconnect();
+            throw new Exception($e->getMessage());
+        }
+        Database::disconnect();
+    }
+    
+    // Método para eliminar Producto
+    public function eliminarProducto($ID_PROD) {
+        // Conexión a BD y ejecución de consulta sql
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "delete from inv_tab_productos where ID_PROD=?";
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute(array($ID_PROD));
+        Database::disconnect();
+    }
+     // Método para actualizar parámetros de Producto
+    public function actualizarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, 
+                                      $PVP_PROD, $ESTADO_PROD, $STOCK_PROD) {
+        // Conexión a BD y creación de consulta sql
+        $pdo = Database::connect();
+        $sql = "update inv_tab_productos set ID_PROD=?, NOMBRE_PROD=?, DESCRIPCION_PROD=?, GRABA_IVA_PROD=?, COSTO_PROD=?, PVP_PROD=?,"
+                . "ESTADO_PROD=?, STOCK_PROD=? where ID_PROD=?";
+        $consulta = $pdo->prepare($sql);
+
+        //Ejecutamos la consulta y pasamos los parametros
+        try {
+            $consulta->execute(array($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, 
+                                      $PVP_PROD, $ESTADO_PROD, $STOCK_PROD));
         } catch (PDOException $e) {
             Database::disconnect();
             throw new Exception($e->getMessage());
