@@ -1,5 +1,5 @@
 <?php
-include_once '../DataBase.php';
+include_once 'DataBase.php';
 include_once 'Producto.php';
 
 class ProductosModel {
