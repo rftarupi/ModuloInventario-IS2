@@ -7,6 +7,12 @@ Esta página contiene la vista respectiva de Usuarios en donde se encotrará las
 session_start();
 include_once '../../Model/Usuario/Usuario.php';
 include_once '../../Model/Usuario/UsuariosModel.php';
+include_once '../../Model/Usuario/TipoUsuario.php';
+include_once '../../Model/Usuario/TiposUsuarioModel.php';
+
+// Creamos la variable para el llamado de los métodos de la tabla Tipo Usuario y Usuario
+$tiposUsuarioModel = new TiposUsuarioModel();
+$usuariosModel = new UsuariosModel(); 
 ?>
 <html>
     <head>
@@ -60,7 +66,7 @@ include_once '../../Model/Usuario/UsuariosModel.php';
                                     <table class="table table-striped table-bordered table-condensed table-hover">
                                         <thead>
                                         <th>ID USUARIO</th>
-                                        <th>ID TIPO USUARIO</th>
+                                        <th>TIPO USUARIO</th>
                                         <th>CEDULA - RUC</th>
                                         <th>NOMBRES</th>
                                         <th>APELLIDOS</th>
@@ -78,10 +84,13 @@ include_once '../../Model/Usuario/UsuariosModel.php';
                                             // Deserializamos y mostraremos los atributos de los usuarios usando un ciclo for
                                             $listado = unserialize($_SESSION['listadoUsuarios']);
                                             foreach ($listado as $usu) {
+                                                // Obtenemos datos de tipo usuario de un usuario en específico
+                                                $tipoUsuario = $tiposUsuarioModel->getTipoUsuario($usu->getID_TIPO_USU());
+                                                $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $usu->getID_USU(); ?></td>
-                                                    <td><?php echo $usu->getID_TIPO_USU(); ?></td>
+                                                    <td><?php echo $tipoUsuario->getNOMBRE_TIPO_USU(); ?></td>
                                                     <td><?php echo $usu->getCEDULA_RUC_PASS_USU(); ?></td>
                                                     <td><?php echo $usu->getNOMBRES_USU(); ?></td>
                                                     <td><?php echo $usu->getAPELLIDOS_USU(); ?></td>
@@ -90,7 +99,7 @@ include_once '../../Model/Usuario/UsuariosModel.php';
                                                     <td><?php echo $usu->getDIRECCION_USU(); ?></td>
                                                     <td><?php echo $usu->getFONO_USU(); ?></td>
                                                     <td><?php echo $usu->getE_MAIL_USU(); ?></td>
-                                                    <td><?php echo $usu->getESTADO_USU(); ?></td>
+                                                    <td><?php echo $estado; ?></td>
                                                     <td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
                                                     <td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>
                                                 </tr>

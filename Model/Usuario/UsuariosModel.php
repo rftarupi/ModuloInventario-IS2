@@ -1,5 +1,5 @@
 <?php
-include_once '../DataBase.php';
+include_once '/../DataBase.php';
 include_once 'Usuario.php';
 
 // Esta clase contiene los métodos del CRUD de Usuarios
@@ -91,5 +91,18 @@ class UsuariosModel {
         }
         Database::disconnect();
     }
-
+    
+    // Método para obtener el significado de la nomenclatura de Estado de Usuario
+    public function obtenerEstadoUsuario($ID_USU){
+        $usuariosModel = new UsuariosModel();
+        $usuario = $usuariosModel->getUsuario($ID_USU);
+        $estado=NULL;
+        switch ($usuario->getESTADO_USU()){
+            case "A": $estado = "Activo";
+                break;
+            case "I": $estado = "Inactivo";
+                break;
+        }
+        return $estado;
+    }
 }
