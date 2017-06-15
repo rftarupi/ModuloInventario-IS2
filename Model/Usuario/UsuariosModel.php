@@ -106,7 +106,7 @@ class UsuariosModel {
         return $estado;
     }
     
-    // METODO PARA GENERAR AUTOMATICAMENTE EL CODIGO DE AJUSTE (CABECERA) -- USUA-0001
+    // METODO PARA GENERAR AUTOMATICAMENTE EL CODIGO DE UN USUARIO -- USUA-0001
      public function generarCodigoUsuario() {
         $pdo = Database::connect();
         $sql = "select max(ID_USU) as cod from INV_TAB_USUARIOS";
