@@ -105,4 +105,44 @@ class UsuariosModel {
         }
         return $estado;
     }
+    
+    // METODO PARA GENERAR AUTOMATICAMENTE EL CODIGO DE AJUSTE (CABECERA) -- USUA-0001
+     public function generarCodigoUsuario() {
+        $pdo = Database::connect();
+        $sql = "select max(ID_USU) as cod from INV_TAB_USUARIOS";
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute();
+        $res = $consulta->fetch(PDO::FETCH_ASSOC);
+        $nuevoCod = '';
+        if ($res['cod'] == NULL) {
+            $nuevoCod = 'USUA-0001';
+        } else {  
+            $rest=  ((substr($res['cod'], -4))+1).''; // Separacion de la parte numerica USUA-0023  --> 23
+            // Ciclo que completa el codigo segun lo retornado para completar los 9 caracteres 
+            // USUA-00 --> 67, USUA-0 --> 786
+            if($rest >1 && $rest <=9){
+                $nuevoCod = 'USUA-000'.$rest;
+            }else{
+                if($rest >=10 && $rest <=99){
+                    $nuevoCod = 'USUA-00'.$rest;
+                }else{
+                    if($rest >=100 && $rest <=999){
+                    $nuevoCod = 'USUA-0'.$rest;
+                    }else{
+                       $nuevoCod = 'USUA-'.$rest; 
+                    }                    
+                } 
+            }
+        }
+        Database::disconnect();
+        return $nuevoCod; // RETORNO DEL NUEVO CODIGO DE USUARIO
+    }
+    
+    //$rest = substr("abcdef", -1);    // devuelve "f"
+    //$rest = substr("abcdef", -2);    // devuelve "ef"
+    //$rest = substr("abcdef", -3, 1); // devuelve "d"
+    
+    // M E T O D O S   C R U D   D E   D E T A L L E S   D E   A J U S T E
+
+    
 }
