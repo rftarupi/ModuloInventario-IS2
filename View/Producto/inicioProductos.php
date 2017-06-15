@@ -48,7 +48,7 @@ include_once '../../Model/Producto/ProductosModel.php';
                 <div class="col-md-12" style="padding-top: 5px">
                     <!--La class nav nav-pills nos permite hacer menús-->
                     <ul class="nav nav-pills">
-                        <li role="presentation"><a href="../../Controller/controller.php?opcion1=productoo&opcion2=listar_productos"><h4>MOSTRAR TODOS</h4></a></li>
+                        <li role="presentation"><a href="../../Controller/controller.php?opcion1=producto&opcion2=listar_productos"><h4>MOSTRAR TODOS</h4></a></li>
                         <li role="presentation"><a href="#nuevoPRO" data-toggle="modal"><h4>NUEVO PRODUCTO</h4></a></li>
                     </ul>
                 </div>
