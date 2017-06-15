@@ -142,7 +142,6 @@ class UsuariosModel {
     //$rest = substr("abcdef", -2);    // devuelve "ef"
     //$rest = substr("abcdef", -3, 1); // devuelve "d"
     
-    // M E T O D O S   C R U D   D E   D E T A L L E S   D E   A J U S T E
-
+    // M E T O D O S   C R U D   D E   U S U A R I O S
     
 }
