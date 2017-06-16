@@ -71,7 +71,7 @@ class ProductosModel {
                                       $PVP_PROD, $ESTADO_PROD, $STOCK_PROD) {
         // Conexión a BD y creación de consulta sql
         $pdo = Database::connect();
-        $sql = "update INV_TAB_PRODUCTOS set  NOMBRE_PROD=?, DESCRIPCION_PROD=?, GRABA_IVA_PROD=?, COSTO_PROD=?, PVP_PROD=?,ESTADO_PROD=?, STOCK_PROD=? where ID_PROD=?";
+        $sql = "update INV_TAB_PRODUCTOS set  NOMBRE_PROD=?, DESCRIPCION_PROD=?, GRABA_IVA_PROD=?, COSTO_PROD=?, PVP_PROD=?, ESTADO_PROD=?, STOCK_PROD=? where ID_PROD=?";
         $consulta = $pdo->prepare($sql);
 
         //Ejecutamos la consulta y pasamos los parametros

@@ -23,13 +23,28 @@ $productoModel = new ProductosModel();
         <!--Importación de Bootstrap al proyecto-->
         <script src="../../Bootstrap/js/jquery-2.1.4.js"></script>
         <script src="../../Bootstrap/js/bootstrap.js"></script>
+        <script src="../../Bootstrap/js/getDatos.js"></script>
+        <script src="../../Bootstrap/js/bootstrap-table.js"></script>
+        <link href="../../Bootstrap/css/bootstrap-table.css" rel="stylesheet">
+        <script src="../../Bootstrap/js/validaciones.js"></script>
         <link href="../../Bootstrap/css/bootstrap.css" rel="stylesheet" />
         <link rel="../../stylesheet" href="Bootstrap/css/bootstrap-theme.css">
+       
         <style type="text/css">
             div{
                 font-family: Calibri Light;
             }
         </style>
+         <script LANGUAGE="JavaScript">
+            function confirEliminar()
+            {
+                var agree = confirm("Esta seguro que desea eliminar el producto");
+                if(agree)
+                    return  true;
+                else
+                    return false;
+            }
+        </script>
     </head>
     <body>
         <div class="container-fluid">
@@ -73,7 +88,7 @@ $productoModel = new ProductosModel();
                                         <th>PVP PRODUCTO</th>
                                         <th>ESTADO PRODUCTO</th>
                                         <th>STOCK PRODUCTO</th>
-                                        
+
                                         <th colspan="2">ACCIONES</th>
                                         </thead>
                                         <?php
@@ -87,18 +102,32 @@ $productoModel = new ProductosModel();
 //                                                $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $pro->getID_PROD(); ?></td>
-                                                    <td><?php echo $pro->getNOMBRE_PROD(); ?></td>
-                                                    <td><?php echo $pro->getDESCRIPCION_PROD(); ?></td>
-                                                    <td><?php echo $pro->getGRAVA_IVA_PROD(); ?></td>
-                                                    <td><?php echo $pro->getCOSTO_PROD(); ?></td>
-                                                    <td><?php echo $pro->getPVP_PROD(); ?></td>
-                                                    <td><?php echo $pro->getESTADO_PROD(); ?></td>
-                                                    <td><?php echo $pro->getSTOCK_PROD(); ?></td>
-                                                  <?php echo "<a href='../../Controller/controller.php?opcion1=producto&opcion2=listar_productos&ID_PROD=".$pro->getID_PROD()."'>Editaaar</a>";?>
-                                                    <td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                    <td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>
+
+                                                <input type="hidden" value="<?php echo $pro->getID_PROD(); ?>" id="ID_PROD<?php echo $pro->getID_PROD(); ?>">
+                                                <input type="hidden" value="<?php echo $pro->getNOMBRE_PROD(); ?>" id="NOMBRE_PROD<?php echo $pro->getID_PROD(); ?>">
+                                                <input type="hidden" value="<?php echo $pro->getDESCRIPCION_PROD(); ?>" id="DESCRIPCION<?php echo $pro->getID_PROD(); ?>">
+                                                <input type="hidden" value="<?php echo $pro->getGRAVA_IVA_PROD(); ?>" id="GRABA_IVA_PROD<?php echo $pro->getID_PROD(); ?>">
+                                                <input type="hidden" value="<?php echo $pro->getCOSTO_PROD(); ?>" id="COSTO_PROD<?php echo $pro->getID_PROD(); ?>">
+                                                <input type="hidden" value="<?php echo $pro->getPVP_PROD(); ?>" id="PVP_PROD<?php echo $pro->getID_PROD(); ?>">
+                                                <input type="hidden" value="<?php echo $pro->getESTADO_PROD(); ?>" id="ESTADO_PROD<?php echo $pro->getID_PROD(); ?>">
+                                                <input type="hidden" value="<?php echo $pro->getSTOCK_PROD(); ?>" id="STOCK_PROD<?php echo $pro->getID_PROD(); ?>">
+                                                <td><?php echo $pro->getID_PROD(); ?></td>
+                                                <td><?php echo $pro->getNOMBRE_PROD(); ?></td>
+                                                <td><?php echo $pro->getDESCRIPCION_PROD(); ?></td>
+                                                <td><?php echo $pro->getGRAVA_IVA_PROD(); ?></td>
+                                                <td><?php echo $pro->getCOSTO_PROD(); ?></td>
+                                                <td><?php echo $pro->getPVP_PROD(); ?></td>
+                                                <td><?php echo $pro->getESTADO_PROD(); ?></td>
+                                                <td><?php echo $pro->getSTOCK_PROD(); ?></td>
+                                                   <!--<td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>-->
+                                                <!--<td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>-->
+
+                                                <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                <td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>                                    
+
                                                 </tr>
+
+
                                                 <?php
                                             }
                                         }
@@ -111,19 +140,18 @@ $productoModel = new ProductosModel();
                 </div>
             </div>
 
-            <!--Ventana emergente para Nuevo producto-->
+
             <div class="modal fade" id="nuevoPRO">
                 <div class="modal-dialog">
                     <form class="form-horizontal" action="../../Controller/controller.php">
                         <input type="hidden" name="opcion1" value="producto">
-                        <input type="hidden" name="opcion2" value="insertar_productos">
+                        <input type="hidden" name="opcion2" value="insertar_producto">
                         <div class="modal-content">
                             <!-- Header de la ventana -->
                             <div class="modal-header bg-success">
                                 <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h3 class="modal-title"><span class="glyphicon glyphicon-user"></span> Nuevo Producto</h3>
                             </div>
-
                             <!-- Contenido de la ventana -->
                             <div class="modal-body">
                                 <div class="row">
@@ -134,7 +162,7 @@ $productoModel = new ProductosModel();
                                             </div>
                                             <div class="col-md-7">
                                                 <?php echo $productoModel->generarCodigoProducto(); ?>
-                                                <input type="hidden" name="ID_PROD" value="<?php echo $productoModel->generarCodigoProducto(); ?>">
+                                                <input type="hidden" name="ID_PROD" id="ID_PROD" value="<?php echo $productoModel->generarCodigoProducto(); ?>">
                                                 <!--<input type="text" class="form-control" placeholder="Ingrese ID del producto" required />-->
                                             </div>
                                         </div>
@@ -143,7 +171,7 @@ $productoModel = new ProductosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Nombre Producto</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" placeholder="Ingrese Nombres del producto" required />
+                                                <input type="text" onkeypress="return SoloLetras(event)" name="NOMBRE_PROD"  id="NOMBRE_PROD" class="form-control" placeholder="Ingrese Nombres del producto" required minlength="1" maxlength="45" />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -151,15 +179,20 @@ $productoModel = new ProductosModel();
                                                 <label class="control-label"> &nbsp;&nbsp;&nbsp;&nbsp;Descripcion</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" placeholder="Ingrese la descripcion" />
+                                                <input type="text"  pattern="[A-Za-z]{1-9}" name="DESCRIPCION_PROD" id="DESCRIPCION_PROD" class="form-control" placeholder="Ingrese la descripcion" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Graba iva o no</label>
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Graba Iva</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" placeholder="S o N" required />
+                                                <select class="form-control" id="GRABA_IVA_PROD" name="GRABA_IVA_PROD">
+
+                                                    <option value="S">SI</option>
+                                                    <option value="N">NO</option>
+
+                                                </select>
                                             </div>
                                         </div>
                                         <!--nuevo-->
@@ -168,7 +201,7 @@ $productoModel = new ProductosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Costo</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" placeholder="Ingrese el costo del producto" required />
+                                                <input type="text" name="COSTO_PROD" onkeypress="return SoloNumeros(event);" id="COSTO_PROD" class="form-control" placeholder="Ingrese el costo del producto" required />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -176,7 +209,7 @@ $productoModel = new ProductosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;PVP</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" placeholder="Ingrese PVP" required />
+                                                <input type="text" onkeypress="return SoloNumeros(event);" name="PVP_PROD" id="PVP_PROD" class="form-control" placeholder="Ingrese PVP" required />
                                             </div>
                                         </div>
                                          <div class="form-group">
@@ -184,15 +217,20 @@ $productoModel = new ProductosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Estado</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" placeholder="A o I" required />
+                                                <select class="form-control" id="ESTADO_PROD" name="ESTADO_PROD">
+
+                                                    <option value="A">ACTIVO</option>
+                                                    <option value="I">INACTIVO</option>
+
+                                                </select>
                                             </div>
                                         </div>
-                                         <div class="form-group">
+                                        <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Stock</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" placeholder="Stock" required />
+                                                <input onkeypress="return SoloNumeros(event);" type="number"  min="1" maxlength="4" minlength="1" max="1000" name="STOCK_PROD" id="STOCK_PROD" class="form-control" placeholder="Stock" required />
                                             </div>
                                         </div>
                                         <!--nuevo-->
@@ -203,99 +241,123 @@ $productoModel = new ProductosModel();
                             <!-- Footer fde la ventana -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                <button class="btn btn-success">Guardar Cambios</button>
+                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
                             </div>
                         </div>
                     </form>
                 </div>
-            <!--Ventana emergente para Editar Producto-->
+            </div>
+
+            <!------------------------------------Actualizar producto------------------------------------>
+
             <div class="modal fade" id="editPRO">
                 <div class="modal-dialog">
-                    <!--<form class="form-horizontal" action="#ventanasEmergentes">-->
                     <form class="form-horizontal" action="../../Controller/controller.php">
                         <input type="hidden" name="opcion1" value="producto">
-                        <input type="hidden" name="opcion2" value="insertar_productos">
+                        <input type="hidden" name="opcion2" value="actualizar_productos">
                         <div class="modal-content">
                             <!-- Header de la ventana -->
                             <div class="modal-header bg-success">
                                 <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3 class="modal-title"><span class="glyphicon glyphicon-cog"></span> Nuevo Producto</h3>
+                                <h3 class="modal-title"><span class="glyphicon glyphicon-user"></span> ACTALIZAR Producto</h3>
                             </div>
-
                             <!-- Contenido de la ventana -->
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> ID Producto</label>
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> ID PRODUCTO</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <?php echo $productoModel->generarCodigoProducto(); ?>
-                                                <input type="hidden" name="ID_PROD" value="<?php echo $productoModel->generarCodigoProducto(); ?>">
-                                                <!--<input type="text" class="form-control" placeholder="Ingrese sus Apellidos" required />-->
+                                                <div id="mod_id_pro2"></div>
+                                                <input type="hidden" name="mod_id_pro1" id="mod_id_pro1" value="">
+                                                <!--<input type="text" class="form-control" placeholder="Ingrese ID del producto" required />-->
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> NOMBRE PRODUCTO </label>
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Nombre Producto</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" name="NOMBRE_PROD" placeholder="Ingrese el nombre del producto" required />
-                                            </div>
-                                            <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> DESCRIPCION DEL PRODUCTO </label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="text" class="form-control" name="DESCRIPCION_PROD" placeholder="Ingrese la descripcion" required />
-                                            </div>
-                                            <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> GRABA_IVA_O_NO </label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="text" class="form-control" name="GRABA_IVA_PROD" placeholder="S o N" required />
-                                            </div>
-                                             <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> COSTO PRODUCTO </label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="text" class="form-control" name="COSTO_PROD" placeholder="Costo" required />
-                                            </div>
-                                            <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> PVP PRODUCTO </label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="text" class="form-control" name="PVP_PROD" placeholder="PVP" required />
-                                            </div>
-                                             <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> ESTADO PRODUCTO </label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="text" class="form-control" name="ESTADO_PROD" placeholder="Estado" required />
-                                            </div>
-                                            <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> STOCK PRODUCTO </label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="text" class="form-control" name="STOCK_PROD" placeholder="Stock" required />
+                                                <input type="text" class="form-control" name="mod_nombre" id="mod_nombre" required />
                                             </div>
                                         </div>
-                                       
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"> &nbsp;&nbsp;&nbsp;&nbsp;Descripcion</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control"  name="mod_descripcion" id="mod_descripcion" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Graba iva o no</label>
+                                            </div>
+                                            <div class="col-md-7">
+
+                                                <select class="form-control" id="mod_Iva" name="mod_Iva">
+
+                                                    <option value="S">SI</option>
+                                                    <option value="N">NO</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--nuevo-->
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Costo</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input onkeypress="return SoloNumeros(event);" type="text" class="form-control" name="mod_costo" id="mod_costo" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;PVP</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input onkeypress="return SoloNumeros(event);" type="text" class="form-control" name="mod_pvp" id="mod_pvp" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Estado</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <select class="form-control" id="mod_estado" name="mod_estado">
+
+                                                    <option value="A">ACTIVO</option>
+                                                    <option value="I">INACTIVO</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Stock</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input onkeypress="return SoloNumeros(event);" type="text" class="form-control" name="mod_stock" id="mod_stock" />
+                                            </div>
+                                        </div>
+                                        <!--nuevo-->
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Footer de la ventana -->
+                            <!-- Footer fde la ventana -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                <button class="btn btn-success">Guardar Producto</button>
+                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            
-            
+
         </div>
     </body>
 </html>

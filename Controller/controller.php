@@ -193,11 +193,11 @@ switch ($opcion1) {
                 header('Location: ../View/Producto/inicioProductos.php');
                 break;
 
-            case "insertar":
+            case "insertar_producto":
                 // Obtenemos parámetros enviados desde formulario de creación de producto
                 $ID_PROD = $_REQUEST['ID_PROD'];
                 $NOMBRE_PROD = $_REQUEST['NOMBRE_PROD'];
-                $DESCRIPCION_PROD = $_REQUEST['DESCRIPCION_PROD '];
+                $DESCRIPCION_PROD = $_REQUEST['DESCRIPCION_PROD'];
                 $GRABA_IVA_PROD = $_REQUEST['GRABA_IVA_PROD'];
                 $COSTO_PROD = $_REQUEST['COSTO_PROD'];
                 $PVP_PROD = $_REQUEST['PVP_PROD'];
@@ -207,7 +207,7 @@ switch ($opcion1) {
 
                 // Enviamos parámetros a método de ingresar producto
                 try {
-                    $productoModel->insertarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD, $STOCK_PROD);
+                    $productoModel->insertarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD,$ESTADO_PROD, $STOCK_PROD);
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
@@ -219,7 +219,7 @@ switch ($opcion1) {
                 header('Location: ../View/Producto/inicioProductos.php');
                 break;
 
-            case "eliminar":
+            case "eliminar_producto":
                 // Obtenemos Id del Usuario a eliminar desde formulario
                 $ID_PROD = $_REQUEST['ID_PROD'];
 
@@ -234,30 +234,30 @@ switch ($opcion1) {
                 header('Location: ../View/Producto/inicioProductos.php');
                 break;
 
-            case "editar":
-                // Obtenemos Id del Usuario a editar desde formulario
-                $ID_PROD = $_REQUEST['ID_PROD'];
+//            case "editar_producto":
+//                // Obtenemos Id del Usuario a editar desde formulario
+//                $ID_PROD = $_REQUEST['ID_PROD'];
+//
+//                // Buscamos y obtenemos información del Producto
+//                $producto = $productoModel->getProducto($ID_PROD);
+//
+//                // Guardamos datos del usuario en variable de sesión serializada
+//                $_SESSION['producto'] = serialize($producto);
+//
+//                // Redireccionamos a vista para editar información
+//                header('Location: ../View/Producto/editarProducto.php');
+//                break;
 
-                // Buscamos y obtenemos información del Producto
-                $producto = $productoModel->getProducto($ID_PROD);
-
-                // Guardamos datos del usuario en variable de sesión serializada
-                $_SESSION['producto'] = serialize($producto);
-
-                // Redireccionamos a vista para editar información
-                header('Location: ../View/Producto/editarProducto.php');
-                break;
-
-            case "guardar":
+            case "actualizar_productos":
                 //obtenemos los parametros del formulario
-                $ID_PROD = $_REQUEST['ID_PROD'];
-                $NOMBRE_PROD = $_REQUEST['NOMBRE_PROD'];
-                $DESCRIPCION_PROD = $_REQUEST['DESCRIPCION_PROD'];
-                $GRABA_IVA_PROD = $_REQUEST['GRABA_IVA_PROD'];
-                $COSTO_PROD = $_REQUEST['COSTO_PROD'];
-                $PVP_PROD = $_REQUEST['PVP_PROD'];
-                $ESTADO_PROD = $_REQUEST['ESTADO_PROD'];
-                $STOCK_PROD = $_REQUEST['STOCK_PROD'];
+                $ID_PROD = $_REQUEST['mod_id_pro1'];
+                $NOMBRE_PROD = $_REQUEST['mod_nombre'];
+                $DESCRIPCION_PROD = $_REQUEST['mod_descripcion'];
+                $GRABA_IVA_PROD = $_REQUEST['mod_Iva'];
+                $COSTO_PROD = $_REQUEST['mod_costo'];
+                $PVP_PROD = $_REQUEST['mod_pvp'];
+                $ESTADO_PROD = $_REQUEST['mod_estado'];
+                $STOCK_PROD = $_REQUEST['mod_stock'];
                 
                 //actualizamos la información del producto
                 try {
