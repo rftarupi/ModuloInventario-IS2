@@ -115,7 +115,7 @@ $usuariosModel = new UsuariosModel();
                 </div>
             </div>
 
-            <!--Ventana emergente para Nuevo usuario-->
+            <!--Ventana emergente para la creacion de un Nuevo usuario-->
             <div class="modal fade" id="nuevoUSU">
                 <div class="modal-dialog">
                     <form class="form-horizontal" action="#ventanasEmergentes">
