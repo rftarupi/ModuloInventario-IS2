@@ -6,7 +6,7 @@ class ProductosModel {
     public function getProductos() {
         // Obtención de informacion de la Base de Datos mediante consulta sql
         $pdo = Database::connect();
-        $sql = "select * from inv_tab_productos order by ID_PROD";
+        $sql = "select * from INV_TAB_PRODUCTOS order by ID_PROD";
         $resultado = $pdo->query($sql);
 
         //transformamos los registros en objetos de tipo Producto y guardamos en array
@@ -25,7 +25,7 @@ class ProductosModel {
     public function getProducto($ID_PROD) {
         //Obtención de informacion de la Base de Datos mediante consulta sql
         $pdo = Database::connect();
-        $sql = "select * from inv_tab_productos where ID_PROD=?";
+        $sql = "select * from INV_TAB_PRODUCTOS where ID_PROD=?";
         $consulta = $pdo->prepare($sql);
         $consulta->execute(array($ID_PROD));
 
@@ -42,8 +42,7 @@ class ProductosModel {
         // Conexión a Base de Datos y creación de consulta sql
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "insert into inv_tab_productos(ID_PROD, NOMBRE_PROD, DESCRIPCION_PROD, GRABA_IVA_PROD, COSTO_PROD,"
-                . "PVP_PROD, ESTADO_PROD, STOCK_PROD) values(?,?,?,?,?,?,?,?)";
+        $sql = "insert into INV_TAB_PRODUCTOS(ID_PROD, NOMBRE_PROD, DESCRIPCION_PROD, GRABA_IVA_PROD, COSTO_PROD,PVP_PROD, ESTADO_PROD, STOCK_PROD) values(?,?,?,?,?,?,?,?)";
         $consulta = $pdo->prepare($sql);
 
         //Ejecutamos la consulta y pasamos los parametros
@@ -62,7 +61,7 @@ class ProductosModel {
         // Conexión a BD y ejecución de consulta sql
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "delete from inv_tab_productos where ID_PROD=?";
+        $sql = "delete from INV_TAB_PRODUCTOS where ID_PROD=?";
         $consulta = $pdo->prepare($sql);
         $consulta->execute(array($ID_PROD));
         Database::disconnect();
@@ -72,20 +71,49 @@ class ProductosModel {
                                       $PVP_PROD, $ESTADO_PROD, $STOCK_PROD) {
         // Conexión a BD y creación de consulta sql
         $pdo = Database::connect();
-        $sql = "update inv_tab_productos set ID_PROD=?, NOMBRE_PROD=?, DESCRIPCION_PROD=?, GRABA_IVA_PROD=?, COSTO_PROD=?, PVP_PROD=?,"
-                . "ESTADO_PROD=?, STOCK_PROD=? where ID_PROD=?";
+        $sql = "update INV_TAB_PRODUCTOS set  NOMBRE_PROD=?, DESCRIPCION_PROD=?, GRABA_IVA_PROD=?, COSTO_PROD=?, PVP_PROD=?,ESTADO_PROD=?, STOCK_PROD=? where ID_PROD=?";
         $consulta = $pdo->prepare($sql);
 
         //Ejecutamos la consulta y pasamos los parametros
         try {
-            $consulta->execute(array($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, 
-                                      $PVP_PROD, $ESTADO_PROD, $STOCK_PROD));
+            $consulta->execute(array($NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, 
+                                      $PVP_PROD, $ESTADO_PROD, $STOCK_PROD,$ID_PROD));
         } catch (PDOException $e) {
             Database::disconnect();
             throw new Exception($e->getMessage());
         }
         Database::disconnect();
     }
-
+public function generarCodigoProducto() {
+        $pdo = Database::connect();
+        $sql = "select max(ID_PROD) as cod from INV_TAB_PRODUCTOS";
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute();
+        $res = $consulta->fetch(PDO::FETCH_ASSOC);
+        $nuevoCod = '';
+        if ($res['cod'] == NULL) {
+            $nuevoCod = 'PROD-0001';
+        } else {  
+            $rest=  ((substr($res['cod'], -4))+1).''; // Separacion de la parte numerica AJUS-0023  --> 23
+            // Ciclo que completa el codigo segun lo retornado para completar los 9 caracteres 
+            // AJUS-00 --> 67, AJUS-0 --> 786
+            if($rest >1 && $rest <=9){
+                $nuevoCod = 'PROD-000'.$rest;
+            }else{
+                if($rest >=10 && $rest <=99){
+                    $nuevoCod = 'PROD-00'.$rest;
+                }else{
+                    if($rest >=100 && $rest <=999){
+                    $nuevoCod = 'PROD-0'.$rest;
+                    }else{
+                       $nuevoCod = 'PROD-'.$rest; 
+                    }                    
+                } 
+            }
+        }
+        Database::disconnect();
+        return $nuevoCod; // RETORNO DEL NUEVO CODIGO DE AJUSTE
+    }
+    
     
 }

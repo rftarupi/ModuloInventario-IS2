@@ -7,6 +7,7 @@ Esta página contiene la vista respectiva de Usuarios en donde se encotrará las
 session_start();
 include_once '../../Model/Producto/Producto.php';
 include_once '../../Model/Producto/ProductosModel.php';
+$productoModel = new ProductosModel();
 
 
 // Creamos la variable para el llamado de los métodos de la tabla Tipo Usuario y Usuario
@@ -16,7 +17,7 @@ include_once '../../Model/Producto/ProductosModel.php';
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Usuarios</title>
+        <title>Producto</title>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">				
 
         <!--Importación de Bootstrap al proyecto-->
@@ -94,7 +95,7 @@ include_once '../../Model/Producto/ProductosModel.php';
                                                     <td><?php echo $pro->getPVP_PROD(); ?></td>
                                                     <td><?php echo $pro->getESTADO_PROD(); ?></td>
                                                     <td><?php echo $pro->getSTOCK_PROD(); ?></td>
-                                                  
+                                                  <?php echo "<a href='../../Controller/controller.php?opcion1=producto&opcion2=listar_productos&ID_PROD=".$pro->getID_PROD()."'>Editaaar</a>";?>
                                                     <td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
                                                     <td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>
                                                 </tr>
@@ -113,7 +114,9 @@ include_once '../../Model/Producto/ProductosModel.php';
             <!--Ventana emergente para Nuevo producto-->
             <div class="modal fade" id="nuevoPRO">
                 <div class="modal-dialog">
-                    <form class="form-horizontal" action="#ventanasEmergentes">
+                    <form class="form-horizontal" action="../../Controller/controller.php">
+                        <input type="hidden" name="opcion1" value="producto">
+                        <input type="hidden" name="opcion2" value="insertar_productos">
                         <div class="modal-content">
                             <!-- Header de la ventana -->
                             <div class="modal-header bg-success">
@@ -130,7 +133,9 @@ include_once '../../Model/Producto/ProductosModel.php';
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> ID PRODUCTO</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" placeholder="Ingrese ID del producto" required />
+                                                <?php echo $productoModel->generarCodigoProducto(); ?>
+                                                <input type="hidden" name="ID_PROD" value="<?php echo $productoModel->generarCodigoProducto(); ?>">
+                                                <!--<input type="text" class="form-control" placeholder="Ingrese ID del producto" required />-->
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -203,7 +208,94 @@ include_once '../../Model/Producto/ProductosModel.php';
                         </div>
                     </form>
                 </div>
+            <!--Ventana emergente para Editar Producto-->
+            <div class="modal fade" id="editPRO">
+                <div class="modal-dialog">
+                    <!--<form class="form-horizontal" action="#ventanasEmergentes">-->
+                    <form class="form-horizontal" action="../../Controller/controller.php">
+                        <input type="hidden" name="opcion1" value="producto">
+                        <input type="hidden" name="opcion2" value="insertar_productos">
+                        <div class="modal-content">
+                            <!-- Header de la ventana -->
+                            <div class="modal-header bg-success">
+                                <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3 class="modal-title"><span class="glyphicon glyphicon-cog"></span> Nuevo Producto</h3>
+                            </div>
+
+                            <!-- Contenido de la ventana -->
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> ID Producto</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <?php echo $productoModel->generarCodigoProducto(); ?>
+                                                <input type="hidden" name="ID_PROD" value="<?php echo $productoModel->generarCodigoProducto(); ?>">
+                                                <!--<input type="text" class="form-control" placeholder="Ingrese sus Apellidos" required />-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> NOMBRE PRODUCTO </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" name="NOMBRE_PROD" placeholder="Ingrese el nombre del producto" required />
+                                            </div>
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> DESCRIPCION DEL PRODUCTO </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" name="DESCRIPCION_PROD" placeholder="Ingrese la descripcion" required />
+                                            </div>
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> GRABA_IVA_O_NO </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" name="GRABA_IVA_PROD" placeholder="S o N" required />
+                                            </div>
+                                             <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> COSTO PRODUCTO </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" name="COSTO_PROD" placeholder="Costo" required />
+                                            </div>
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> PVP PRODUCTO </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" name="PVP_PROD" placeholder="PVP" required />
+                                            </div>
+                                             <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> ESTADO PRODUCTO </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" name="ESTADO_PROD" placeholder="Estado" required />
+                                            </div>
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> STOCK PRODUCTO </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" name="STOCK_PROD" placeholder="Stock" required />
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer de la ventana -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button class="btn btn-success">Guardar Producto</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
+            
+            
         </div>
     </body>
 </html>

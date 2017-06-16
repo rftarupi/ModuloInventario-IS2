@@ -1,7 +1,7 @@
 <?php
 
 include_once 'CabeceraAjuste.php';
-include_once 'DataBase.php';
+include_once '/../DataBase.php';
 
 class AjustesModel {
 
