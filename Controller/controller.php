@@ -160,14 +160,13 @@ switch ($opcion1) {
                 $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
                 $ajuste = $ajustesModel->getCabAjuste($ID_AJUSTE_PROD);
                 $_SESSION['ajuste'] = serialize($ajuste);
-                header('Location: ../View/Ajustes/inicioAjuste.php#editAJU');
+                header('Location: ../View/Ajustes/inicioAjuste#edit.phpAJU');
                 break;
 
             case "guardar_ajuste":
-                $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
-                $MOTIVO_AJUSTE_PROD = $_REQUEST['MOTIVO_AJUSTE_PROD'];
-                $FECHA_AJUSTE_PROD = $_REQUEST['FECHA_AJUSTE_PROD'];
-
+                $ID_AJUSTE_PROD = $_REQUEST['mod_id'];
+                $MOTIVO_AJUSTE_PROD = $_REQUEST['mod_motivo'];
+                $FECHA_AJUSTE_PROD = $_REQUEST['mod_fecha'];
                 try {
                     $ajustesModel->actualizarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD, $FECHA_AJUSTE_PROD);                
                 } catch (Exception $e) {

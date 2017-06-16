@@ -14,6 +14,7 @@ $ajustesModel = new AjustesModel();
         <!--Importación de Bootstrap al proyecto-->
         <script src="../../Bootstrap/js/jquery-2.1.4.js"></script>
         <script src="../../Bootstrap/js/bootstrap.js"></script>
+        <script src="../../Bootstrap/js/getDatos.js"></script>
         <script src="../../Bootstrap/js/bootstrap-table.js"></script>
         <link href="../../Bootstrap/css/bootstrap-table.css" rel="stylesheet">
          <script src="../../Bootstrap/js/validaciones.js"></script>
@@ -78,11 +79,14 @@ $ajustesModel = new AjustesModel();
                                                     <td><?php echo $aju->getID_AJUSTE_PROD(); ?></td>
                                                     <td><?php echo $aju->getMOTIVO_AJUSTE_PROD() ?></td>
                                                     <td><?php echo $aju->getFECHA_AJUSTE_PROD() ?></td>
-                                                    <!--<td><?php echo "<a href='../../Controller/controller.php?opcion1=ajuste&opcion2=editar_ajuste&ID_AJUSTE_PROD=" . $aju->getID_AJUSTE_PROD()."'>Editaaar</a>";?></td>-->
+                                                    <!--<td><?php echo "<a href='../../Controller/controller.php?opcion1=ajuste&opcion2=editar_ajuste&ID_AJUSTE_PROD=".$aju->getID_AJUSTE_PROD()."'>Editar</a>";?></td>-->
                                                     <!--<td align="center"><li role="presentation"><a href=#editAJU" data-toggle="modal">Editar</a></li></td>-->
-                                                    <td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                    <td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>
-                                               
+                                                    <!--<td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>-->  
+                                                    <input type="hidden" value="<?php echo $aju->getID_AJUSTE_PROD(); ?>" id="ID_AJUSTE_PROD<?php echo $aju->getID_AJUSTE_PROD(); ?>">
+                                                    <input type="hidden" value="<?php echo $aju->getMOTIVO_AJUSTE_PROD(); ?>" id="MOTIVO_AJUSTE_PROD<?php echo $aju->getID_AJUSTE_PROD(); ?>" >
+                                                    <input type="hidden" value="<?php echo $aju->getFECHA_AJUSTE_PROD();?>" id="FECHA_AJUSTE_PROD<?php echo $aju->getID_AJUSTE_PROD(); ?>" >
+                                                    <td> <li role="presentation"><a href="#editAJU" onclick="obtener_datos('<?php echo $aju->getID_AJUSTE_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></li></td>
+                                                    <td align="center"><?php echo "<a href='../../Controller/controller.php?opcion1=ajuste&opcion2=eliminar_ajuste&ID_AJUSTE_PROD=" . $aju->getID_AJUSTE_PROD()."'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>";?></td>                                    
                                                 <?php
                                             }
                                         }
@@ -130,10 +134,10 @@ $ajustesModel = new AjustesModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Motivo </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" name="MOTIVO_AJUSTE_PROD" onkeypress="return SoloLetras(event);" size="150" maxlength="150" placeholder="Ingrese el motivo del ajuste" required />
+                                                <input type="text" class="form-control" name="MOTIVO_AJUSTE_PROD" size="150" maxlength="150" placeholder="Ingrese el motivo del ajuste" required />
                                             </div>
                                         </div>
-                                       
+                       
                                     </div>
                                 </div>
                             </div>
@@ -156,12 +160,12 @@ $ajustesModel = new AjustesModel();
                     <!--<form class="form-horizontal" action="#ventanasEmergentes">-->
                     <form class="form-horizontal" action="../../Controller/controller.php">
                         <input type="hidden" name="opcion1" value="ajuste">
-                        <input type="hidden" name="opcion2" value="insertar_ajuste">
+                        <input type="hidden" name="opcion2" value="guardar_ajuste">
                         <div class="modal-content">
                             <!-- Header de la ventana -->
                             <div class="modal-header bg-success">
                                 <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3 class="modal-title"><span class="glyphicon glyphicon-cog"></span> Nuevo Ajuste</h3>
+                                <h3 class="modal-title"><span class="glyphicon glyphicon-cog"></span> Editar Ajuste</h3>
                             </div>
 
                             <!-- Contenido de la ventana -->
@@ -173,8 +177,9 @@ $ajustesModel = new AjustesModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Codigo</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <?php echo $ajustesModel->generarCodigoAjuste(); ?>
-                                                 <input type="hidden" name="ID_AJUSTE_PROD" value="<?php echo $ajustesModel->generarCodigoAjuste(); ?>">
+                                                <input type="hidden" id="mod_id" name="mod_id" value="">
+                                                <p id="mod_cod"></p>
+                                                 <!--<input type="txt" id="mod_cod" name="mod_cod" value="">-->
                                                 <!--<input type="text" class="form-control" placeholder="Ingrese sus Apellidos" required />-->
                                             </div>
                                         </div>
@@ -183,10 +188,20 @@ $ajustesModel = new AjustesModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Motivo </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" name="MOTIVO_AJUSTE_PROD" onkeypress="return SoloLetras(event);" size="150" maxlength="150" placeholder="Ingrese el motivo del ajuste" required />
+                                                <input type="text" class="form-control" id="mod_motivo" name="mod_motivo" size="150" maxlength="150" placeholder="Ingrese el motivo del ajuste" required />
                                             </div>
                                         </div>
                                        
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Fecha</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="hidden" id="" name="mod_fecha" value="<?php echo gmdate("Y-m-d H:i:s"); ?>">
+                                                <p id=""> <?php echo gmdate("Y-m-d H:i:s"); ?></p>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
