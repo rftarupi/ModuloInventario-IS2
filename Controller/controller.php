@@ -17,6 +17,11 @@ $opcion2 = $_REQUEST['opcion2'];
 unset($_SESSION['ErrorBaseDatos']);
 
 switch ($opcion1) {
+    // I N I C I O   D E   S E S I O N
+    case "uniciar_sesion":
+        
+        break;
+    
     // U S U A R I O 
     case "usuario":
         switch ($opcion2) {
