@@ -192,7 +192,7 @@ $ajustesModel = new AjustesModel();
                                             </div>
                                         </div>
                                        
-                                        <div class="form-group">
+<!--                                        <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Fecha</label>
                                             </div>
@@ -200,7 +200,7 @@ $ajustesModel = new AjustesModel();
                                                 <input type="hidden" id="" name="mod_fecha" value="<?php echo gmdate("Y-m-d H:i:s"); ?>">
                                                 <p id=""> <?php echo gmdate("Y-m-d H:i:s"); ?></p>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         
                                     </div>
                                 </div>

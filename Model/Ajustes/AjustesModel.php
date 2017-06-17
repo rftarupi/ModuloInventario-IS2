@@ -60,12 +60,12 @@ class AjustesModel {
     }
 
     // METODO PARA ACTUALIZAR UN AJUSTE (CABECERA)
-    public function actualizarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD,$FECHA_AJUSTE_PROD) {
+    public function actualizarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD) {
         $pdo = Database::connect();
-        $sql = "update INV_TAB_AJUSTES_PRODUCTOS set MOTIVO_AJUSTE_PROD=?,FECHA_AJUSTE_PROD=? where ID_AJUSTE_PROD=?";
+        $sql = "update INV_TAB_AJUSTES_PRODUCTOS set MOTIVO_AJUSTE_PROD=?, FECHA_AJUSTE_PROD=CURRENT_TIMESTAMP  where ID_AJUSTE_PROD=?";
         $consulta = $pdo->prepare($sql);
         try {
-            $consulta->execute(array($MOTIVO_AJUSTE_PROD,$FECHA_AJUSTE_PROD,$ID_AJUSTE_PROD));
+            $consulta->execute(array($MOTIVO_AJUSTE_PROD,$ID_AJUSTE_PROD));
         } catch (PDOException $e) {
             Database::disconnect();
             throw new Exception($e->getMessage());
