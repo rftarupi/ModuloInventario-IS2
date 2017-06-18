@@ -124,7 +124,11 @@ $usuariosModel = new UsuariosModel();
                                                 <input type="hidden" value="<?php echo $usu->getESTADO_USU(); ?>" id="ESTADO_USU<?php echo $usu->getID_USU(); ?>">
                                                 <input type="hidden" value="<?php echo $usu->getCLAVE_USU(); ?>" id="CLAVE_USU<?php echo $usu->getID_USU()?>">
 
+                                                
                                                 <td><a href="#editUSU" onclick="obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                
+                                                
+                                                
 
                                                                                                                                 <!--<td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>-->
                                                 <td align="center"><?php echo "<a href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=" . $usu->getID_USU() . "'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>"; ?></td> 
@@ -188,7 +192,7 @@ $usuariosModel = new UsuariosModel();
                                                     $listado = $tiposUsuarioModel->getTiposUsuario();
                                                     foreach ($listado as $tipoUsuario) {
                                                         ?>
-                                                        <option  value="<?php echo $tipoUsuario->getID_TIPO_USU(); ?>"><?php echo $tipoUsuario->getID_TIPO_USU() . " - " . $tipoUsuario->getNOMBRE_TIPO_USU(); ?></option>
+                                                        <option  value="<?php echo $tipoUsuario->getID_TIPO_USU(); ?>"><?php echo $tipoUsuario->getNOMBRE_TIPO_USU(); ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -232,7 +236,7 @@ $usuariosModel = new UsuariosModel();
                                             </div>
 
                                             <div class="col-md-7">
-                                                <input type="date" class="form-control" name="FECH_NAC_USU" min="1990-01-01" max="2017-06-17">
+                                                <input type="date" class="form-control" name="FECH_NAC_USU" min="1900-01-01" max="<?php echo date("Y-m-d") ?>">
                                             </div>
  
                                         </div>
@@ -372,15 +376,17 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Tipo Usuario </label>
                                             </div>
                                             <div class="col-md-7">
+                                                
                                                 <select class="form-control" id="mod_tipo_usu" name="mod_tipo_usu">
-                                                    <option  id="mod_tipo_u" ></option>
+
                                                     <?php
                                                     $listado = $tiposUsuarioModel->getTiposUsuario();
                                                     foreach ($listado as $tipoUsuario) {
                                                         ?>
-                                                    <option  value="<?php echo $tipoUsuario->getID_TIPO_USU(); ?>"><?php echo $tipoUsuario->getID_TIPO_USU() ." - ".$tipoUsuario->getNOMBRE_TIPO_USU(); ?></option>
+                                                        <option  value="<?php echo $tipoUsuario->getID_TIPO_USU(); ?>"><?php echo $tipoUsuario->getNOMBRE_TIPO_USU(); ?></option>
                                                     <?php } ?>
                                                 </select>
+                                               
                                             </div>
                                         </div>
 
@@ -418,7 +424,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Fecha </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="date" id="mod_fecha" name="mod_fecha" value="" min="1990-01-01" max="2017-06-17">
+                                                <input type="date" id="mod_fecha" name="mod_fecha" value="" min="1900-01-01" max="<?php echo date("Y-m-d") ?>">
                                               
                                             </div>
                                         </div>
