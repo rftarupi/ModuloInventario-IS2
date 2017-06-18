@@ -26,7 +26,7 @@ class UsuariosModel {
     }
 
     // Método para Obtener información de un usuario especificando su Id
-    public function getUsuario($ID_USU) {
+    public function getUsuario($ID_USU) { 
         //Obtención de informacion de la Base de Datos mediante consulta sql
         $pdo = Database::connect();
         $sql = "select * from inv_tab_usuarios where ID_USU=?";
