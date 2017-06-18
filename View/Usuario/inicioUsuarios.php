@@ -199,7 +199,7 @@ $usuariosModel = new UsuariosModel();
                                             </div>
 
                                             <div class="col-md-7">
-                                                <input onkeypress="return SoloNumeros(event);" type="text" size="10" maxlength="10" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula" required />
+                                                <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula" required />
                                             </div>
 
                                         </div>
@@ -210,7 +210,7 @@ $usuariosModel = new UsuariosModel();
                                             </div>
 
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" name="NOMBRES_USU" placeholder="Ingrese sus Nombres" required />
+                                                <input onkeypress="return SoloLetras(event);" type="text" class="form-control" name="NOMBRES_USU" placeholder="Ingrese sus Nombres" required />
                                             </div>
 
                                         </div>
@@ -221,7 +221,7 @@ $usuariosModel = new UsuariosModel();
                                             </div>
 
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" name="APELLIDOS_USU" placeholder="Ingrese sus Apellidos" required />
+                                                <input onkeypress="return SoloLetras(event);" type="text" class="form-control" name="APELLIDOS_USU" placeholder="Ingrese sus Apellidos" required="true" />
                                             </div>
 
                                         </div>
@@ -232,7 +232,7 @@ $usuariosModel = new UsuariosModel();
                                             </div>
 
                                             <div class="col-md-7">
-                                                <input type="date" class="form-control" name="FECH_NAC_USU">
+                                                <input type="date" class="form-control" name="FECH_NAC_USU" min="1990-01-01" max="2017-06-17">
                                             </div>
 
                                         </div>
@@ -241,9 +241,9 @@ $usuariosModel = new UsuariosModel();
                                             <div class="col-md-3 col-md-offset-1">
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Ciudad </label>
                                             </div>
-
+ 
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" name="CIUDAD_NAC_USU" placeholder="Ingrese la Ciudad de Nacimiento" />
+                                                <input onkeypress="return SoloLetras(event);" type="text" class="form-control" name="CIUDAD_NAC_USU" placeholder="Ingrese la Ciudad de Nacimiento" required="true"/>
                                             </div>
 
                                         </div>
@@ -265,7 +265,7 @@ $usuariosModel = new UsuariosModel();
                                             </div>
 
                                             <div class="col-md-7">
-                                                <input onkeypress="return SoloNumeros(event);" type="number" class="form-control" name="FONO_USU" placeholder="Ingrese su numero de Teléfono" />
+                                                <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" name="FONO_USU" placeholder="Ingrese su numero de Teléfono" required="true" />
                                             </div>
 
                                         </div>
@@ -276,18 +276,18 @@ $usuariosModel = new UsuariosModel();
                                             </div>
 
                                             <div class="col-md-7">
-                                                <input type="email" class="form-control" name="E_MAIL_USU" placeholder="Ingrese su Correo" />
+                                                <input type="email" class="form-control" name="E_MAIL_USU" placeholder="Ingrese su Correo" required="true"/>
                                             </div>
 
                                         </div>
 
                                         <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Estado </label>
+                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk" required="true"></span> Estado </label>
                                             </div>
 
                                             <div class="col-md-7">
-                                                <select class="form-control" id="ESTADO_USU" name="ESTADO_USU">
+                                                <select class="form-control" id="ESTADO_USU" name="ESTADO_USU" required="true">
 
                                                     <option value="A">ACTIVO</option>
                                                     <option value="I">INACTIVO</option>
@@ -303,7 +303,7 @@ $usuariosModel = new UsuariosModel();
                                             </div>
 
                                             <div class="col-md-7">
-                                                <input type="password" class="form-control" name="CLAVE_USU" placeholder="Ingrese su Clave" />
+                                                <input type="password" class="form-control" name="CLAVE_USU" placeholder="Ingrese su Clave" required="true"/>
                                             </div>
 
                                         </div>
@@ -360,7 +360,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Id Usuario</label>    
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="hidden" id="mod_id" name="mod_id" value="">
+                                                <input type="hidden" id="mod_id" name="mod_id" value=""  >
                                                 <p id="mod_cod"></p>
                                             </div>
 
@@ -391,7 +391,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Cedula </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input onkeypress="return SoloNumeros(event);" type="number" class="form-control" id="mod_cedula" name="mod_cedula"  required />
+                                                <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" id="mod_cedula" name="mod_cedula"  required />
                                             </div>
 
                                         </div>
@@ -402,7 +402,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Nombres </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" id="mod_nombre" name="mod_nombre"  required />
+                                                <input onkeypress="return SoloLetras(event); "type="text" class="form-control" id="mod_nombre" name="mod_nombre"  required />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -410,7 +410,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Apellidos </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" id="mod_apellido" name="mod_apellido"  required />
+                                                <input onkeypress="return SoloLetras(event); "type="text" class="form-control" id="mod_apellido" name="mod_apellido"  required />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -418,7 +418,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Fecha </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="date" id="mod_fecha" name="mod_fecha" value="">
+                                                <input type="date" id="mod_fecha" name="mod_fecha" value="" min="1990-01-01" max="2017-06-17">
                                               
                                             </div>
                                         </div>
@@ -427,7 +427,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Ciudad </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" id="mod_ciudad" name="mod_ciudad"  required />
+                                                <input onkeypress="return SoloLetras(event); "type="text" class="form-control" id="mod_ciudad" name="mod_ciudad"  required />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -435,7 +435,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Dirección </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" class="form-control" id="mod_direccion" name="mod_direccion"  required />
+                                                <input onkeypress="return SoloLetras(event) "type="text" class="form-control" id="mod_direccion" name="mod_direccion"  required />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -443,7 +443,7 @@ $usuariosModel = new UsuariosModel();
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Teléfono </label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input onkeypress="return SoloNumeros(event);" type="number" class="form-control" id="mod_telefono" name="mod_telefono"  required />
+                                                <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" id="mod_telefono" name="mod_telefono"  required />
                                             </div>
                                         </div>
                                         <div class="form-group">

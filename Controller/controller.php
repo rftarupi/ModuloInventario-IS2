@@ -111,7 +111,7 @@ switch ($opcion1) {
                 // Redireccionamos a la pagina principal para visualizar
                 header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
-
+            
             default:
                 header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;

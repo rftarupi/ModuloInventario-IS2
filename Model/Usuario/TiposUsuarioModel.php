@@ -30,7 +30,7 @@ class TiposUsuarioModel {
         $pdo = Database::connect();
         $sql = "select * from inv_tab_tipo_usuario where ID_TIPO_USU=?";
         $consulta = $pdo->prepare($sql);
-        $consulta->execute(array($ID_TIPO_USU));
+        $consulta->execute(array($ID_TIPO_USU));   
 
         // Guardamos el resultado obtenido en objeto tipo TipoUsuario
         $res = $consulta->fetch(PDO::FETCH_ASSOC);
