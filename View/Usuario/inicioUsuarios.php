@@ -234,7 +234,7 @@ $usuariosModel = new UsuariosModel();
                                             <div class="col-md-7">
                                                 <input type="date" class="form-control" name="FECH_NAC_USU" min="1990-01-01" max="2017-06-17">
                                             </div>
-
+ 
                                         </div>
 
                                         <div class="form-group">
