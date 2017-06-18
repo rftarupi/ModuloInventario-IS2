@@ -76,6 +76,7 @@ $usuariosModel = new UsuariosModel();
                                         <th>TELEFONO</th>
                                         <th>E-MAIL</th>
                                         <th>ESTADO</th>
+                                        <th>CLAVE</th>
                                         <th colspan="2">ACCIONES</th>
                                         </thead>
                                         <?php
@@ -100,6 +101,7 @@ $usuariosModel = new UsuariosModel();
                                                     <td><?php echo $usu->getFONO_USU(); ?></td>
                                                     <td><?php echo $usu->getE_MAIL_USU(); ?></td>
                                                     <td><?php echo $estado; ?></td>
+                                                    <td><?php echo $usu->getCLAVE_USU(); ?></td>
                                                     <td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
                                                     <td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>
                                                 </tr>

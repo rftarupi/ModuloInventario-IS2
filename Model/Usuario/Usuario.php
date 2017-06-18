@@ -16,9 +16,10 @@ class Usuario {
     private $FONO_USU;
     private $E_MAIL_USU;
     private $ESTADO_USU;
+    private $CLAVE_USU;
 
     // Constructor de la Clase Usuario    
-    function __construct($ID_USU, $ID_TIPO_USU, $CEDULA_RUC_PASS_USU, $NOMBRES_USU, $APELLIDOS_USU, $FECH_NAC_USU, $CIUDAD_NAC_USU, $DIRECCION_USU, $FONO_USU, $E_MAIL_USU, $ESTADO_USU) {
+    function __construct($ID_USU, $ID_TIPO_USU, $CEDULA_RUC_PASS_USU, $NOMBRES_USU, $APELLIDOS_USU, $FECH_NAC_USU, $CIUDAD_NAC_USU, $DIRECCION_USU, $FONO_USU, $E_MAIL_USU, $ESTADO_USU, $CLAVE_USU) {
         $this->ID_USU = $ID_USU;
         $this->ID_TIPO_USU = $ID_TIPO_USU;
         $this->CEDULA_RUC_PASS_USU = $CEDULA_RUC_PASS_USU;
@@ -30,6 +31,7 @@ class Usuario {
         $this->FONO_USU = $FONO_USU;
         $this->E_MAIL_USU = $E_MAIL_USU;
         $this->ESTADO_USU = $ESTADO_USU;
+        $this->CLAVE_USU = $CLAVE_USU;
     }
 
     //Métodos para la obtención (get) y modificación (set) de los atributos de Usuarios
@@ -76,6 +78,10 @@ class Usuario {
     public function getESTADO_USU() {
         return $this->ESTADO_USU;
     }
+    
+    public function getCLAVE_USU() {
+        return $this->CLAVE_USU;
+    }
 
     public function setID_USU($ID_USU) {
         $this->ID_USU = $ID_USU;
@@ -116,9 +122,12 @@ class Usuario {
     public function setE_MAIL_USU($E_MAIL_USU) {
         $this->E_MAIL_USU = $E_MAIL_USU;
     }
-
+    
     public function setESTADO_USU($ESTADO_USU) {
         $this->ESTADO_USU = $ESTADO_USU;
     }
 
+    public function setCLAVE_USU($CLAVE_USU) {
+        $this->CLAVE_USU = $CLAVE_USU;
+    }
 }

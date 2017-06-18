@@ -49,10 +49,11 @@ switch ($opcion1) {
                 $FONO_USU = $_REQUEST['FONO_USU'];
                 $E_MAIL_USU = $_REQUEST['E_MAIL_USU'];
                 $ESTADO_USU = $_REQUEST['ESTADO_USU'];
+                $CLAVE_USU = $_REQUEST['CLAVE_USU'];
 
                 // Enviamos parámetros a método de ingresar Usuario
                 try {
-                    $usuariosModel->insertarUsuario($ID_USU, $ID_TIPO_USU, $CEDULA_RUC_PASS_USU, $NOMBRES_USU, $APELLIDOS_USU, $FECH_NAC_USU, $CIUDAD_NAC_USU, $DIRECCION_USU, $FONO_USU, $E_MAIL_USU, $ESTADO_USU);
+                    $usuariosModel->insertarUsuario($ID_USU, $ID_TIPO_USU, $CEDULA_RUC_PASS_USU, $NOMBRES_USU, $APELLIDOS_USU, $FECH_NAC_USU, $CIUDAD_NAC_USU, $DIRECCION_USU, $FONO_USU, $E_MAIL_USU, $ESTADO_USU, $CLAVE_USU);
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
@@ -107,10 +108,11 @@ switch ($opcion1) {
                 $FONO_USU = $_REQUEST['FONO_USU'];
                 $E_MAIL_USU = $_REQUEST['E_MAIL_USU'];
                 $ESTADO_USU = $_REQUEST['ESTADO_USU'];
+                $CLAVE_USU = $_REQUEST['CLAVE_USU'];
 
                 //actualizamos la información del Usuario
                 try {
-                    $usuariosModel->actualizarUsuario($ID_USU, $ID_TIPO_USU, $CEDULA_RUC_PASS_USU, $NOMBRES_USU, $APELLIDOS_USU, $FECH_NAC_USU, $CIUDAD_NAC_USU, $DIRECCION_USU, $FONO_USU, $E_MAIL_USU, $ESTADO_USU);
+                    $usuariosModel->actualizarUsuario($ID_USU, $ID_TIPO_USU, $CEDULA_RUC_PASS_USU, $NOMBRES_USU, $APELLIDOS_USU, $FECH_NAC_USU, $CIUDAD_NAC_USU, $DIRECCION_USU, $FONO_USU, $E_MAIL_USU, $ESTADO_USU, $CLAVE_USU);
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
