@@ -25,6 +25,18 @@ $ajustesModel = new AjustesModel();
                 font-family: Calibri Light;
             }
         </style>
+        <script LANGUAGE="JavaScript">
+            function confirEliminar(cod,mot,fec)
+            {
+                var a="\n\nCODIGO: "+cod+"\nMOTIVO: "+mot+"\nFECHA: "+fec+"\n"
+                var b="\nEsto hara que los detalles de dicho ajuste vinculados a la cabecera del mismo, se eliminen";
+                var agree = confirm("Esta seguro que desea eliminar el ajuste "+a+b);
+                if(agree)
+                    return  true;
+                else
+                    return false;
+            }
+        </script>
     </head>
     <body>
         <div class="container-fluid">
@@ -86,7 +98,8 @@ $ajustesModel = new AjustesModel();
                                                     <input type="hidden" value="<?php echo $aju->getMOTIVO_AJUSTE_PROD(); ?>" id="MOTIVO_AJUSTE_PROD<?php echo $aju->getID_AJUSTE_PROD(); ?>" >
                                                     <input type="hidden" value="<?php echo $aju->getFECHA_AJUSTE_PROD();?>" id="FECHA_AJUSTE_PROD<?php echo $aju->getID_AJUSTE_PROD(); ?>" >
                                                     <td> <li role="presentation"><a href="#editAJU" onclick="obtener_datos('<?php echo $aju->getID_AJUSTE_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></li></td>
-                                                    <td align="center"><?php echo "<a href='../../Controller/controller.php?opcion1=ajuste&opcion2=eliminar_ajuste&ID_AJUSTE_PROD=" . $aju->getID_AJUSTE_PROD()."'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>";?></td>                                    
+                                                    <!--<td align="center"><?php echo "<a onclick='return confirEliminar();' href='../../Controller/controller.php?opcion1=ajuste&opcion2=eliminar_ajuste&ID_AJUSTE_PROD=" . $aju->getID_AJUSTE_PROD()."'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>";?></td>-->                                    
+                                                     <td align="center"><a onclick="return confirEliminar('<?php echo $aju->getID_AJUSTE_PROD(); ?>','<?php echo $aju->getMOTIVO_AJUSTE_PROD(); ?>','<?php echo $aju->getFECHA_AJUSTE_PROD(); ?>');" href='../../Controller/controller.php?opcion1=ajuste&opcion2=eliminar_ajuste&ID_AJUSTE_PROD=<?php echo $aju->getID_AJUSTE_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>  
                                                 <?php
                                             }
                                         }
