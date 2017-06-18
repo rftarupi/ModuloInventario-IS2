@@ -19,13 +19,13 @@ function obtener_datos_usuario(id){
         var cedula= $("#CEDULA_USU"+id).val();
         var nombre= $("#NOMBRES_USU"+id).val();
         var apellido= $("#APELLIDOS_USU"+id).val();
-        var fecha= $("#FECH_NAC_USU"+id).val();
+        var fecha= $("#FECH_NAC_USU"+id).val(); 
         var ciudad= $("#CIUDAD_NAC_USU"+id).val();
         var direccion= $("#DIRECCION_USU"+id).val();
         var telefono= $("#FONO_USU"+id).val();
         var email= $("#E_MAIL_USU"+id).val();
         var estado= $("#ESTADO_USU"+id).val();
-        var clave= $("#CLAVE_USU"+id).val();
+        var clave= $("#CLAVE_USU"+id).val(); 
         
         $("#mod_id").val(cod);
         $("#mod_cod").text(id).css("font-weigth", "Bold");
