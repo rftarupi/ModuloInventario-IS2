@@ -86,4 +86,36 @@ class TiposUsuarioModel {
         }
         Database::disconnect();
     }
+    
+    // METODO PARA GENERAR AUTOMATICAMENTE EL CODIGO DE TIPO USUARIO -- TUSU-0001
+    public function generarCodigoTipoUsuario() {
+        $pdo = Database::connect();
+        $sql = "select max(ID_TIPO_USU) as cod from INV_TAB_TIPO_USUARIO";
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute();
+        $res = $consulta->fetch(PDO::FETCH_ASSOC);
+        $nuevoCod = '';
+        if ($res['cod'] == NULL) {
+            $nuevoCod = 'TUSU-0001';
+        } else {  
+            $rest=  ((substr($res['cod'], -4))+1).''; // Separacion de la parte numerica TUSU-0023  --> 23
+            // Ciclo que completa el codigo segun lo retornado para completar los 9 caracteres 
+            // TUSU-00 --> 67, TUSU-0 --> 786
+            if($rest >1 && $rest <=9){
+                $nuevoCod = 'TUSU-000'.$rest;
+            }else{
+                if($rest >=10 && $rest <=99){
+                    $nuevoCod = 'TUSU-00'.$rest;
+                }else{
+                    if($rest >=100 && $rest <=999){
+                    $nuevoCod = 'TUSU-0'.$rest;
+                    }else{
+                       $nuevoCod = 'TUSU-'.$rest; 
+                    }                    
+                } 
+            }
+        }
+        Database::disconnect();
+        return $nuevoCod; // RETORNO DEL NUEVO CODIGO DE TIPO USUARIO
+    }
 }

@@ -22,7 +22,7 @@ switch ($opcion1) {
         
         break;
     
-    // U S U A R I O 
+      // U S U A R I O 
     case "usuario":
         switch ($opcion2) {
             case "listar":
@@ -36,7 +36,7 @@ switch ($opcion1) {
                 header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
 
-            case "insertar":
+            case "insertar_usuarios":
                 // Obtenemos parámetros enviados desde formulario de creación de Usuario
                 $ID_USU = $_REQUEST['ID_USU'];
                 $ID_TIPO_USU = $_REQUEST['ID_TIPO_USU'];
@@ -66,7 +66,7 @@ switch ($opcion1) {
                 header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
 
-            case "eliminar":
+            case "eliminar_usuarios":
                 // Obtenemos Id del Usuario a eliminar desde formulario
                 $ID_USU = $_REQUEST['ID_USU'];
 
@@ -81,34 +81,21 @@ switch ($opcion1) {
                 header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
 
-            case "editar":
-                // Obtenemos Id del Usuario a editar desde formulario
-                $ID_USU = $_REQUEST['ID_USU'];
-
-                // Buscamos y obtenemos información del Usuario
-                $usuario = $usuariosModel->getUsuario($ID_USU);
-
-                // Guardamos datos del usuario en variable de sesión serializada
-                $_SESSION['usuario'] = serialize($usuario);
-
-                // Redireccionamos a vista para editar información
-                header('Location: ../View/Usuario/editarUsuario.php');
-                break;
-
-            case "guardar":
+            
+            case "guardar_usuario":
                 //obtenemos los parametros del formulario
-                $ID_USU = $_REQUEST['ID_USU'];
-                $ID_TIPO_USU = $_REQUEST['ID_TIPO_USU'];
-                $CEDULA_RUC_PASS_USU = $_REQUEST['CEDULA_RUC_PASS_USU'];
-                $NOMBRES_USU = $_REQUEST['NOMBRES_USU'];
-                $APELLIDOS_USU = $_REQUEST['APELLIDOS_USU'];
-                $FECH_NAC_USU = $_REQUEST['FECH_NAC_USU'];
-                $CIUDAD_NAC_USU = $_REQUEST['CIUDAD_NAC_USU'];
-                $DIRECCION_USU = $_REQUEST['DIRECCION_USU'];
-                $FONO_USU = $_REQUEST['FONO_USU'];
-                $E_MAIL_USU = $_REQUEST['E_MAIL_USU'];
-                $ESTADO_USU = $_REQUEST['ESTADO_USU'];
-                $CLAVE_USU = $_REQUEST['CLAVE_USU'];
+                $ID_USU = $_REQUEST['mod_id'];
+                $ID_TIPO_USU = $_REQUEST['mod_tipo_usu'];
+                $CEDULA_RUC_PASS_USU = $_REQUEST['mod_cedula'];
+                $NOMBRES_USU = $_REQUEST['mod_nombre'];
+                $APELLIDOS_USU = $_REQUEST['mod_apellido'];
+                $FECH_NAC_USU = $_REQUEST['mod_fecha'];
+                $CIUDAD_NAC_USU = $_REQUEST['mod_ciudad'];
+                $DIRECCION_USU = $_REQUEST['mod_direccion'];
+                $FONO_USU = $_REQUEST['mod_telefono'];
+                $E_MAIL_USU = $_REQUEST['mod_email'];
+                $ESTADO_USU = $_REQUEST['mod_estado'];
+                $CLAVE_USU = $_REQUEST['mod_clave'];
 
                 //actualizamos la información del Usuario
                 try {
