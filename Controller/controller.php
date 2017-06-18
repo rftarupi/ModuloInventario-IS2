@@ -109,7 +109,7 @@ switch ($opcion1) {
                 $_SESSION['listadoUsuarios'] = serialize($listadoUsuarios);
 
                 // Redireccionamos a la pagina principal para visualizar
-                header('Location: ../View/Usuario/inicioUsuarios.php');
+                header('Location: ../View/Usuario/inicioUsuarios.php');  
                 break;
             
             default:
