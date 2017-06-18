@@ -32,7 +32,7 @@ class TiposUsuarioModel {
         $consulta = $pdo->prepare($sql);
         $consulta->execute(array($ID_TIPO_USU));   
 
-        // Guardamos el resultado obtenido en objeto tipo TipoUsuario
+        // Guardamos el resultado obtenido en objeto tipo TipoUsuario 
         $res = $consulta->fetch(PDO::FETCH_ASSOC);
         $tipoUsuario = new TipoUsuario($res['ID_TIPO_USU'], $res['NOMBRE_TIPO_USU']);
         Database::disconnect();
