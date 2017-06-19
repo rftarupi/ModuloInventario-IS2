@@ -226,7 +226,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 </div>
 
                                                 <div class="col-md-7">
-                                                    <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula" required />
+                                                    <input onkeypress="return SoloNumeros(event);" type="text" maxlength="11" minlength="11" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula" onchange="ValidarCedula(this.form.CEDULA_RUC_PASS_USU.value, this.form.boton)" required />
                                                 </div>
 
                                             </div>
@@ -281,7 +281,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 </div>
 
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control" name="DIRECCION_USU" placeholder="Ingrese su Dirección" />
+                                                    <input type="text" class="form-control" name="DIRECCION_USU" placeholder="Ingrese su Dirección" required="true"/>
                                                 </div>
 
                                             </div>
@@ -292,7 +292,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 </div>
 
                                                 <div class="col-md-7">
-                                                    <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" name="FONO_USU" placeholder="Ingrese su numero de Teléfono" required="true" />
+                                                    <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" name="FONO_USU" placeholder="Ingrese su numero de Teléfono"/>
                                                 </div>
 
                                             </div>
@@ -303,7 +303,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 </div>
 
                                                 <div class="col-md-7">
-                                                    <input type="email" class="form-control" name="E_MAIL_USU" placeholder="Ingrese su Correo" required="true"/>
+                                                    <input type="email" class="form-control" name="E_MAIL_USU" placeholder="Ingrese su Correo"/>
                                                 </div>
 
                                             </div>
@@ -345,7 +345,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                     <div class="modal-footer">
 
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button class="btn btn-success">Guardar Ajuste</button>
+                                        <button id="boton" class="btn btn-success">Guardar Usuario</button>
 
                                     </div>
 
@@ -430,7 +430,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                         <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Cedula </label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" id="mod_cedula" name="mod_cedula"  required />
+                                                        <input onkeypress="return SoloNumeros(event);" type="text" maxlength="11" minlength="11" class="form-control" id="mod_cedula" name="mod_cedula"  onchange="ValidarCedula(this.form.mod_cedula.value, this.form.boton)" required />
                                                     </div>
 
                                                 </div>
@@ -482,7 +482,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                         <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Teléfono </label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" id="mod_telefono" name="mod_telefono"  required />
+                                                        <input onkeypress="return SoloNumeros(event);" type="text" maxlength="10" class="form-control" id="mod_telefono" name="mod_telefono" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -490,7 +490,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                         <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> E-mail </label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <input type="email" class="form-control" id="mod_email" name="mod_email"  required />
+                                                        <input type="email" class="form-control" id="mod_email" name="mod_email" />
                                                     </div>
                                                 </div>  
                                                 <div class="form-group">
@@ -511,7 +511,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                         <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Clave </label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <input type="password" class="form-control" id="mod_clave" name="mod_clave"  required />
+                                                        <input type="password" class="form-control" id="mod_clave" name="mod_clave" maxlength="70" minlength="70" required />
                                                     </div>
                                                 </div>  
                                                 <?php
@@ -535,7 +535,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                     <!-- Footer de la ventana -->
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-success">Guardar Ajuste</button>
+                                        <button type="submit" id="boton" class="btn btn-success">Guardar Usuario</button>
                                     </div>
                                 </div>
                             </div>
