@@ -44,6 +44,16 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                     font-family: Calibri Light;
                 }
             </style>
+            <script LANGUAGE="JavaScript">
+            function confirEliminar()
+            {
+                var agree = confirm("Esta seguro que desea eliminar el usuario?");
+                if(agree)
+                    return  true;
+                else
+                    return false;
+            }
+        </script>
         </head>
         <body>
             <div class="container-fluid">
@@ -153,8 +163,8 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                     if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
                                                         ?>
 
-                                                        <td align="center"><?php echo "<a href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=" . $usu->getID_USU() . "'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>"; ?></td> 
-
+                                                        <!--td align="center">--><?php //echo "<a href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=" . $usu->getID_USU() . "'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>"; ?><!--</td>--> 
+                                                        <td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=<?php echo $usu->getID_USU(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>                          
                                                         <?php
                                                     }
                                                 }
