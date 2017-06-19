@@ -15,14 +15,37 @@ $opcion1 = $_REQUEST['opcion1'];
 $opcion2 = $_REQUEST['opcion2'];
 
 unset($_SESSION['ErrorBaseDatos']);
+unset($_SESSION['ErrorInicioSesion']);
+unset($_SESSION['E-MAIL_USU']);
 
 switch ($opcion1) {
     // I N I C I O   D E   S E S I O N
-    case "uniciar_sesion":
-        
+    case "iniciar_sesion":
+        $E_MAIL_USU = $_REQUEST['email'];
+        $CLAVE_USU = $_REQUEST['password'];
+
+        // Verificamos si el usuario existe
+        $usuario = $usuariosModel->getUsuarioInicioSesion($E_MAIL_USU);
+
+        // Verificamos si el email del usuario es diferente a vacio es decir que existe
+        if (!empty($usuario->getE_MAIL_USU())) {
+            // Verificamos si la contraseña del usuario es correcta
+            if ($usuario->getCLAVE_USU() == $CLAVE_USU) {
+                $_SESSION['USUARIO_ACTIVO'] = serialize($usuario);
+                header('Location: ../View/Usuario/inicioUsuarios.php');
+            } else {
+                $_SESSION['ErrorInicioSesion'] = "Contraseña incorrecta";
+                $_SESSION['E_MAIL_USU'] = $usuario->getE_MAIL_USU();
+                header('Location: ../View/login.php');
+            }
+        } else {
+            $_SESSION['ErrorInicioSesion'] = "Usuario incorrecto";
+            header('Location: ../View/login.php');
+        }
+
         break;
-    
-      // U S U A R I O 
+
+    // U S U A R I O 
     case "usuario":
         switch ($opcion2) {
             case "listar":
@@ -50,6 +73,10 @@ switch ($opcion1) {
                 $E_MAIL_USU = $_REQUEST['E_MAIL_USU'];
                 $ESTADO_USU = $_REQUEST['ESTADO_USU'];
                 $CLAVE_USU = $_REQUEST['CLAVE_USU'];
+                
+                if($ID_TIPO_USU=="NULL"){
+                    $ID_TIPO_USU = NULL;
+                }
 
                 // Enviamos parámetros a método de ingresar Usuario
                 try {
@@ -57,8 +84,8 @@ switch ($opcion1) {
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
-                
-               // Actualizamos y volvemos a serializar en variable de sesión la lista de Usuarios
+
+                // Actualizamos y volvemos a serializar en variable de sesión la lista de Usuarios
                 $listadoUsuarios = $usuariosModel->getUsuarios();
                 $_SESSION['listadoUsuarios'] = serialize($listadoUsuarios);
 
@@ -81,7 +108,7 @@ switch ($opcion1) {
                 header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
 
-            
+
             case "guardar_usuario":
                 //obtenemos los parametros del formulario
                 $ID_USU = $_REQUEST['mod_id'];
@@ -109,43 +136,43 @@ switch ($opcion1) {
                 $_SESSION['listadoUsuarios'] = serialize($listadoUsuarios);
 
                 // Redireccionamos a la pagina principal para visualizar
-                header('Location: ../View/Usuario/inicioUsuarios.php');   
+                header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
-            
+
             default:
                 header('Location: ../View/Usuario/inicioUsuarios.php');
                 break;
         }
         break;
-    
-     // A J U S T E S
+
+    // A J U S T E S
     case "ajuste":
         switch ($opcion2) {
-            case "listar_ajustes":              
-                $listadoAjustes = $ajustesModel->getCabAjustes();    
-                $_SESSION['listadoAjustes'] = serialize($listadoAjustes);  
-                header('Location: ../View/Ajustes/inicioAjuste.php'); 
+            case "listar_ajustes":
+                $listadoAjustes = $ajustesModel->getCabAjustes();
+                $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
+                header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
             case "insertar_ajuste":
                 $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
                 $MOTIVO_AJUSTE_PROD = $_REQUEST['MOTIVO_AJUSTE_PROD'];
 
                 try {
-                    $ajustesModel->insertarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD);     
+                    $ajustesModel->insertarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD);
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
-                
-               $listadoAjustes = $ajustesModel->getCabAjustes(); 
-               $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
 
-               header('Location: ../View/Ajustes/inicioAjuste.php');
+                $listadoAjustes = $ajustesModel->getCabAjustes();
+                $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
+
+                header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
-            
-             case "eliminar_ajuste":
+
+            case "eliminar_ajuste":
                 $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
                 $ajustesModel->eliminarCabAjuste($ID_AJUSTE_PROD);
-                $listadoAjustes = $ajustesModel->getCabAjustes(); 
+                $listadoAjustes = $ajustesModel->getCabAjustes();
                 $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
                 header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
@@ -162,19 +189,19 @@ switch ($opcion1) {
                 $MOTIVO_AJUSTE_PROD = $_REQUEST['mod_motivo'];
                 $FECHA_AJUSTE_PROD = $_REQUEST['mod_fecha'];
                 try {
-                    $ajustesModel->actualizarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD, $FECHA_AJUSTE_PROD);                
+                    $ajustesModel->actualizarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD, $FECHA_AJUSTE_PROD);
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
-                $listadoAjustes = $ajustesModel->getCabAjustes(); 
+                $listadoAjustes = $ajustesModel->getCabAjustes();
                 $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
                 header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
         }
         break;
-        
+
     // P R O D U C T O S
-    case "producto": 
+    case "producto":
         switch ($opcion2) {
             case "listar_productos":
                 // Obtenemos el array que contiene el listado de Usuarios
@@ -197,15 +224,15 @@ switch ($opcion1) {
                 $PVP_PROD = $_REQUEST['PVP_PROD'];
                 $ESTADO_PROD = $_REQUEST['ESTADO_PROD'];
                 $STOCK_PROD = $_REQUEST['STOCK_PROD'];
-                
+
 
                 // Enviamos parámetros a método de ingresar producto
                 try {
-                    $productoModel->insertarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD,$ESTADO_PROD, $STOCK_PROD);
+                    $productoModel->insertarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD, $ESTADO_PROD, $STOCK_PROD);
                 } catch (Exception $e) {
                     $_SESSION['ErrorBaseDatos'] = $e->getMessage();
                 }
-                 // Actualizamos y volvemos a serializar en variable de sesión la lista de Usuarios
+                // Actualizamos y volvemos a serializar en variable de sesión la lista de Usuarios
                 $listadoProductos = $productoModel->getProductos();
                 $_SESSION['listadoProductos'] = serialize($listadoProductos);
 
@@ -252,7 +279,7 @@ switch ($opcion1) {
                 $PVP_PROD = $_REQUEST['mod_pvp'];
                 $ESTADO_PROD = $_REQUEST['mod_estado'];
                 $STOCK_PROD = $_REQUEST['mod_stock'];
-                
+
                 //actualizamos la información del producto
                 try {
                     $productoModel->actualizarProducto($ID_PROD, $NOMBRE_PROD, $DESCRIPCION_PROD, $GRABA_IVA_PROD, $COSTO_PROD, $PVP_PROD, $ESTADO_PROD, $STOCK_PROD);
@@ -273,11 +300,11 @@ switch ($opcion1) {
                 break;
         }
         break;
-        
+
 
     default:
         //si no existe la opcion recibida por el controlador, siempre
         //redirigimos la navegacion a la pagina principal:
-        header('Location: ../View/index.php');
+        header('Location: ../View/login.php');
         break;
 }

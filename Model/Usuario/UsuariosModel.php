@@ -1,5 +1,5 @@
 <?php
-include_once 'DataBase.php';
+include_once '/../DataBase.php';
 include_once 'Usuario.php';
 
 // Esta clase contiene los métodos del CRUD de Usuarios
@@ -32,6 +32,21 @@ class UsuariosModel {
         $sql = "select * from inv_tab_usuarios where ID_USU=?";
         $consulta = $pdo->prepare($sql);
         $consulta->execute(array($ID_USU)); 
+
+        // Guardamos el resultado obtenido en objeto tipo Usuario
+        $res = $consulta->fetch(PDO::FETCH_ASSOC);    
+        $usuario = new Usuario($res['ID_USU'], $res['ID_TIPO_USU'], $res['CEDULA_RUC_PASS_USU'], $res['NOMBRES_USU'], $res['APELLIDOS_USU'], $res['FECH_NAC_USU'], $res['CIUDAD_NAC_USU'], $res['DIRECCION_USU'], $res['FONO_USU'], $res['E_MAIL_USU'], $res['ESTADO_USU'], $res['CLAVE_USU']);
+        Database::disconnect();
+
+        // Retornamos el Usuario encontrado
+        return $usuario;
+    }
+    
+    public function getUsuarioInicioSesion($E_MAIL_USU){
+        $pdo = Database::connect();
+        $sql = "select * from inv_tab_usuarios where E_MAIL_USU=?";
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute(array($E_MAIL_USU)); 
 
         // Guardamos el resultado obtenido en objeto tipo Usuario
         $res = $consulta->fetch(PDO::FETCH_ASSOC);    

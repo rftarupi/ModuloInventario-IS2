@@ -4,6 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+session_start();
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -31,22 +34,33 @@ and open the template in the editor.
                     <div style="padding: 20px;">
                         <form action="../Controller/controller.php">
                             <input type="hidden" name="opcion1" value="iniciar_sesion">
+                            <input type="hidden" name="opcion2" value="iniciar_sesion">
                             <div class="form-group input-group">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-envelope"></i>
                                 </span>
-                                <input type="email" class="form-control" placeholder="E-mail" name="correo" required="true" autofocus>
+                                <input type="email" class="form-control" placeholder="E-mail" name="email" required="true"
+                                value="<?php
+                                if (isset($_SESSION['E_MAIL_USU'])) {
+                                    echo $_SESSION['E_MAIL_USU'];
+                                }
+                                ?>" autofocus>
                             </div>
                             <div class="form-group input-group">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-lock"></i>
                                 </span>
-                                <input class="form-control" placeholder="Contraseña" name="password" type="password" pattern="[ÁÉÍÓÚáéíóúñÑA-Za-z0-9&$#_@]{8,25}" required="true" minlength=8 maxlength=25>
+                                <input class="form-control" placeholder="Contraseña" name="password" type="password" required="true" maxlength=25>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-log-in"></i> Iniciar Sesión</button>
                             </div>
                         </form>
+                        <?php
+                        if (isset($_SESSION['ErrorInicioSesion'])) {
+                            echo "<div class = 'alert alert-danger'>" . $_SESSION['ErrorInicioSesion'] . "</div>";
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
