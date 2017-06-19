@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<!--
-Esta página contiene la vista respectiva de Usuarios en donde se encotrará las acciones del CRUD de Usuarios
--->
+
 <?php
 // Inicio de sesión e inclusión de rutas para acceder a los datos
 session_start();
