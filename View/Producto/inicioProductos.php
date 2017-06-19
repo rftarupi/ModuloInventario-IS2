@@ -52,7 +52,7 @@ $productoModel = new ProductosModel();
             <div class="row">
                 <div class="col-lg-12">
                     <div class="col-lg-12" style="border-bottom: 1px solid #c5c5c5">
-                        <h1><span class=""></span> PRODUCTOS</h1></div>
+                        <h1><span class="glyphicon glyphicon-apple"></span> PRODUCTOS</h1></div>
                 </div>
             </div>
 
