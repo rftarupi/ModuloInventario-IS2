@@ -84,6 +84,35 @@ class ProductosModel {
         }
         Database::disconnect();
     }
+    //activo y inactivo
+    public function obtenerEstadoProducto($ID_PRO){
+        $productoModel = new ProductosModel();
+        $producto = $productoModel->getProducto($ID_PRO);
+        $estado=NULL;
+        switch ($producto->getESTADO_PROD()){
+            case "A": $estado = "Activo";
+                break;
+            case "I": $estado = "Inactivo";
+                break;
+        }
+        return $estado;
+    }
+    
+    //Iva si o no 
+    
+    public function grabaIva($ID_PROD){
+        $productoModel = new ProductosModel();
+        $producto = $productoModel->getProducto($ID_PROD);
+        $iva=NULL;
+        switch ($producto->getGRAVA_IVA_PROD()){
+            case "S": $iva = "Si";
+                break;
+            case "N": $iva = "No";
+                break;
+        }
+        return $iva;
+    }
+
 public function generarCodigoProducto() {
         $pdo = Database::connect();
         $sql = "select max(ID_PROD) as cod from INV_TAB_PRODUCTOS";

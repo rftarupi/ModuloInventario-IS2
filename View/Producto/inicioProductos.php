@@ -52,7 +52,7 @@ $productoModel = new ProductosModel();
             <div class="row">
                 <div class="col-lg-12">
                     <div class="col-lg-12" style="border-bottom: 1px solid #c5c5c5">
-                        <h1><span class="glyphicon glyphicon-user"></span> PRODUCTOS</h1></div>
+                        <h1><span class=""></span> PRODUCTOS</h1></div>
                 </div>
             </div>
 
@@ -83,7 +83,7 @@ $productoModel = new ProductosModel();
                                         <th>ID PRODUCTO</th>
                                         <th>NOMBRE PRODUCTO</th>
                                         <th>DESCRIPCION DEL PRODUCTO</th>
-                                        <th>GRABA_IVA_O_NO</th>
+                                        <th>GRABA IVA</th>
                                         <th>COSTO PRODUCTO</th>
                                         <th>PVP PRODUCTO</th>
                                         <th>ESTADO PRODUCTO</th>
@@ -97,6 +97,8 @@ $productoModel = new ProductosModel();
                                             // Deserializamos y mostraremos los atributos de los usuarios usando un ciclo for
                                             $listado = unserialize($_SESSION['listadoProductos']);
                                             foreach ($listado as $pro) {
+                                                $estado = $productoModel->obtenerEstadoProducto($pro->getID_PROD());
+                                                $iva = $productoModel->grabaIva($pro->getID_PROD());
                                                 // Obtenemos datos de tipo usuario de un usuario en específico
 //                                                $tipoUsuario = $tiposUsuarioModel->getTipoUsuario($usu->getID_TIPO_USU());
 //                                                $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
@@ -114,10 +116,10 @@ $productoModel = new ProductosModel();
                                                 <td><?php echo $pro->getID_PROD(); ?></td>
                                                 <td><?php echo $pro->getNOMBRE_PROD(); ?></td>
                                                 <td><?php echo $pro->getDESCRIPCION_PROD(); ?></td>
-                                                <td><?php echo $pro->getGRAVA_IVA_PROD(); ?></td>
+                                                <td><?php echo $iva; ?></td>
                                                 <td><?php echo $pro->getCOSTO_PROD(); ?></td>
                                                 <td><?php echo $pro->getPVP_PROD(); ?></td>
-                                                <td><?php echo $pro->getESTADO_PROD(); ?></td>
+                                                <td><?php echo $estado; ?></td>
                                                 <td><?php echo $pro->getSTOCK_PROD(); ?></td>
                                                    <!--<td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>-->
                                                 <!--<td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>-->
@@ -259,7 +261,7 @@ $productoModel = new ProductosModel();
                             <!-- Header de la ventana -->
                             <div class="modal-header bg-success">
                                 <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3 class="modal-title"><span class="glyphicon glyphicon-user"></span> ACTALIZAR Producto</h3>
+                                <h3 class="modal-title"><span class="glyphicon glyphicon-user"></span> Actualizar Producto</h3>
                             </div>
                             <!-- Contenido de la ventana -->
                             <div class="modal-body">
