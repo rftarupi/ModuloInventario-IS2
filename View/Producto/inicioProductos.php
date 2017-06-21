@@ -150,7 +150,7 @@ $productoModel = new ProductosModel();
                             <!-- Header de la ventana -->
                             <div class="modal-header bg-success">
                                 <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3 class="modal-title"><span class="glyphicon glyphicon-user"></span> Nuevo Producto</h3>
+                                <h3 class="modal-title"><span class="glyphicon glyphicon-apple"></span> Nuevo Producto</h3>
                             </div>
                             <!-- Contenido de la ventana -->
                             <div class="modal-body">
@@ -259,7 +259,7 @@ $productoModel = new ProductosModel();
                             <!-- Header de la ventana -->
                             <div class="modal-header bg-success">
                                 <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3 class="modal-title"><span class="glyphicon glyphicon-user"></span> Actualizar Producto</h3>
+                                <h3 class="modal-title"><span class="glyphicon glyphicon-apple"></span> Actualizar Producto</h3>
                             </div>
                             <!-- Contenido de la ventana -->
                             <div class="modal-body">
