@@ -1,7 +1,8 @@
 <?php
 
-include_once 'CabeceraAjuste.php';
 include_once '/../DataBase.php';
+include_once 'CabeceraAjuste.php';
+
 
 class AjustesModel {
 
@@ -14,7 +15,7 @@ class AjustesModel {
         $resultado = $pdo->query($sql);
         $listadoCabAjustes = array();
         foreach ($resultado as $res) {
-            $Cab_ajuste = new CabeceraAjuste($res['ID_AJUSTE_PROD'], $res['MOTIVO_AJUSTE_PROD'], $res['FECHA_AJUSTE_PROD']);
+            $Cab_ajuste = new CabeceraAjuste($res['ID_AJUSTE_PROD'], $res['MOTIVO_AJUSTE_PROD'], $res['FECHA_AJUSTE_PROD'],$res['FECHA_IMPRESION_AJUS_PROD'],$res['ESTADO_IMP_AJUSTE_PROD']);
             array_push($listadoCabAjustes, $Cab_ajuste);
         }
         Database::disconnect();
@@ -28,7 +29,7 @@ class AjustesModel {
         $consulta = $pdo->prepare($sql);
         $consulta->execute(array($ID_AJUSTE_PROD));
         $res = $consulta->fetch(PDO::FETCH_ASSOC);
-        $Cab_ajuste = new CabeceraAjuste($res['ID_AJUSTE_PROD'], $res['MOTIVO_AJUSTE_PROD'], $res['FECHA_AJUSTE_PROD']);
+        $Cab_ajuste = new CabeceraAjuste($res['ID_AJUSTE_PROD'], $res['MOTIVO_AJUSTE_PROD'], $res['FECHA_AJUSTE_PROD'],$res['FECHA_IMPRESION_AJUS_PROD'],$res['ESTADO_IMP_AJUSTE_PROD']);
         Database::disconnect();
         return $Cab_ajuste;
     }

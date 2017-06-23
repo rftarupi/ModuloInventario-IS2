@@ -14,23 +14,26 @@ $ajustesModel = new AjustesModel();
         <!--Importación de Bootstrap al proyecto-->
         <script src="../../Bootstrap/js/jquery-2.1.4.js"></script>
         <script src="../../Bootstrap/js/bootstrap.js"></script>
+          <script src="../../Bootstrap/js/bootstrap-table.js"></script>
         <script src="../../Bootstrap/js/getDatos.js"></script>
-        <script src="../../Bootstrap/js/bootstrap-table.js"></script>
-        <link href="../../Bootstrap/css/bootstrap-table.css" rel="stylesheet">
-         <script src="../../Bootstrap/js/validaciones.js"></script>
         <link href="../../Bootstrap/css/bootstrap.css" rel="stylesheet" />
+          <link href="../../Bootstrap/css/bootstrap-table.css" rel="stylesheet">
         <link rel="../../stylesheet" href="Bootstrap/css/bootstrap-theme.css">
+
+         <script src="../../Bootstrap/js/validaciones.js"></script>
+        
+       
         <style type="text/css">
             div{
                 font-family: Calibri Light;
             }
         </style>
         <script LANGUAGE="JavaScript">
-            function confirEliminar(cod,mot,fec)
+            function confirImprimir(cod,mot,fec)
             {
                 var a="\n\nCODIGO: "+cod+"\nMOTIVO: "+mot+"\nFECHA: "+fec+"\n"
-                var b="\nEsto hara que los detalles de dicho ajuste vinculados a la cabecera del mismo, se eliminen";
-                var agree = confirm("Esta seguro que desea eliminar el ajuste "+a+b);
+                var b="\nUna vez impreso este ajuste ya no se lo podrá editar, ¿Desea continuar?";
+                var agree = confirm("ADVERTENCIA:\n\nIMPRESIÓN DEL AJUSTE "+a+b);
                 if(agree)
                     return  true;
                 else
@@ -72,11 +75,13 @@ $ajustesModel = new AjustesModel();
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-condensed table-hover">
                                         <thead>
-                                            <tr>
+                                            <tr> 
+                                        <th colspan="2">ACCIONES</th>
                                         <th>CODIGO AJUSTE</th>
                                         <th>MOTIVO AJUSTE</th>
                                         <th>FECHA AJUSTE</th>
-                                        <th colspan="2">ACCIONES</th>
+                                        <th>FECHA IMPRESIÓN</th>
+                                        <th>ESTADO DE IMPRESIÓN</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -88,23 +93,35 @@ $ajustesModel = new AjustesModel();
                                             foreach ($listado as $aju) {
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $aju->getID_AJUSTE_PROD(); ?></td>
-                                                    <td><?php echo $aju->getMOTIVO_AJUSTE_PROD() ?></td>
-                                                    <td><?php echo $aju->getFECHA_AJUSTE_PROD() ?></td>
-                                                    <!--<td><?php echo "<a href='../../Controller/controller.php?opcion1=ajuste&opcion2=editar_ajuste&ID_AJUSTE_PROD=".$aju->getID_AJUSTE_PROD()."'>Editar</a>";?></td>-->
-                                                    <!--<td align="center"><li role="presentation"><a href=#editAJU" data-toggle="modal">Editar</a></li></td>-->
-                                                    <!--<td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>-->  
                                                     <input type="hidden" value="<?php echo $aju->getID_AJUSTE_PROD(); ?>" id="ID_AJUSTE_PROD<?php echo $aju->getID_AJUSTE_PROD(); ?>">
                                                     <input type="hidden" value="<?php echo $aju->getMOTIVO_AJUSTE_PROD(); ?>" id="MOTIVO_AJUSTE_PROD<?php echo $aju->getID_AJUSTE_PROD(); ?>" >
                                                     <input type="hidden" value="<?php echo $aju->getFECHA_AJUSTE_PROD();?>" id="FECHA_AJUSTE_PROD<?php echo $aju->getID_AJUSTE_PROD(); ?>" >
-                                                    <td> <li role="presentation"><a href="#editAJU" onclick="obtener_datos('<?php echo $aju->getID_AJUSTE_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></li></td>
-                                                    <!--<td align="center"><?php echo "<a onclick='return confirEliminar();' href='../../Controller/controller.php?opcion1=ajuste&opcion2=eliminar_ajuste&ID_AJUSTE_PROD=" . $aju->getID_AJUSTE_PROD()."'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>";?></td>-->                                    
-                                                     <td align="center"><a onclick="return confirEliminar('<?php echo $aju->getID_AJUSTE_PROD(); ?>','<?php echo $aju->getMOTIVO_AJUSTE_PROD(); ?>','<?php echo $aju->getFECHA_AJUSTE_PROD(); ?>');" href='../../Controller/controller.php?opcion1=ajuste&opcion2=eliminar_ajuste&ID_AJUSTE_PROD=<?php echo $aju->getID_AJUSTE_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>  
-                                                <?php
+                                                    
+                                                    <td align="center"><a onclick="return confirImprimir('<?php echo $aju->getID_AJUSTE_PROD(); ?>','<?php echo $aju->getMOTIVO_AJUSTE_PROD(); ?>','<?php echo $aju->getFECHA_AJUSTE_PROD(); ?>');" href='../../Controller/controller.php?opcion1=ajuste&opcion2=imprimir_ajuste&ID_AJUSTE_PROD=<?php echo $aju->getID_AJUSTE_PROD(); ?>'><span class='glyphicon glyphicon-print'>Imprimir</span></a></td>  
+                                                    <td align="center"> 
+                                                     <?php
+                                                     if($aju->getESTADO_IMP_AJUSTE_PROD()=='Impreso'){
+                                                     echo '--';}
+                                                       else{
+                                                             echo "<a href='#editAJU' onclick='obtener_datos(".$aju->getID_AJUSTE_PROD()."') data-toggle='modal'><span class='glyphicon glyphicon-pencil'>Editar</a>";
+                                                         }
+                                                             ?>
+                                                    </td>                                                                                  
+                                                    
+                                                    <td><?php echo $aju->getID_AJUSTE_PROD(); ?></td>
+                                                    <td><?php echo $aju->getMOTIVO_AJUSTE_PROD() ?></td>
+                                                    <td><?php echo $aju->getFECHA_AJUSTE_PROD() ?></td>
+                                                    <td><?php echo $aju->getFECHA_IMPRESION_AJUS_PROD() ?></td>
+                                                    <td><?php echo $aju->getESTADO_IMP_AJUSTE_PROD() ?></td>                    
+                                                  
+                                                     
+                                               <?php
                                             }
                                         }
                                         ?>
-                                                     </tr>
+                                                    
+                                               </tr>
+                                               
                                         </tbody>
                                     </table>
                                 </div>
@@ -228,8 +245,6 @@ $ajustesModel = new AjustesModel();
                     </form>
                 </div>
             </div>
-            
-            
         </div>
     </body>
 </html>

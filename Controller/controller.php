@@ -197,6 +197,9 @@ switch ($opcion1) {
                 $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
                 header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
+            case "imprimir_ajuste":
+                header('Location: ../View/Ajustes/inicioAjuste.php');
+                break;
         }
         break;
 
