@@ -94,6 +94,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                         <!-- Tabla en la que se listaras los usuarios de la Base de Datos -->
                                         <table class="table table-striped table-bordered table-condensed table-hover">
                                             <thead>
+                                            <th colspan="1">ACCIONES</th>
                                             <th>ID USUARIO</th>
                                             <th>TIPO USUARIO</th>
                                             <th>CEDULA - RUC</th>
@@ -105,7 +106,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                             <th>TELEFONO</th>
                                             <th>E-MAIL</th>
                                             <th>ESTADO</th>
-                                            <th colspan="2">ACCIONES</th>
+                                           
                                             </thead>
                                             <tbody>
                                                 <?php
@@ -119,6 +120,23 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                         $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
                                                         ?>
                                                         <tr>
+                                                             <?php
+                                                    // Un bodeguero solo puede editar datos de los que no tienen perfil
+                                                    if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
+                                                        ?>
+                                                        <td><a href = "#editUSU" onclick = "obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle = "modal"><span class = "glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                        <?php
+                                                    } else {
+                                                        if (is_null($usu->getID_TIPO_USU())) {
+                                                            ?>
+                                                            <td><a href = "#editUSU" onclick = "obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle = "modal"><span class = "glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                            <?php
+                                                        }
+                                                    }
+
+                                                    // Restringir la eliminación a un usuario que no sea Administrador
+                                                    if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
+                                                        ?>
                                                             <td><?php echo $usu->getID_USU(); ?></td>
                                                             <td><?php echo $tipoUsuario->getNOMBRE_TIPO_USU(); ?></td>
                                                             <td><?php echo $usu->getCEDULA_RUC_PASS_USU(); ?></td>
@@ -145,26 +163,10 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                     <input type="hidden" value="<?php echo $usu->getESTADO_USU(); ?>" id="ESTADO_USU<?php echo $usu->getID_USU(); ?>">
                                                     <input type="hidden" value="<?php echo $usu->getCLAVE_USU(); ?>" id="CLAVE_USU<?php echo $usu->getID_USU() ?>">
 
-                                                    <?php
-                                                    // Un bodeguero solo puede editar datos de los que no tienen perfil
-                                                    if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
-                                                        ?>
-                                                        <td><a href = "#editUSU" onclick = "obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle = "modal"><span class = "glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                        <?php
-                                                    } else {
-                                                        if (is_null($usu->getID_TIPO_USU())) {
-                                                            ?>
-                                                            <td><a href = "#editUSU" onclick = "obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle = "modal"><span class = "glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                            <?php
-                                                        }
-                                                    }
-
-                                                    // Restringir la eliminación a un usuario que no sea Administrador
-                                                    if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
-                                                        ?>
+                                                   
 
                                                         <!--td align="center">--><?php //echo "<a href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=" . $usu->getID_USU() . "'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>"; ?><!--</td>--> 
-                                                        <td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=<?php echo $usu->getID_USU(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>                          
+                                                        <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=<?php echo $usu->getID_USU(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                          
                                                         <?php
                                                     }
                                                 }

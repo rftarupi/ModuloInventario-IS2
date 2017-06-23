@@ -78,6 +78,7 @@ $productoModel = new ProductosModel();
                                     <!-- Tabla en la que se listaras los productos de la Base de Datos -->
                                     <table class="table table-striped table-bordered table-condensed table-hover">
                                         <thead>
+                                        <th colspan="2">ACCIONES</th>
                                         <th>ID PRODUCTO</th>
                                         <th>NOMBRE PRODUCTO</th>
                                         <th>DESCRIPCION DEL PRODUCTO</th>
@@ -85,9 +86,9 @@ $productoModel = new ProductosModel();
                                         <th>COSTO PRODUCTO</th>
                                         <th>PVP PRODUCTO</th>
                                         <th>ESTADO PRODUCTO</th>
-                                        <th>STOCK PRODUCTO</th>
+                                        
 
-                                        <th colspan="2">ACCIONES</th>
+                                        
                                         </thead>
                                         <?php
                                         // Verificamos si existe la variable de sesión que contiene la lista de Productos
@@ -102,7 +103,8 @@ $productoModel = new ProductosModel();
 //                                                $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
                                                 ?>
                                                 <tr>
-
+                                                <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                <td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>                                    
                                                 <input type="hidden" value="<?php echo $pro->getID_PROD(); ?>" id="ID_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getNOMBRE_PROD(); ?>" id="NOMBRE_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getDESCRIPCION_PROD(); ?>" id="DESCRIPCION<?php echo $pro->getID_PROD(); ?>">
@@ -110,7 +112,7 @@ $productoModel = new ProductosModel();
                                                 <input type="hidden" value="<?php echo $pro->getCOSTO_PROD(); ?>" id="COSTO_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getPVP_PROD(); ?>" id="PVP_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getESTADO_PROD(); ?>" id="ESTADO_PROD<?php echo $pro->getID_PROD(); ?>">
-                                                <input type="hidden" value="<?php echo $pro->getSTOCK_PROD(); ?>" id="STOCK_PROD<?php echo $pro->getID_PROD(); ?>">
+                                                <!--<input type="hidden" value="<?php echo $pro->getSTOCK_PROD(); ?>" id="STOCK_PROD<?php echo $pro->getID_PROD(); ?>">-->
                                                 <td><?php echo $pro->getID_PROD(); ?></td>
                                                 <td><?php echo $pro->getNOMBRE_PROD(); ?></td>
                                                 <td><?php echo $pro->getDESCRIPCION_PROD(); ?></td>
@@ -118,12 +120,12 @@ $productoModel = new ProductosModel();
                                                 <td><?php echo $pro->getCOSTO_PROD(); ?></td>
                                                 <td><?php echo $pro->getPVP_PROD(); ?></td>
                                                 <td><?php echo $estado; ?></td>
-                                                <td><?php echo $pro->getSTOCK_PROD(); ?></td>
+                                                <!--<td><?php echo $pro->getSTOCK_PROD(); ?></td>-->
                                                    <!--<td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>-->
                                                 <!--<td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>-->
 
-                                                <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                <td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>                                    
+                                                
+                                                
 
                                                 </tr>
 
@@ -225,14 +227,14 @@ $productoModel = new ProductosModel();
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+<!--                                        <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Stock</label>
                                             </div>
                                             <div class="col-md-7">
                                                 <input onkeypress="return SoloNumeros(event);" type="number"  min="1" maxlength="4" minlength="1" max="1000" name="STOCK_PROD" id="STOCK_PROD" class="form-control" placeholder="Stock" required />
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <!--nuevo-->
                                     </div>
                                 </div>
@@ -335,14 +337,14 @@ $productoModel = new ProductosModel();
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+<!--                                        <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Stock</label>
                                             </div>
                                             <div class="col-md-7">
                                                 <input onkeypress="return SoloNumeros(event);" type="text" class="form-control" name="mod_stock" id="mod_stock" />
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <!--nuevo-->
                                     </div>
                                 </div>
