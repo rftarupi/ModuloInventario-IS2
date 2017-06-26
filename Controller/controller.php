@@ -156,7 +156,6 @@ switch ($opcion1) {
             case "insertar_ajuste":
                 $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
                 $MOTIVO_AJUSTE_PROD = $_REQUEST['MOTIVO_AJUSTE_PROD'];
-
                 try {
                     $ajustesModel->insertarCabAjuste($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD);
                 } catch (Exception $e) {
@@ -200,9 +199,16 @@ switch ($opcion1) {
             case "imprimir_ajuste":
                 header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
+            case "nuevo_ajuste":
+                unset($_SESSION['listadoAjustes']);
+                $_SESSION['ID_AJUSTE_PROD']= $ajustesModel->generarCodigoAjuste();
+                header('Location: ../View/Ajustes/nuevoAjuste.php');
+                break;
         }
         break;
-
+    
+    //  D E T A L L E S   A J U S T E S 
+    
     // P R O D U C T O S
     case "producto":
         switch ($opcion2) {

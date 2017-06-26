@@ -19,7 +19,6 @@ $ajustesModel = new AjustesModel();
         <link href="../../Bootstrap/css/bootstrap.css" rel="stylesheet" />
           <link href="../../Bootstrap/css/bootstrap-table.css" rel="stylesheet">
         <link rel="../../stylesheet" href="Bootstrap/css/bootstrap-theme.css">
-
          <script src="../../Bootstrap/js/validaciones.js"></script>
         
        
@@ -61,6 +60,7 @@ $ajustesModel = new AjustesModel();
                     <ul class="nav nav-pills">
                         <li role="presentation"><a href="../../Controller/controller.php?opcion1=ajuste&opcion2=listar_ajustes"><h4>MOSTRAR TODOS</h4></a></li>
                         <li role="presentation"><a href="#nuevoAJU" data-toggle="modal"><h4>NUEVO AJUSTE</h4></a></li>
+                        <li role="presentation"><a href="../../Controller/controller.php?opcion1=ajuste&opcion2=nuevo_ajuste" data-toggle="modal"><h4>NEW</h4></a></li>
                         <!--<li role="presentation"><a href="nuevoAjuste.php"><h4>NUEVO AJUSTE</h4></a></li>-->
                     </ul>
                 </div>
@@ -73,7 +73,7 @@ $ajustesModel = new AjustesModel();
                         <div class="panel-body">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-condensed table-hover">
+                                    <table class="table table-striped table-bordered table-condensed table-hover" data-toggle="table" data-pagination="true">
                                         <thead>
                                             <tr> 
                                         <th colspan="2">ACCIONES</th>
