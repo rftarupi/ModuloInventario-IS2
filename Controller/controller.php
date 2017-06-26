@@ -36,13 +36,13 @@ switch ($opcion1) {
             } else {
                 $_SESSION['ErrorInicioSesion'] = "Contraseña incorrecta";
                 $_SESSION['E_MAIL_USU'] = $usuario->getE_MAIL_USU();
-                header('Location: ../View/login.php');
             }
         } else {
+            unset($_SESSION['E-MAIL_USU']);
             $_SESSION['ErrorInicioSesion'] = "Usuario incorrecto";
-            header('Location: ../View/login.php');
         }
-
+        
+        header('Location: ../View/login.php');
         break;
 
     // U S U A R I O 
