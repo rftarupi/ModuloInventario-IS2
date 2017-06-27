@@ -41,7 +41,7 @@ switch ($opcion1) {
             unset($_SESSION['E-MAIL_USU']);
             $_SESSION['ErrorInicioSesion'] = "Usuario incorrecto";
         }
-        
+
         header('Location: ../View/login.php');
         break;
 
@@ -73,8 +73,8 @@ switch ($opcion1) {
                 $E_MAIL_USU = $_REQUEST['E_MAIL_USU'];
                 $ESTADO_USU = $_REQUEST['ESTADO_USU'];
                 $CLAVE_USU = $_REQUEST['CLAVE_USU'];
-                
-                if($ID_TIPO_USU=="NULL"){
+
+                if ($ID_TIPO_USU == "NULL") {
                     $ID_TIPO_USU = NULL;
                 }
 
@@ -196,19 +196,65 @@ switch ($opcion1) {
                 $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
                 header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
+
             case "imprimir_ajuste":
                 header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
+
             case "nuevo_ajuste":
                 unset($_SESSION['listadoAjustes']);
-                $_SESSION['ID_AJUSTE_PROD']= $ajustesModel->generarCodigoAjuste();
+                $_SESSION['ID_AJUSTE_PROD'] = $ajustesModel->generarCodigoAjuste();
                 header('Location: ../View/Ajustes/nuevoAjuste.php');
+                break;
+
+            case "insertar_detalle_ajuste":
+                //obtenemos los parametros del formulario:
+                $ID_PROD = $_REQUEST['ID_PROD'];
+                $cantidad = $_REQUEST['cantidad'];
+                if (!isset($_SESSION['listaAjusteDet'])) {
+                    $listaAjusteDet = array();
+                } else {
+                    $listaAjusteDet = unserialize($_SESSION['listaAjusteDet']);
+                }
+                try {
+                    $listaAjusteDet = $facturaModel->adicionarDetalle($listaFacturaDet, $idProducto, $cantidad);
+                    $_SESSION['listaFacturaDet'] = serialize($listaFacturaDet);
+                } catch (Exception $e) {
+                    $mensajeError = $e->getMessage();
+                    $_SESSION['mensajeError'] = $mensajeError;
+                }
+                header('Location: ../view/factura.php');
+                break;
+
+            case "recargarDatosProducto":
+                $ID_PROD = $_REQUEST['ID_PROD'];
+                $producto = $productoModel->getProducto($ID_PROD);
+                $estadoProd = null;
+                if ($producto->getGRAVA_IVA_PROD() == "S") {
+                    $estadoProd = "SI";
+                } else {
+                    $estadoProd = "NO";
+                }
+                echo "<thead>
+                <tr>
+                <th width='40%'>PRODUCTO</th>
+                <th width='20%'>PRECIO</th>
+                <th width='20%'>GRAVA IVA</th>
+                <th>STOCK</th>
+                </thead>
+                <tbody>
+                <tr class = 'info'>
+                <td>" . $producto->getNOMBRE_PROD() . "</td>
+                <td>" . $producto->getPVP_PROD() . "</td>
+                <td>" . $estadoProd . "</td>
+                <td>" . $producto->getSTOCK_PROD() . "</td>
+                </tr>
+                </tbody>";
                 break;
         }
         break;
-    
+
     //  D E T A L L E S   A J U S T E S 
-    
     // P R O D U C T O S
     case "producto":
         switch ($opcion2) {

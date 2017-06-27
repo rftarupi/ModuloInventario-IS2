@@ -29,6 +29,22 @@ $productosModel = new ProductosModel();
                 font-family: Calibri Light;
             }
         </style>
+
+        <!--Función que permite obtener datos sin recargar pagina-->
+        <script language="javascript">
+            function ObtenerDatosProducto(ID_PROD) {
+                var ID_PROD = ID_PROD;
+                /// Invocamos a nuestro script PHP
+                $.ajax({
+                    data: ID_PROD,
+                    url: '../../controller/controller.php?opcion1=ajuste&opcion2=recargarDatosProducto&ID_PROD=' + ID_PROD,
+                    type: 'post',
+                    success: function (response) {
+                        $("#TblProd").html(response);
+                    }
+                });
+            }
+        </script>
     </head>
     <body>
 
@@ -68,40 +84,45 @@ $productosModel = new ProductosModel();
                     <form action="../../Controller/controller.php">
                         <input type="hidden" name="opcion1" value="ajuste">
                         <input type="hidden" name="opcion2" value="insertar_detalle_ajuste">
-                        PRODUCTO:<select name="idProducto">
-                            <?php
-                            $listaProductos = $productosModel->getProductos();
-                            foreach ($listaProductos as $prod) {
-                                echo "<option value='" . $prod->getID_PROD() . "'>" . $prod->getNOMBRE_PROD() . "</option>";
-                            }
-                            ?>
-                        </select><br><br>
-                        <table class="table table-striped table-bordered table-condensed table-hover">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>PRODUCTO:</label>
+                                <select name="ID_PROD" id="CboIDProducto" class="form-control" onchange="ObtenerDatosProducto($('#CboIDProducto').val());return false;" required>
+                                    <option value="" disabled selected>Seleccione un Producto</option>
+                                    <?php
+                                    $listaProductos = $productosModel->getProductos();
+                                    foreach ($listaProductos as $prod) {
+                                        echo "<option value='" . $prod->getID_PROD() . "'>" . $prod->getNOMBRE_PROD() . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <br><br>
+                        <table class="table table-striped table-bordered table-condensed table-hover" id="TblProd">
                             <thead>
                                 <tr> 
-
                                     <th>PRODUCTO</th>
                                     <th>PRECIO</th>
                                     <th>GRAVA IVA</th>
                                     <th>STOCK</th>
                             </thead>
-                            <tbody>
-                                <tr class="info">
-                                    <td>a</td>
-                                    <td>a</td>
-                                    <td>a</td> 
-                                    <td>a</td>
-                                </tr>
-
-                            </tbody>
                         </table>
+
+
+                        <!--Mensaje de error en caso de stock no valido-->
+                        <?php
+                        if (isset($_SESSION['ErrorStock'])) {
+                            echo "<div class='alert alert-danger'>" . $_SESSION['ErrorStock'] . "</div>";
+                        }
+                        ?>
 
                         <!--Ingreso o salida y nuevo stock-->
                         <div class="row">
                             <div class="col-sm-2">
-                                <label for="A">Nuevo Stock</label><br>
-                                <label class="radio-inline"><input type="radio" name="optradio">INGRESO</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">SALIDA</label>
+                                <label for="A">Tipo de Movimiento</label><br>
+                                <label class="radio-inline"><input type="radio" name="optradio" value="I" checked>INGRESO</label>
+                                <label class="radio-inline"><input type="radio" name="optradio" value="S">SALIDA</label>
                             </div>
                             <div class="col-sm-2">
                                 <br><input type="text" class="form-control" name="cantidad" size="150" maxlength="1000" minlength="1" placeholder="Ingrese cantidad" required onkeypress="return SoloNumeros(event)" />
@@ -112,159 +133,42 @@ $productosModel = new ProductosModel();
                             <div class="col-sm-6"></div>
                         </div>
                         <!--Fin de Ingreso o salida y nuevo stock-->
+                        <!--Fin del Formulario para adicionar un detalle del ajuste-->
+                        <br><br>
+
+                        <!--Tabla de detalles del ajuste-->  
+                        <table class="table table-striped table-bordered table-condensed table-hover" data-toggle="table" data-pagination="true">
+                            <thead>
+                                <tr> 
+                                    <!--<th colspan="2">ACCIONES</th>-->
+                                    <th>ACCIONES</th>
+                                    <th>CODIGO DETALLE</th>
+                                    <th>PRODUCTO</th>
+                                    <th>CANTIDAD</th>
+                                    <th>TIPO MOVIMIENTO</th>
+                                    <th>PRECIO</th>
+                                    <th>IVA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="success">
+                                    <td>Eliminar</td>
+                                    <td>a</td> 
+                                    <td>a</td>
+                                    <td>a</td>
+                                    <td>a</td> 
+                                    <td>a</td>
+                                    <td>a</td> 
+                                </tr>
+                            </tbody>
+                        </table>
                     </form>
-                    <!--Fin del Formulario para adicionar un detalle del ajuste-->
-                      <br><br>
-                    
-                    <!--Tabla de detalles del ajuste-->  
-                    <table class="table table-striped table-bordered table-condensed table-hover" data-toggle="table" data-pagination="true">
-                        <thead>
-                            <tr> 
-                                <!--<th colspan="2">ACCIONES</th>-->
-                                <th>ACCIONES</th>
-                                <th>CODIGO DETALLE</th>
-                                <th>PRODUCTO</th>
-                                <th>CANTIDAD</th>
-                                <th>TIPO MOVIMIENTO</th>
-                                <th>PRECIO</th>
-                                <th>IVA</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td> 
-                            </tr>
-                            <tr class="success">
-                                <td>Eliminar</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td> 
-                                <td>a</td>
-                                <td><span class=" glyphicon glyphicon-print"></span></td> 
-                            </tr>
-                        </tbody>
-                    </table>
                     <!--Fin de la Tabla de detalles del ajuste-->
-                    
+
                     <div class="col-sm-9"></div>    
                     <div class="col-sm-3">
-                          <input type="submit" value="GUARDAR AJUSTE" id="btnGuardar" class="btn btn-success"> 
-                          <input type="submit" value="CANCELAR" id="btnGuardar" class="btn btn-danger"> 
+                        <input type="submit" value="GUARDAR AJUSTE" id="btnGuardar" class="btn btn-success"> 
+                        <input type="submit" value="CANCELAR" id="btnGuardar" class="btn btn-danger"> 
                     </div>         
                 </div>
             </div>

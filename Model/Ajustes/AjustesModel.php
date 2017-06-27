@@ -111,6 +111,42 @@ class AjustesModel {
     //$rest = substr("abcdef", -3, 1); // devuelve "d"
     
     // M E T O D O S   C R U D   D E   D E T A L L E S   D E   A J U S T E
-
+//    public function adicionarDetalle($listaAjusteDet,$ID_PROD,$ID_USU,$cantidad){
+//        if($cantidad<=0){
+//            throw new Exception ("La cantidad debe ser mayor a cero.");
+//        }
+//        //buscamos el producto:
+//        $productoModel=new CrudModel();
+//        $producto=$crudModel->getProducto($idProducto);
+//        //creamos un nuevo detalle FacturaDet:
+//        $facturaDet=new FacturaDet();
+//        $facturaDet->setIdProducto($producto->getIdProducto());
+//        $facturaDet->setNombreProducto($producto->getNombre());
+//        $facturaDet->setCantidad($cantidad);
+//        $facturaDet->setPrecio($producto->getPrecio());
+//        $facturaDet->setPorcentajeIva($producto->getPorcentajeIva());
+//        $facturaDet->setSubtotal($cantidad * $producto->getPrecio());
+//        //adicionamos el nuevo detalle al array en memoria:
+//        if(!isset($listaFacturaDet)){
+//            $listaFacturaDet=array();
+//        }
+//        array_push($listaFacturaDet,$facturaDet);
+//        return $listaFacturaDet;
+//    }
+//    
+//    public function eliminarDetalle($listaFacturaDet,$idProducto){
+//        //buscamos el producto:
+//        $cont=0;
+//        foreach ($listaFacturaDet as $det) {
+//            if($det->getIdProducto()==$idProducto){
+//                unset($listaFacturaDet[$cont]);
+//                //reindexamos el array para eliminar el lugar vacio:
+//                $listaFacturaDet=  array_values($listaFacturaDet);
+//                break;
+//            }
+//            $cont++;
+//        }
+//        return $listaFacturaDet;
+//    }
 }
 
