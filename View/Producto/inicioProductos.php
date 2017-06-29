@@ -50,7 +50,7 @@ $productoModel = new ProductosModel();
             <div class="row">
                 <div class="col-lg-12">
                     <div class="col-lg-12" style="border-bottom: 1px solid #c5c5c5">
-                        <h1><span class="glyphicon glyphicon-apple"></span> PRODUCTOS</h1></div>
+                        <h1><span class="glyphicon glyphicon-apple"></span>PRODUCTOS</h1></div>
                 </div>
             </div>
 
@@ -74,11 +74,11 @@ $productoModel = new ProductosModel();
                         <div class="panel-heading"><h4>Lista de Productos</h4></div>
                         <div class="panel-body">
                             <div class="col-lg-12">
-                                <div class="table-responsive">
+                                <div class="table-striped">
                                     <!-- Tabla en la que se listaras los productos de la Base de Datos -->
-                                    <table class="table table-striped table-bordered table-condensed table-hover">
+                                    <table class="table table-hover table-bordered table-striped table-hover">
                                         <thead>
-                                        <th colspan="2">ACCIONES</th>
+                                        <th colspan="1">ACCIONES</th>
                                         <th>ID PRODUCTO</th>
                                         <th>NOMBRE PRODUCTO</th>
                                         <th>DESCRIPCION DEL PRODUCTO</th>
@@ -104,7 +104,7 @@ $productoModel = new ProductosModel();
                                                 ?>
                                                 <tr>
                                                 <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                <td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>                                    
+                                                <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                                    
                                                 <input type="hidden" value="<?php echo $pro->getID_PROD(); ?>" id="ID_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getNOMBRE_PROD(); ?>" id="NOMBRE_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getDESCRIPCION_PROD(); ?>" id="DESCRIPCION<?php echo $pro->getID_PROD(); ?>">

@@ -234,11 +234,22 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-3 col-md-offset-1">
-                                                    <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Cedula </label>
+                                                   
+                                                    <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Identificación </label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <select>
+
+                                                        <option value="1">CEDULA</option>
+                                                        <option value="2">RUC</option>
+                                                        <option value="3">PASAPORTE</option>
+
+                                                    </select>
+
                                                 </div>
 
                                                 <div class="col-md-7">
-                                                    <input onkeypress="return SoloNumeros(event);" type="text" maxlength="11" minlength="11" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula" onchange="ValidarCedula(this.form.CEDULA_RUC_PASS_USU.value, this.form.boton)" required />
+                                                    <input onkeypress="return SoloNumeros(event);" type="text" maxlength="11" minlength="11" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula - Ruc - Pasaporte" onchange="ValidarCedula(this.form.CEDULA_RUC_PASS_USU.value, this.form.boton)" required />
                                                 </div>
 
                                             </div>
@@ -439,8 +450,18 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 <div class="form-group">
 
                                                     <div class="col-md-3 col-md-offset-1">
-                                                        <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Cedula </label>
+                                                        <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Identificación </label>
                                                     </div>
+                                                    <div class="col-md-7">
+                                                    <select>
+
+                                                        <option value="1">CEDULA</option>
+                                                        <option value="2">RUC</option>
+                                                        <option value="3">PASAPORTE</option>
+
+                                                    </select>
+
+                                                </div>
                                                     <div class="col-md-7">
                                                         <input onkeypress="return SoloNumeros(event);" type="text" maxlength="11" minlength="11" class="form-control" id="mod_cedula" name="mod_cedula"  onchange="ValidarCedula(this.form.mod_cedula.value, this.form.boton)" required />
                                                     </div>
