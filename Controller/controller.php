@@ -17,6 +17,7 @@ $opcion2 = $_REQUEST['opcion2'];
 unset($_SESSION['ErrorBaseDatos']);
 unset($_SESSION['ErrorInicioSesion']);
 unset($_SESSION['E-MAIL_USU']);
+unset($_SESSION['ErrorDetalleAjuste']);
 
 switch ($opcion1) {
     // I N I C I O   D E   S E S I O N
@@ -211,19 +212,21 @@ switch ($opcion1) {
                 //obtenemos los parametros del formulario:
                 $ID_PROD = $_REQUEST['ID_PROD'];
                 $cantidad = $_REQUEST['cantidad'];
+                $tipoMovimiento= $_REQUEST['optradio'];
+                
                 if (!isset($_SESSION['listaAjusteDet'])) {
                     $listaAjusteDet = array();
                 } else {
                     $listaAjusteDet = unserialize($_SESSION['listaAjusteDet']);
                 }
                 try {
-                    $listaAjusteDet = $facturaModel->adicionarDetalle($listaFacturaDet, $idProducto, $cantidad);
-                    $_SESSION['listaFacturaDet'] = serialize($listaFacturaDet);
+                    $listaAjusteDet = $ajustesModel->adicionarDetalle($listaAjusteDet, $ID_PROD, $tipoMovimiento, $cantidad);
+                    $_SESSION['listaAjusteDet'] = serialize($listaAjusteDet);
                 } catch (Exception $e) {
-                    $mensajeError = $e->getMessage();
-                    $_SESSION['mensajeError'] = $mensajeError;
+                    $ErrorDetalleAjuste = $e->getMessage();
+                    $_SESSION['ErrorDetalleAjuste'] = $ErrorDetalleAjuste;
                 }
-                header('Location: ../view/factura.php');
+                header('Location: ../View/Ajustes/nuevoAjuste.php');
                 break;
 
             case "recargarDatosProducto":

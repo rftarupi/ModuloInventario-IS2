@@ -3,6 +3,7 @@
 session_start();
 include_once '../../Model/Ajustes/CabeceraAjuste.php';
 include_once '../../Model/Ajustes/AjustesModel.php';
+include_once '../../Model/Ajustes/AjusteDet.php';
 include_once '../../Model/Producto/Producto.php';
 include_once '../../Model/Producto/ProductosModel.php';
 $ajustesModel = new AjustesModel();
@@ -151,7 +152,7 @@ $productosModel = new ProductosModel();
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="success">
+<!--                                <tr class="success">
                                     <td>Eliminar</td>
                                     <td>a</td> 
                                     <td>a</td>
@@ -159,7 +160,26 @@ $productosModel = new ProductosModel();
                                     <td>a</td> 
                                     <td>a</td>
                                     <td>a</td> 
-                                </tr>
+                                </tr>-->
+                                <?php
+                                //verificamos si existe en sesion el listado de clientes:
+                                if (isset($_SESSION['listaAjusteDet'])) {
+                                    $listado = unserialize($_SESSION['listaAjusteDet']);
+                                    foreach ($listado as $ajusteDet) {
+                                        echo "<tr class='success'>";
+                                        echo "<td><a href='../controller/controller.php?opcion=eliminar_detalle&idProducto=" . $ajusteDet->getID_DETALLE_AJUSTE_PROD() . "'>Eliminar</a></td>";
+                                        echo "<td>" . $ajusteDet->getID_DETALLE_AJUSTE_PROD() . "</td>";
+                                        echo "<td>" . $ajusteDet->getNOMBRE_PROD(). "</td>";
+                                        echo "<td>" . $ajusteDet->getCAMBIO_STOCK_PROD() . "</td>";
+                                        echo "<td>" . $ajusteDet->getTIPOMOV_DETAJUSTE_PROD() . "</td>";
+                                        echo "<td>...</td>";
+                                        echo "<td>...</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "No se han cargado datos.";
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </form>
