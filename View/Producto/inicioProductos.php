@@ -27,17 +27,17 @@ $productoModel = new ProductosModel();
         <script src="../../Bootstrap/js/validaciones.js"></script>
         <link href="../../Bootstrap/css/bootstrap.css" rel="stylesheet" />
         <link rel="../../stylesheet" href="Bootstrap/css/bootstrap-theme.css">
-       
+
         <style type="text/css">
             div{
                 font-family: Calibri Light;
             }
         </style>
-         <script LANGUAGE="JavaScript">
+        <script LANGUAGE="JavaScript">
             function confirEliminar()
             {
                 var agree = confirm("Esta seguro que desea eliminar el producto");
-                if(agree)
+                if (agree)
                     return  true;
                 else
                     return false;
@@ -71,13 +71,14 @@ $productoModel = new ProductosModel();
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-info">
-                        <div class="panel-heading"><h4>Lista de Productos</h4></div>
-                        <div class="panel-body">
+                        <div class="panel-heading"><h4><center> <h2>Lista de Productos</h2></center></h4></div>
+                        <div class="panel-title">
                             <div class="col-lg-12">
                                 <div class="table-striped">
                                     <!-- Tabla en la que se listaras los productos de la Base de Datos -->
-                                    <table class="table table-hover table-bordered table-striped table-hover">
+                                    <table class="table table-striped table-bordered table-condensed table-hover" data-toggle="table" data-pagination="true">
                                         <thead>
+                                            <tr>
                                         <th colspan="1">ACCIONES</th>
                                         <th>ID PRODUCTO</th>
                                         <th>NOMBRE PRODUCTO</th>
@@ -86,10 +87,11 @@ $productoModel = new ProductosModel();
                                         <th>COSTO PRODUCTO</th>
                                         <th>PVP PRODUCTO</th>
                                         <th>ESTADO PRODUCTO</th>
-                                        
-
-                                        
+                                        </tr>
                                         </thead>
+
+
+
                                         <?php
                                         // Verificamos si existe la variable de sesión que contiene la lista de Productos
                                         if (isset($_SESSION['listadoProductos'])) {
@@ -102,9 +104,10 @@ $productoModel = new ProductosModel();
 //                                                $tipoUsuario = $tiposUsuarioModel->getTipoUsuario($usu->getID_TIPO_USU());
 //                                                $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
                                                 ?>
+
                                                 <tr>
-                                                <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                                    
+                                                    <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                    <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                                    
                                                 <input type="hidden" value="<?php echo $pro->getID_PROD(); ?>" id="ID_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getNOMBRE_PROD(); ?>" id="NOMBRE_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getDESCRIPCION_PROD(); ?>" id="DESCRIPCION<?php echo $pro->getID_PROD(); ?>">
@@ -124,8 +127,8 @@ $productoModel = new ProductosModel();
                                                    <!--<td align="center"><a href=""><span class="glyphicon glyphicon-pencil">Editar</span></a></td>-->
                                                 <!--<td align="center"><a href=""><span class="glyphicon glyphicon-remove">Eliminar</span></a></td>-->
 
-                                                
-                                                
+
+
 
                                                 </tr>
 
@@ -134,6 +137,8 @@ $productoModel = new ProductosModel();
                                             }
                                         }
                                         ?>
+
+
                                     </table>
                                 </div>
                             </div>
@@ -214,7 +219,7 @@ $productoModel = new ProductosModel();
                                                 <input type="text" onkeypress="return SoloNumeros(event);" name="PVP_PROD" id="PVP_PROD" class="form-control" placeholder="Ingrese PVP" required />
                                             </div>
                                         </div>
-                                         <div class="form-group">
+                                        <div class="form-group">
                                             <div class="col-md-3 col-md-offset-1">
                                                 <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Estado</label>
                                             </div>
@@ -227,14 +232,14 @@ $productoModel = new ProductosModel();
                                                 </select>
                                             </div>
                                         </div>
-<!--                                        <div class="form-group">
-                                            <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Stock</label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input onkeypress="return SoloNumeros(event);" type="number"  min="1" maxlength="4" minlength="1" max="1000" name="STOCK_PROD" id="STOCK_PROD" class="form-control" placeholder="Stock" required />
-                                            </div>
-                                        </div>-->
+                                        <!--                                        <div class="form-group">
+                                                                                    <div class="col-md-3 col-md-offset-1">
+                                                                                        <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Stock</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-7">
+                                                                                        <input onkeypress="return SoloNumeros(event);" type="number"  min="1" maxlength="4" minlength="1" max="1000" name="STOCK_PROD" id="STOCK_PROD" class="form-control" placeholder="Stock" required />
+                                                                                    </div>
+                                                                                </div>-->
                                         <!--nuevo-->
                                     </div>
                                 </div>
@@ -337,29 +342,34 @@ $productoModel = new ProductosModel();
                                                 </select>
                                             </div>
                                         </div>
-<!--                                        <div class="form-group">
-                                            <div class="col-md-3 col-md-offset-1">
-                                                <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Stock</label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input onkeypress="return SoloNumeros(event);" type="text" class="form-control" name="mod_stock" id="mod_stock" />
-                                            </div>
-                                        </div>-->
+                                        <!--                                        <div class="form-group">
+                                                                                    <div class="col-md-3 col-md-offset-1">
+                                                                                        <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> &nbsp;&nbsp;&nbsp;&nbsp;Stock</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-7">
+                                                                                        <input onkeypress="return SoloNumeros(event);" type="text" class="form-control" name="mod_stock" id="mod_stock" />
+                                                                                    </div>
+                                                                                </div>-->
                                         <!--nuevo-->
+
                                     </div>
                                 </div>
                             </div>
+
 
                             <!-- Footer fde la ventana -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-success">Guardar Cambios</button>
+
                             </div>
+
                         </div>
                     </form>
                 </div>
             </div>
 
         </div>
+
     </body>
 </html>
