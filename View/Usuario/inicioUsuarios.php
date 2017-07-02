@@ -249,7 +249,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 </div>
 
                                                 <div class="col-md-7">
-                                                    <input onclick="validarRuc()" onkeypress="return SoloNumeros(event);" type="text" maxlength="13" minlength="11" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula - Ruc - Pasaporte" onchange="ValidarCedula(this.form.CEDULA_RUC_PASS_USU.value, this.form.boton)" required />
+                                                    <input onkeypress="validarRuc()"  onkeypress="return SoloNumeros(event);" type="text" maxlength="13" minlength="11" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula - Ruc - Pasaporte" onchange="ValidarCedula(this.form.CEDULA_RUC_PASS_USU.value, this.form.boton)" required />
                                                 </div>
 
                                             </div>

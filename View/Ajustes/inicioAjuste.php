@@ -111,7 +111,7 @@ $ajustesModel = new AjustesModel();
                                                     <td><?php echo $aju->getID_AJUSTE_PROD(); ?></td>
                                                     <td><?php echo $aju->getMOTIVO_AJUSTE_PROD() ?></td>
                                                     <td><?php echo $aju->getFECHA_AJUSTE_PROD() ?></td>
-                                                    <td><?php echo $aju->getFECHA_IMPRESION_AJUS_PROD() ?></td>
+                                                    <td><?php echo $aju->getFECHA_IMP_AJUSTE_PROD() ?></td>
                                                     <td><?php echo $aju->getESTADO_IMP_AJUSTE_PROD() ?></td>                    
                                                   
                                                      

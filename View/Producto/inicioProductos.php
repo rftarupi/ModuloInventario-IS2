@@ -79,35 +79,35 @@ $productoModel = new ProductosModel();
                                     <table class="table table-striped table-bordered table-condensed table-hover" data-toggle="table" data-pagination="true">
                                         <thead>
                                             <tr>
-                                        <th colspan="1">ACCIONES</th>
-                                        <th>ID PRODUCTO</th>
-                                        <th>NOMBRE PRODUCTO</th>
-                                        <th>DESCRIPCION DEL PRODUCTO</th>
-                                        <th>GRABA IVA</th>
-                                        <th>COSTO PRODUCTO</th>
-                                        <th>PVP PRODUCTO</th>
-                                        <th>ESTADO PRODUCTO</th>
-                                        </tr>
+                                                <th colspan="1">ACCIONES</th>
+                                                <th>ID PRODUCTO</th>
+                                                <th>NOMBRE PRODUCTO</th>
+                                                <th>DESCRIPCION DEL PRODUCTO</th>
+                                                <th>GRABA IVA</th>
+                                                <th>COSTO PRODUCTO</th>
+                                                <th>PVP PRODUCTO</th>
+                                                <th>ESTADO PRODUCTO</th>
+                                            </tr>
                                         </thead>
 
+                                        <tbody>
 
-
-                                        <?php
-                                        // Verificamos si existe la variable de sesión que contiene la lista de Productos
-                                        if (isset($_SESSION['listadoProductos'])) {
-                                            // Deserializamos y mostraremos los atributos de los usuarios usando un ciclo for
-                                            $listado = unserialize($_SESSION['listadoProductos']);
-                                            foreach ($listado as $pro) {
-                                                $estado = $productoModel->obtenerEstadoProducto($pro->getID_PROD());
-                                                $iva = $productoModel->grabaIva($pro->getID_PROD());
-                                                // Obtenemos datos de tipo usuario de un usuario en específico
+                                            <?php
+                                            // Verificamos si existe la variable de sesión que contiene la lista de Productos
+                                            if (isset($_SESSION['listadoProductos'])) {
+                                                // Deserializamos y mostraremos los atributos de los usuarios usando un ciclo for
+                                                $listado = unserialize($_SESSION['listadoProductos']);
+                                                foreach ($listado as $pro) {
+                                                    $estado = $productoModel->obtenerEstadoProducto($pro->getID_PROD());
+                                                    $iva = $productoModel->grabaIva($pro->getID_PROD());
+                                                    // Obtenemos datos de tipo usuario de un usuario en específico
 //                                                $tipoUsuario = $tiposUsuarioModel->getTipoUsuario($usu->getID_TIPO_USU());
 //                                                $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
-                                                ?>
+                                                    ?>
 
-                                                <tr>
-                                                    <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                    <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                                    
+                                                    <tr>
+                                                        <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                        <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                                    
                                                 <input type="hidden" value="<?php echo $pro->getID_PROD(); ?>" id="ID_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getNOMBRE_PROD(); ?>" id="NOMBRE_PROD<?php echo $pro->getID_PROD(); ?>">
                                                 <input type="hidden" value="<?php echo $pro->getDESCRIPCION_PROD(); ?>" id="DESCRIPCION<?php echo $pro->getID_PROD(); ?>">
@@ -137,7 +137,7 @@ $productoModel = new ProductosModel();
                                             }
                                         }
                                         ?>
-
+                                        </tbody>
 
                                     </table>
                                 </div>
