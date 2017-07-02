@@ -154,6 +154,7 @@ switch ($opcion1) {
                 $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
                 header('Location: ../View/Ajustes/inicioAjuste.php');
                 break;
+
             case "insertar_ajuste":
                 $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
                 $MOTIVO_AJUSTE_PROD = $_REQUEST['MOTIVO_AJUSTE_PROD'];
@@ -212,8 +213,8 @@ switch ($opcion1) {
                 //obtenemos los parametros del formulario:
                 $ID_PROD = $_REQUEST['ID_PROD'];
                 $cantidad = $_REQUEST['cantidad'];
-                $tipoMovimiento= $_REQUEST['optradio'];
-                
+                $tipoMovimiento = $_REQUEST['optradio'];
+
                 if (!isset($_SESSION['listaAjusteDet'])) {
                     $listaAjusteDet = array();
                 } else {
@@ -226,6 +227,15 @@ switch ($opcion1) {
                     $ErrorDetalleAjuste = $e->getMessage();
                     $_SESSION['ErrorDetalleAjuste'] = $ErrorDetalleAjuste;
                 }
+                header('Location: ../View/Ajustes/nuevoAjuste.php');
+                break;
+
+            case "eliminar_detalle":
+                //obtenemos los parametros del formulario:
+                $ID_DETALLE_AJUSTE_PROD = $_REQUEST['ID_DETALLE_AJUSTE_PROD'];
+                $listaAjusteDet = unserialize($_SESSION['listaAjusteDet']);
+                $listaAjusteDet = $ajustesModel->eliminarDetalle($listaAjusteDet, $ID_DETALLE_AJUSTE_PROD);
+                $_SESSION['listaAjusteDet'] = serialize($listaAjusteDet);
                 header('Location: ../View/Ajustes/nuevoAjuste.php');
                 break;
 

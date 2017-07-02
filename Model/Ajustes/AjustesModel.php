@@ -107,6 +107,7 @@ class AjustesModel {
         return $nuevoCod; // RETORNO DEL NUEVO CODIGO DE AJUSTE
     }
 
+    // METODO PARA GENERAR AUTOMATICAMENTE EL CODIGO DE DETALLE DE AJUSTE DESDE LA BASE DE DATOS -- DAJU-0001
     public function generarCodigoDetalleAjusteBD() {
         $pdo = Database::connect();
         $sql = "select max(ID_DETALLE_AJUSTE_PROD) as cod from INV_TAB_DETRALLE_AJUSTE_PROD";
@@ -138,6 +139,7 @@ class AjustesModel {
         return $nuevoCod; // RETORNO DEL NUEVO CODIGO DE AJUSTE
     }
 
+    // METODO PARA GENERAR AUTOMATICAMENTE EL CODIGO DE DETALLE DE AJUSTE DESDE EL ARRAY -- DAJU-0001
     public function generarCodigoDetalleAjusteArray($ultimaFilaArray) {
         $ultimoCodigo = $ultimaFilaArray->getID_DETALLE_AJUSTE_PROD();
         $rest = ((substr($ultimoCodigo, -4)) + 1) . ''; // Separacion de la parte numerica DAJU-0023  --> 23
@@ -159,14 +161,9 @@ class AjustesModel {
         return $nuevoCod; // RETORNO DEL NUEVO CODIGO DE AJUSTE
     }
 
-    //$rest = substr("abcdef", -1);    // devuelve "f"
-    //$rest = substr("abcdef", -2);    // devuelve "ef"
-    //$rest = substr("abcdef", -3, 1); // devuelve "d"
     // M E T O D O S   C R U D   D E   D E T A L L E S   D E   A J U S T E
+    // METODO PARA ADICIONAR UN DETALLE DE AJUSTE
     public function adicionarDetalle($listaAjusteDet, $ID_PROD, $tipoMovimiento, $cantidad) {
-        if ($cantidad <= 0) {
-            throw new Exception("La cantidad debe ser mayor a cero.");
-        }
         //buscamos el producto:
         $productoModel = new ProductosModel();
         $producto = $productoModel->getProducto($ID_PROD);
@@ -174,8 +171,8 @@ class AjustesModel {
         //Creamos un nuevo detalle AjusteDet:
         $ajusteDet = new AjusteDet();
         $id_detalle_ajuste = null;
-        if ($listaAjusteDet!=NULL) {
-            $id_detalle_ajuste = $this->generarCodigoDetalleAjusteArray(array_pop($listaAjusteDet));
+        if (!empty($listaAjusteDet)) {
+            $id_detalle_ajuste = $this->generarCodigoDetalleAjusteArray(end($listaAjusteDet));
         }  else {
             $id_detalle_ajuste="DAJU-0001";
         }
@@ -186,24 +183,29 @@ class AjustesModel {
         $ajusteDet->setCAMBIO_STOCK_PROD($cantidad);
         $ajusteDet->setTIPOMOV_DETAJUSTE_PROD($tipoMovimiento);
         
+        if(!isset($listaAjusteDet)){
+            $listaAjusteDet=array();
+        }
+        
         //adicionamos el nuevo detalle al array en memoria:
         array_push($listaAjusteDet, $ajusteDet);
         return $listaAjusteDet;
     }
 
-//    
-//    public function eliminarDetalle($listaFacturaDet,$idProducto){
-//        //buscamos el producto:
-//        $cont=0;
-//        foreach ($listaFacturaDet as $det) {
-//            if($det->getIdProducto()==$idProducto){
-//                unset($listaFacturaDet[$cont]);
-//                //reindexamos el array para eliminar el lugar vacio:
-//                $listaFacturaDet=  array_values($listaFacturaDet);
-//                break;
-//            }
-//            $cont++;
-//        }
-//        return $listaFacturaDet;
-//    }
+    // METODO PARA ELIMINAR UN DETALLE DE AJUSTE
+    public function eliminarDetalle($listaAjusteDet, $ID_DETALLE_AJUSTE_PROD) {
+        //buscamos el DETALLE:
+        $cont = 0;
+        foreach ($listaAjusteDet as $det) {
+            if ($det->getID_DETALLE_AJUSTE_PROD() == $ID_DETALLE_AJUSTE_PROD) {
+                unset($listaAjusteDet[$cont]);
+                //reindexamos el array para eliminar el lugar vacio:
+                $listaAjusteDet = array_values($listaAjusteDet);
+                break;
+            }
+            $cont++;
+        }
+        return $listaAjusteDet;
+    }
+
 }

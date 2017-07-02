@@ -152,24 +152,15 @@ $productosModel = new ProductosModel();
                                 </tr>
                             </thead>
                             <tbody>
-<!--                                <tr class="success">
-                                    <td>Eliminar</td>
-                                    <td>a</td> 
-                                    <td>a</td>
-                                    <td>a</td>
-                                    <td>a</td> 
-                                    <td>a</td>
-                                    <td>a</td> 
-                                </tr>-->
                                 <?php
                                 //verificamos si existe en sesion el listado de clientes:
                                 if (isset($_SESSION['listaAjusteDet'])) {
                                     $listado = unserialize($_SESSION['listaAjusteDet']);
                                     foreach ($listado as $ajusteDet) {
                                         echo "<tr class='success'>";
-                                        echo "<td><a href='../controller/controller.php?opcion=eliminar_detalle&idProducto=" . $ajusteDet->getID_DETALLE_AJUSTE_PROD() . "'>Eliminar</a></td>";
+                                        echo "<td><a href='../../controller/controller.php?opcion1=ajuste&opcion2=eliminar_detalle&ID_DETALLE_AJUSTE_PROD=" . $ajusteDet->getID_DETALLE_AJUSTE_PROD() . "'>Eliminar</a></td>";
                                         echo "<td>" . $ajusteDet->getID_DETALLE_AJUSTE_PROD() . "</td>";
-                                        echo "<td>" . $ajusteDet->getNOMBRE_PROD(). "</td>";
+                                        echo "<td>" . $ajusteDet->getNOMBRE_PROD() . "</td>";
                                         echo "<td>" . $ajusteDet->getCAMBIO_STOCK_PROD() . "</td>";
                                         echo "<td>" . $ajusteDet->getTIPOMOV_DETAJUSTE_PROD() . "</td>";
                                         echo "<td>...</td>";
