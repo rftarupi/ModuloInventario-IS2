@@ -1,5 +1,5 @@
 <?php
-include_once '/../DataBase.php';
+include_once 'DataBase.php';
 include_once 'Usuario.php';
 
 // Esta clase contiene los métodos del CRUD de Usuarios
@@ -121,8 +121,18 @@ class UsuariosModel {
         return $estado;
     }
     
+     public function obtenerTipoUsuario($ID_TIPO_USU){
+       $pdo = Database::connect();
+        $sql = "select 	NOMBRE_TIPO_USU as nombre from inv_tab_tipo_usuario where ID_TIPO_USU='$ID_TIPO_USU'";
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute();
+        $res = $consulta->fetch(PDO::FETCH_ASSOC);
+        Database::disconnect();
+        return $res['nombre'];
+    }
+    
     // METODO PARA GENERAR AUTOMATICAMENTE EL CODIGO DE UN USUARIO -- USUA-0001
-     public function generarCodigoUsuario() {
+     public function generarUsuario() {
         $pdo = Database::connect();
         $sql = "select max(ID_USU) as cod from INV_TAB_USUARIOS";
         $consulta = $pdo->prepare($sql);

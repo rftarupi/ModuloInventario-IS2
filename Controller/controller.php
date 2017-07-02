@@ -32,6 +32,8 @@ switch ($opcion1) {
         if (!empty($usuario->getE_MAIL_USU())) {
             // Verificamos si la contraseña del usuario es correcta
             if ($usuario->getCLAVE_USU() == $CLAVE_USU) {
+                $_SESSION['NOMBRE_USUARIO'] = $usuario->getNOMBRES_USU();
+                $_SESSION['TIPO_USUARIO'] = $usuariosModel->obtenerTipoUsuario($usuario->getID_TIPO_USU());
                 $_SESSION['USUARIO_ACTIVO'] = serialize($usuario);
                 header('Location: ../View/Usuario/inicioUsuarios.php');
             } else {

@@ -19,6 +19,8 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
 // Creamos la variable para el llamado de los métodos de la tabla Tipo Usuario y Usuario
     $tiposUsuarioModel = new TiposUsuarioModel();
     $usuariosModel = new UsuariosModel();
+    $NOM = $_SESSION['NOMBRE_USUARIO'];
+    $TIPO = $_SESSION['TIPO_USUARIO'];
     ?>
     <html>
         <head>
@@ -45,17 +47,89 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                 }
             </style>
             <script LANGUAGE="JavaScript">
-            function confirEliminar()
-            {
-                var agree = confirm("Esta seguro que desea eliminar el usuario?");
-                if(agree)
-                    return  true;
-                else
-                    return false;
-            }
-        </script>
+                function confirEliminar()
+                {
+                    var agree = confirm("Esta seguro que desea eliminar el usuario?");
+                    if (agree)
+                        return  true;
+                    else
+                        return false;
+                }
+            </script>
         </head>
-        <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+
+                <ul class="nav navbar-nav navbar-right ">
+                    <li><a href=""><span class="glyphicon  glyphicon-user"></span><?php echo $NOM; ?> </a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-edit"></span><?php echo $TIPO; ?> </a></li>
+                    <li><a href="../login.php"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion </a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--CODIGO PARA INSERTAR  UN SLIDER-->
+        <div class="container">
+            <div class="jumbotron">
+                <div class="active">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--aqui insertaremos el slider--> 
+                            <div id="carousel1" class="carousel slide" data-ride="carousel">
+                                <!--Indicatodores--> 
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel1" data-slide-to="1" class="active"></li>
+                                    <li data-target="#carousel1" data-slide-to="1"></li>
+                                    <li data-target="#carousel1" data-slide-to="1"></li>
+                                </ol>
+                                <!--Contenedor de las imagenes--> 
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item">
+                                        <img src="../../View/Imagenes/descarga.jpg" height="150" width="1500" alt="Imagen 1">
+                                    </div>
+                                    <div class="item active">
+                                        <img src="../../View/Imagenes/banners.jpg" height="200" width="1500" alt="Imagen 2">
+                                    </div>
+                                    <div class="item">
+                                        <img src="../../View/Imagenes/images.jpg" height="200" width="1500" alt="Imagen 3">
+                                    </div>
+
+                                </div>
+                                <!--Controls--> 
+                                <a class="left carousel-control" href="#carousel1" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel1" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center>
+            <div class=" danger">
+                <h3>Sistema del Modelo Inventario</h3>
+            </div>
+            <div class="container">
+                <div class="alert alert-success">
+                    <ul class="nav nav-pills">
+                        <a class="btn btn-primary active" href="../../View/Ajustes/inicioAjuste.php?">Ajustes</a>&nbsp;&nbsp;
+                        <a class="btn btn-primary active" href="../../View/Producto/inicioProductos.php?">Productos</a>&nbsp;&nbsp;
+                        <a class="btn btn-primary active" href="../../View/Usuario/inicioUsuarios.php?">Usuarios</a>&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger alert-danger  " href="../Principal/iniciop.php">Inicio</a>
+                    </ul>
+                </div>           
+            </div>
+
+        </center>
+        <body background ="../../View/Imagenes/fondo3.jpg" width="800">
             <div class="container-fluid">
                 <!--Título de la página-->
                 <div class="row">
@@ -106,7 +180,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                             <th>TELEFONO</th>
                                             <th>E-MAIL</th>
                                             <th>ESTADO</th>
-                                           
+
                                             </thead>
                                             <tbody>
                                                 <?php
@@ -120,52 +194,52 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                         $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
                                                         ?>
                                                         <tr>
-                                                             <?php
-                                                    // Un bodeguero solo puede editar datos de los que no tienen perfil
-                                                    if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
-                                                        ?>
-                                                        <td><a href = "#editUSU" onclick = "obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle = "modal"><span class = "glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                        <?php
-                                                    } else {
-                                                        if (is_null($usu->getID_TIPO_USU())) {
-                                                            ?>
-                                                            <td><a href = "#editUSU" onclick = "obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle = "modal"><span class = "glyphicon glyphicon-pencil">Editar</span></a></td>
                                                             <?php
-                                                        }
-                                                    }
+                                                            // Un bodeguero solo puede editar datos de los que no tienen perfil
+                                                            if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
+                                                                ?>
+                                                                <td><a href = "#editUSU" onclick = "obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle = "modal"><span class = "glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                                <?php
+                                                            } else {
+                                                                if (is_null($usu->getID_TIPO_USU())) {
+                                                                    ?>
+                                                                    <td><a href = "#editUSU" onclick = "obtener_datos_usuario('<?php echo $usu->getID_USU(); ?>')" data-toggle = "modal"><span class = "glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                                    <?php
+                                                                }
+                                                            }
 
-                                                    // Restringir la eliminación a un usuario que no sea Administrador
-                                                    if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
-                                                        ?>
-                                                            <td><?php echo $usu->getID_USU(); ?></td>
-                                                            <td><?php echo $tipoUsuario->getNOMBRE_TIPO_USU(); ?></td>
-                                                            <td><?php echo $usu->getCEDULA_RUC_PASS_USU(); ?></td>
-                                                            <td><?php echo $usu->getNOMBRES_USU(); ?></td>
-                                                            <td><?php echo $usu->getAPELLIDOS_USU(); ?></td>
-                                                            <td><?php echo $usu->getFECH_NAC_USU(); ?></td>
-                                                            <td><?php echo $usu->getCIUDAD_NAC_USU(); ?></td>
-                                                            <td><?php echo $usu->getDIRECCION_USU(); ?></td>
-                                                            <td><?php echo $usu->getFONO_USU(); ?></td>
-                                                            <td><?php echo $usu->getE_MAIL_USU(); ?></td>
-                                                            <td><?php echo $estado ?></td>
+                                                            // Restringir la eliminación a un usuario que no sea Administrador
+                                                            if ($usuarioSesion->getID_TIPO_USU() == "TUSU-0001") {
+                                                                ?>
+                                                                <td><?php echo $usu->getID_USU(); ?></td>
+                                                                <td><?php echo $tipoUsuario->getNOMBRE_TIPO_USU(); ?></td>
+                                                                <td><?php echo $usu->getCEDULA_RUC_PASS_USU(); ?></td>
+                                                                <td><?php echo $usu->getNOMBRES_USU(); ?></td>
+                                                                <td><?php echo $usu->getAPELLIDOS_USU(); ?></td>
+                                                                <td><?php echo $usu->getFECH_NAC_USU(); ?></td>
+                                                                <td><?php echo $usu->getCIUDAD_NAC_USU(); ?></td>
+                                                                <td><?php echo $usu->getDIRECCION_USU(); ?></td>
+                                                                <td><?php echo $usu->getFONO_USU(); ?></td>
+                                                                <td><?php echo $usu->getE_MAIL_USU(); ?></td>
+                                                                <td><?php echo $estado ?></td>
 
 
-                                                    <input type="hidden" value="<?php echo $usu->getID_USU(); ?>" id="ID_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getID_TIPO_USU(); ?> " id="ID_TIPO_USU<?php echo $usu->getID_USU(); ?>" >
-                                                    <input type="hidden" value="<?php echo $usu->getCEDULA_RUC_PASS_USU(); ?>" id="CEDULA_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getNOMBRES_USU(); ?>" id="NOMBRES_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getAPELLIDOS_USU(); ?>" id="APELLIDOS_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getFECH_NAC_USU(); ?>" id="FECH_NAC_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getCIUDAD_NAC_USU(); ?>" id="CIUDAD_NAC_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getDIRECCION_USU(); ?>" id="DIRECCION_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getFONO_USU(); ?>" id="FONO_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getE_MAIL_USU(); ?>" id="E_MAIL_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getESTADO_USU(); ?>" id="ESTADO_USU<?php echo $usu->getID_USU(); ?>">
-                                                    <input type="hidden" value="<?php echo $usu->getCLAVE_USU(); ?>" id="CLAVE_USU<?php echo $usu->getID_USU() ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getID_USU(); ?>" id="ID_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getID_TIPO_USU(); ?> " id="ID_TIPO_USU<?php echo $usu->getID_USU(); ?>" >
+                                                        <input type="hidden" value="<?php echo $usu->getCEDULA_RUC_PASS_USU(); ?>" id="CEDULA_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getNOMBRES_USU(); ?>" id="NOMBRES_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getAPELLIDOS_USU(); ?>" id="APELLIDOS_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getFECH_NAC_USU(); ?>" id="FECH_NAC_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getCIUDAD_NAC_USU(); ?>" id="CIUDAD_NAC_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getDIRECCION_USU(); ?>" id="DIRECCION_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getFONO_USU(); ?>" id="FONO_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getE_MAIL_USU(); ?>" id="E_MAIL_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getESTADO_USU(); ?>" id="ESTADO_USU<?php echo $usu->getID_USU(); ?>">
+                                                        <input type="hidden" value="<?php echo $usu->getCLAVE_USU(); ?>" id="CLAVE_USU<?php echo $usu->getID_USU() ?>">
 
-                                                   
 
-                                                        <!--td align="center">--><?php //echo "<a href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=" . $usu->getID_USU() . "'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>"; ?><!--</td>--> 
+
+                                                        <!--td align="center">--><?php //echo "<a href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=" . $usu->getID_USU() . "'><span class='glyphicon glyphicon-remove'>Eliminar</span></a>";       ?><!--</td>--> 
                                                         <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=usuario&opcion2=eliminar_usuarios&ID_USU=<?php echo $usu->getID_USU(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                          
                                                         <?php
                                                     }
@@ -234,7 +308,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-3 col-md-offset-1">
-                                                   
+
                                                     <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Identificación </label>
                                                 </div>
                                                 <div class="col-md-7">
@@ -249,7 +323,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 </div>
 
                                                 <div class="col-md-7">
-                                                    <input onkeypress="validarRuc()"  onkeypress="return SoloNumeros(event);" type="text" maxlength="13" minlength="11" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula - Ruc - Pasaporte" onchange="ValidarCedula(this.form.CEDULA_RUC_PASS_USU.value, this.form.boton)" required />
+                                                    <input onclick="validarRuc()" onkeypress="return SoloNumeros(event);" type="text" maxlength="13" minlength="11" class="form-control" name="CEDULA_RUC_PASS_USU" placeholder="Ingrese su N° de Cedula - Ruc - Pasaporte" onchange="ValidarCedula(this.form.CEDULA_RUC_PASS_USU.value, this.form.boton)" required />
                                                 </div>
 
                                             </div>
@@ -453,15 +527,15 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                         <label class="control-label"><span class="glyphicon glyphicon-asterisk"></span> Identificación </label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                    <select>
+                                                        <select>
 
-                                                        <option value="1">CEDULA</option>
-                                                        <option value="2">RUC</option>
-                                                        <option value="3">PASAPORTE</option>
+                                                            <option value="1">CEDULA</option>
+                                                            <option value="2">RUC</option>
+                                                            <option value="3">PASAPORTE</option>
 
-                                                    </select>
+                                                        </select>
 
-                                                </div>
+                                                    </div>
                                                     <div class="col-md-7">
                                                         <input onclick="validarRuc()" onkeypress="return SoloNumeros(event);" type="text" maxlength="13" minlength="11" class="form-control" id="mod_cedula" name="mod_cedula"  onchange="ValidarCedula(this.form.mod_cedula.value, this.form.boton)" required />
                                                     </div>

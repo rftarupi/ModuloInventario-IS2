@@ -20,9 +20,18 @@ session_start();
             div{
                 font-family: Calibri Light;
             }
-        </style>
+        </style>    
     </head>
-    <body>
+     <body background ="../View/Imagenes/azul.png" width="1800">
+         
+        <center>
+            <div class="masthead"><img src="../View/Imagenes/banner-inventario.jpg" height="200" width="1340">
+            </div>
+            <div class=" danger">
+                <h3>Sistema del Modelo Inventario</h3>
+            </div>
+        </center>
+     
         <div class="container" style="margin-top:150px;">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
