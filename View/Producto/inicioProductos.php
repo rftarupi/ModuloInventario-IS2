@@ -10,7 +10,6 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
     $NOM = $_SESSION['NOMBRE_USUARIO'];
     $TIPO = $_SESSION['TIPO_USUARIO'];
 
-
 // Creamos la variable para el llamado de los métodos de la tabla Tipo Usuario y Usuario
 //$tiposUsuarioModel = new TiposUsuarioModel();
 //$usuariosModel = new UsuariosModel(); 
@@ -47,6 +46,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                 }
             </script>
         </head>
+
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
 
@@ -58,50 +58,50 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
             </div>
         </nav>
 
-        <!--CODIGO PARA INSERTAR  UN SLIDER-->
-        <div class="container">
-            <div class="jumbotron">
-                <div class="active">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!--aqui insertaremos el slider--> 
-                            <div id="carousel1" class="carousel slide" data-ride="carousel">
-                                <!--Indicatodores--> 
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carousel1" data-slide-to="1" class="active"></li>
-                                    <li data-target="#carousel1" data-slide-to="1"></li>
-                                    <li data-target="#carousel1" data-slide-to="1"></li>
-                                </ol>
-                                <!--Contenedor de las imagenes--> 
-                                <div class="carousel-inner" role="listbox">
-                                    <div class="item">
-                                        <img src="../../View/Imagenes/bannerProductos.jpg" height="300" width="1500" alt="Imagen 1">
-                                    </div>
-                                    <div class="item active">
-                                        <img src="../../View/Imagenes/banners.jpg" height="200" width="1500" alt="Imagen 2">
-                                    </div>
-                                    <div class="item">
-                                        <img src="../../View/Imagenes/images.jpg" height="200" width="1500" alt="Imagen 3">
-                                    </div>
+            <!--CODIGO PARA INSERTAR  UN SLIDER-->
+            <div class="container">
+                <div class="jumbotron">
+                    <div class="active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--aqui insertaremos el slider--> 
+                                <div id="carousel1" class="carousel slide" data-ride="carousel">
+                                    <!--Indicatodores--> 
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carousel1" data-slide-to="1" class="active"></li>
+                                        <li data-target="#carousel1" data-slide-to="1"></li>
+                                        <li data-target="#carousel1" data-slide-to="1"></li>
+                                    </ol>
+                                    <!--Contenedor de las imagenes--> 
+                                    <div class="carousel-inner" role="listbox">
+                                        <div class="item">
+                                            <img src="../../View/Imagenes/bannerProductos.jpg" height="300" width="1500" alt="Imagen 1">
+                                        </div>
+                                        <div class="item active">
+                                            <img src="../../View/Imagenes/banners.jpg" height="200" width="1500" alt="Imagen 2">
+                                        </div>
+                                        <div class="item">
+                                            <img src="../../View/Imagenes/images.jpg" height="200" width="1500" alt="Imagen 3">
+                                        </div>
 
+                                    </div>
+                                    <!--Controls--> 
+                                    <a class="left carousel-control" href="#carousel1" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                        <span class="sr-only">Anterior</span>
+                                    </a>
+                                    <a class="right carousel-control" href="#carousel1" role="button" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                        <span class="sr-only">Siguiente</span>
+                                    </a>
                                 </div>
-                                <!--Controls--> 
-                                <a class="left carousel-control" href="#carousel1" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                    <span class="sr-only">Anterior</span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel1" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                    <span class="sr-only">Siguiente</span>
-                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <center>
-
+          
 
             <div class=" danger">
                 <h3>Sistema del Modelo Inventario</h3>
@@ -120,9 +120,8 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
             </div>
 
         </center>
-
+       
         <body background ="../../View/Imagenes/fondo3.jpg" width="800">
-
             <div class="container-fluid">
                 <!--Título de la página-->
                 <div class="row">
@@ -168,24 +167,24 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 </tr>
                                             </thead>
 
-                                            <tbody>
 
-                                                <?php
-                                                // Verificamos si existe la variable de sesión que contiene la lista de Productos
-                                                if (isset($_SESSION['listadoProductos'])) {
-                                                    // Deserializamos y mostraremos los atributos de los usuarios usando un ciclo for
-                                                    $listado = unserialize($_SESSION['listadoProductos']);
-                                                    foreach ($listado as $pro) {
-                                                        $estado = $productoModel->obtenerEstadoProducto($pro->getID_PROD());
-                                                        $iva = $productoModel->grabaIva($pro->getID_PROD());
-                                                        // Obtenemos datos de tipo usuario de un usuario en específico
+
+                                            <?php
+                                            // Verificamos si existe la variable de sesión que contiene la lista de Productos
+                                            if (isset($_SESSION['listadoProductos'])) {
+                                                // Deserializamos y mostraremos los atributos de los usuarios usando un ciclo for
+                                                $listado = unserialize($_SESSION['listadoProductos']);
+                                                foreach ($listado as $pro) {
+                                                    $estado = $productoModel->obtenerEstadoProducto($pro->getID_PROD());
+                                                    $iva = $productoModel->grabaIva($pro->getID_PROD());
+                                                    // Obtenemos datos de tipo usuario de un usuario en específico
 //                                                $tipoUsuario = $tiposUsuarioModel->getTipoUsuario($usu->getID_TIPO_USU());
 //                                                $estado = $usuariosModel->obtenerEstadoUsuario($usu->getID_USU());
-                                                        ?>
+                                                    ?>
 
-                                                        <tr>
-                                                            <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
-                                                            <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                                    
+                                                    <tr>
+                                                        <td><a href="#editPRO" onclick="obtener_datosProductos('<?php echo $pro->getID_PROD(); ?>')" data-toggle="modal"><span class="glyphicon glyphicon-pencil">Editar</span></a></td>
+                                                        <!--<td align="center"><a onclick="return confirEliminar();" href='../../Controller/controller.php?opcion1=producto&opcion2=eliminar_producto&ID_PROD=<?php echo $pro->getID_PROD(); ?>'><span class='glyphicon glyphicon-remove'>Eliminar</span></a></td>-->                                    
                                                     <input type="hidden" value="<?php echo $pro->getID_PROD(); ?>" id="ID_PROD<?php echo $pro->getID_PROD(); ?>">
                                                     <input type="hidden" value="<?php echo $pro->getNOMBRE_PROD(); ?>" id="NOMBRE_PROD<?php echo $pro->getID_PROD(); ?>">
                                                     <input type="hidden" value="<?php echo $pro->getDESCRIPCION_PROD(); ?>" id="DESCRIPCION<?php echo $pro->getID_PROD(); ?>">
@@ -215,7 +214,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                 }
                                             }
                                             ?>
-                                            </tbody>
+
 
                                         </table>
                                     </div>

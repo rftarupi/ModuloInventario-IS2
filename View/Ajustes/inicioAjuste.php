@@ -99,7 +99,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
             </div>
         </div>
         <center>
-
+            
         </center>
 
         <center>
@@ -194,7 +194,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                     <td><?php echo $aju->getID_AJUSTE_PROD(); ?></td>
                                                     <td><?php echo $aju->getMOTIVO_AJUSTE_PROD() ?></td>
                                                     <td><?php echo $aju->getFECHA_AJUSTE_PROD() ?></td>
-                                                    <td><?php echo $aju->getFECHA_IMP_AJUSTE_PROD() ?></td>
+                                                    <td><?php echo $aju->getFECHA_IMPRESION_AJUS_PROD() ?></td>
                                                     <td><?php echo $aju->getESTADO_IMP_AJUSTE_PROD() ?></td>                    
 
 
@@ -312,8 +312,8 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                                                                         <div class="col-md-7">
                                                                                             <input type="hidden" id="" name="mod_fecha" value="<?php echo gmdate("Y-m-d H:i:s"); ?>">
                                                                                             <p id=""> <?php echo gmdate("Y-m-d H:i:s"); ?></p>
-                                                                                        </div>
-                                                                                    </div>-->
+                                                                                </div>
+                                                                            </div>-->
 
                                         </div>
                                     </div>
