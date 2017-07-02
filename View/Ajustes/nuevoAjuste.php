@@ -61,16 +61,27 @@ $productosModel = new ProductosModel();
             <div class="panel panel-default">
                 <div class="panel-heading">INFORMACIÓN DEL AJUSTE</div>
                 <div class="panel-body">
-                    <input type="hidden" name="opcion1" value="ajuste">
-                    <input type="hidden" name="opcion2" value="insertar_ajuste">            
-                    <div class="input-group">
-                        <span class="input-group-addon">Código </span>
-                        <input type="text" class="form-control" name="ID_AJUSTE_PROD" disabled value="<?php echo $ajustesModel->generarCodigoAjuste(); ?>">
-                    </div><br>
-                    <div class="input-group">
-                        <span class="input-group-addon">Motivo </span>
-                        <input type="text" class="form-control" name="MOTIVO_AJUSTE_PROD" size="150" maxlength="150" placeholder="Ingrese el motivo del ajuste" required >
-                    </div>
+                    <form action="../../Controller/controller.php">
+                        <input type="hidden" name="opcion1" value="ajuste">
+                        <input type="hidden" name="opcion2" value="insertar_ajuste_detalles">            
+                        <div class="input-group">
+                            <span class="input-group-addon">Código </span>
+                            <input type="text" class="form-control" name="ID_AJUSTE_PROD" value="<?php echo $ajustesModel->generarCodigoAjuste(); ?>">
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon">Motivo </span>
+                            <input type="text" class="form-control" name="MOTIVO_AJUSTE_PROD" size="150" maxlength="150" placeholder="Ingrese el motivo del ajuste" required >
+                        </div><br>
+                        <?php
+                        if (isset($_SESSION['ErrorDetalleAjuste'])) {
+                            echo "<div class='alert alert-danger'>" . $_SESSION['ErrorDetalleAjuste'] . "</div>";
+                        }
+                        ?>
+                        <div class="form-group">
+                            <input type="submit" value="GUARDAR AJUSTE" id="btnGuardar" class="btn btn-success"> 
+                            <input type="button" value="CANCELAR" id="btnGuardar" class="btn btn-danger"> 
+                        </div> 
+                    </form>
                 </div>
             </div>
             <!--Fin Cabecera ajuste-->
@@ -176,11 +187,10 @@ $productosModel = new ProductosModel();
                     </form>
                     <!--Fin de la Tabla de detalles del ajuste-->
 
-                    <div class="col-sm-9"></div>    
-                    <div class="col-sm-3">
-                        <input type="submit" value="GUARDAR AJUSTE" id="btnGuardar" class="btn btn-success"> 
-                        <input type="submit" value="CANCELAR" id="btnGuardar" class="btn btn-danger"> 
-                    </div>         
+                    <!--                    <div class="col-sm-3 col-sm-offset-9">
+                                            <input type="submit" value="GUARDAR AJUSTE" id="btnGuardar" class="btn btn-success"> 
+                                            <input type="submit" value="CANCELAR" id="btnGuardar" class="btn btn-danger"> 
+                                        </div>         -->
                 </div>
             </div>
             <!--Fin Detalle ajuste-->

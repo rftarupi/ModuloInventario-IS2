@@ -173,8 +173,8 @@ class AjustesModel {
         $id_detalle_ajuste = null;
         if (!empty($listaAjusteDet)) {
             $id_detalle_ajuste = $this->generarCodigoDetalleAjusteArray(end($listaAjusteDet));
-        }  else {
-            $id_detalle_ajuste=  $this->generarCodigoDetalleAjusteBD();
+        } else {
+            $id_detalle_ajuste = $this->generarCodigoDetalleAjusteBD();
         }
         $ajusteDet->setID_DETALLE_AJUSTE_PROD($id_detalle_ajuste);
         $ajusteDet->setID_PROD($ID_PROD);
@@ -182,11 +182,11 @@ class AjustesModel {
         $ajusteDet->setID_USU($ID_USU);
         $ajusteDet->setCAMBIO_STOCK_PROD($cantidad);
         $ajusteDet->setTIPOMOV_DETAJUSTE_PROD($tipoMovimiento);
-        
-        if(!isset($listaAjusteDet)){
-            $listaAjusteDet=array();
+
+        if (!isset($listaAjusteDet)) {
+            $listaAjusteDet = array();
         }
-        
+
         //adicionamos el nuevo detalle al array en memoria:
         array_push($listaAjusteDet, $ajusteDet);
         return $listaAjusteDet;
@@ -208,4 +208,32 @@ class AjustesModel {
         return $listaAjusteDet;
     }
 
+    // METODO PARA INSERTAR UN AJUSTE CON DETALLES
+    public function insertarAjusteDetalles($listaAjusteDet, $ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD) {
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "insert into INV_TAB_AJUSTES_PRODUCTOS(ID_AJUSTE_PROD,MOTIVO_AJUSTE_PROD) values(?,?)";
+        $consulta = $pdo->prepare($sql);
+        try {
+            $consulta->execute(array($ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD));
+            //guardamos los detalles:
+            foreach ($listaAjusteDet as $det) {
+                
+                // Falta agregar el campo ID_USU .. revisar base de datos para el orden
+                $sql = "insert into inv_tab_detalle_ajuste_prod(ID_DETALLE_AJUSTE_PROD, ID_PROD, ID_AJUSTE_PROD, CAMBIO_STOCK_PROD, TIPOMOV_DETAJUSTE_PROD) values(?,?,?,?,?)";
+                $consulta = $pdo->prepare($sql);
+                //en cada detalle asignamos el numero de factura padre:
+                $consulta->execute(array($det->getID_DETALLE_AJUSTE_PROD(),
+                    $det->getID_PROD(),
+                    $ID_AJUSTE_PROD,
+                    //$det->getID_USU(),
+                    $det->getCAMBIO_STOCK_PROD(),
+                    $det->getTIPOMOV_DETAJUSTE_PROD()));
+            }
+        } catch (PDOException $e) {
+            Database::disconnect();
+            throw new Exception($e->getMessage());
+        }
+        Database::disconnect();
+    }
 }

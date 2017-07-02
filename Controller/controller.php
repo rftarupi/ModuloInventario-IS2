@@ -239,6 +239,29 @@ switch ($opcion1) {
                 header('Location: ../View/Ajustes/nuevoAjuste.php');
                 break;
 
+            case "insertar_ajuste_detalles":
+                //obtenemos los parametros del formulario:
+                $ID_AJUSTE_PROD = $_REQUEST['ID_AJUSTE_PROD'];
+                $MOTIVO_AJUSTE_PROD = $_REQUEST['MOTIVO_AJUSTE_PROD'];
+
+                if (isset($_SESSION['listaAjusteDet'])) {
+                    $listaAjusteDet = unserialize($_SESSION['listaAjusteDet']);
+                    try {
+                        $ajustesModel->insertarAjusteDetalles($listaAjusteDet, $ID_AJUSTE_PROD, $MOTIVO_AJUSTE_PROD);
+                        unset($_SESSION['listaAjusteDet']);
+                        $listadoAjustes = $ajustesModel->getCabAjustes();
+                        $_SESSION['listadoAjustes'] = serialize($listadoAjustes);
+                        header('Location: ../View/Ajustes/inicioAjuste.php');
+                    } catch (Exception $e) {
+                        $_SESSION['ErrorBaseDatos'] = $e->getMessage();
+                    }
+                } else {
+                    $_SESSION['ErrorDetalleAjuste'] = "Debe registrar por lo menos un detalle de Ajuste antes de guardar";
+                    header('Location: ../View/Ajustes/nuevoAjuste.php');
+                }
+                
+                break;
+
             case "recargarDatosProducto":
                 $ID_PROD = $_REQUEST['ID_PROD'];
                 $producto = $productoModel->getProducto($ID_PROD);
@@ -267,7 +290,6 @@ switch ($opcion1) {
         }
         break;
 
-    //  D E T A L L E S   A J U S T E S 
     // P R O D U C T O S
     case "producto":
         switch ($opcion2) {
