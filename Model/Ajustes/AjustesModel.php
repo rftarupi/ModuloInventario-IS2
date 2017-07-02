@@ -110,7 +110,7 @@ class AjustesModel {
     // METODO PARA GENERAR AUTOMATICAMENTE EL CODIGO DE DETALLE DE AJUSTE DESDE LA BASE DE DATOS -- DAJU-0001
     public function generarCodigoDetalleAjusteBD() {
         $pdo = Database::connect();
-        $sql = "select max(ID_DETALLE_AJUSTE_PROD) as cod from INV_TAB_DETRALLE_AJUSTE_PROD";
+        $sql = "select max(ID_DETALLE_AJUSTE_PROD) as cod from 	inv_tab_detalle_ajuste_prod";
         $consulta = $pdo->prepare($sql);
         $consulta->execute();
         $res = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -174,7 +174,7 @@ class AjustesModel {
         if (!empty($listaAjusteDet)) {
             $id_detalle_ajuste = $this->generarCodigoDetalleAjusteArray(end($listaAjusteDet));
         }  else {
-            $id_detalle_ajuste="DAJU-0001";
+            $id_detalle_ajuste=  $this->generarCodigoDetalleAjusteBD();
         }
         $ajusteDet->setID_DETALLE_AJUSTE_PROD($id_detalle_ajuste);
         $ajusteDet->setID_PROD($ID_PROD);
