@@ -214,7 +214,7 @@ if (isset($_SESSION['USUARIO_ACTIVO'])) {
                                             echo "<td>" . $ajusteDet->getNOMBRE_PROD() . "</td>";
                                             echo "<td>" . $ajusteDet->getCAMBIO_STOCK_PROD() . "</td>";
                                             echo "<td>" . $ajusteDet->getTIPOMOV_DETAJUSTE_PROD() . "</td>";
-                                            echo "<td>...</td>";
+                                            echo "<td>".$ajusteDet->getPVP_PROD()."</td>";
                                             echo "<td>...</td>";
                                             echo "</tr>";
                                         }

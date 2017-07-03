@@ -179,6 +179,7 @@ class AjustesModel {
         $ajusteDet->setID_DETALLE_AJUSTE_PROD($id_detalle_ajuste);
         $ajusteDet->setID_PROD($ID_PROD);
         $ajusteDet->setNOMBRE_PROD($producto->getNOMBRE_PROD());
+        $ajusteDet->setPVP_PROD($producto->getPVP_PROD());
         $ajusteDet->setID_USU($ID_USU);
         $ajusteDet->setCAMBIO_STOCK_PROD($cantidad);
         $ajusteDet->setTIPOMOV_DETAJUSTE_PROD($tipoMovimiento);

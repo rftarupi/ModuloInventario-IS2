@@ -4,6 +4,7 @@ class AjusteDet {
     private $ID_DETALLE_AJUSTE_PROD;
     private $ID_PROD;
     private $NOMBRE_PROD;
+    private $PVP_PROD;
     private $ID_AJUSTE_PROD;
     private $ID_USU;
     private $CAMBIO_STOCK_PROD;
@@ -19,6 +20,10 @@ class AjusteDet {
 
     public function getNOMBRE_PROD() {
         return $this->NOMBRE_PROD;
+    }
+    
+    public function getPVP_PROD() {
+        return $this->PVP_PROD;
     }
 
     public function getID_AJUSTE_PROD() {
@@ -47,6 +52,10 @@ class AjusteDet {
 
     public function setNOMBRE_PROD($NOMBRE_PROD) {
         $this->NOMBRE_PROD = $NOMBRE_PROD;
+    }
+    
+    public function setPVP_PROD($PVP_PROD) {
+        $this->PVP_PROD = $PVP_PROD;
     }
 
     public function setID_AJUSTE_PROD($ID_AJUSTE_PROD) {
